@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:epal/pages/login_page.dart';
+import 'package:epal/pages/home_page.dart';
+import 'package:epal/auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -8,15 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('EPAL'),
-        ),
-        body: Center(
-          child: Text('EPAL'),
-        ),
-      ),
+      debugShowCheckedModeBanner: false, //enlever le debug marque
+      home: const Auth(),
     );
   }
 }
