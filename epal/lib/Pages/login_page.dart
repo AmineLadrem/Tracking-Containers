@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
+  static const String routeName = '/login';
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final PasswordController = TextEditingController();
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: PasswordController.text.trim(),
+    );
+  }
+
   @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    emailController.dispose();
+    PasswordController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -30,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       width: 300,
                       child: TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Identifiant',
@@ -42,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       width: 300,
                       child: TextField(
+                        controller: PasswordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -56,14 +78,10 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       width: 350,
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Navigate to the second screen using a named route.
-                          Navigator.pushNamed(context, '/home');
-                        },
+                        onPressed: signIn,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors
-                              .transparent, // Set the background color to transparent
-                          elevation: 0, // Remove the shadow
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
                         ),
                         icon: Icon(Icons.login_rounded, color: Colors.black),
                         label: Text(
