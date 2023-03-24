@@ -325,7 +325,7 @@
                         <mxPoint x="596.5799999999999" y="2469.41" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="160" value="Table&amp;nbsp;&lt;br&gt;Marchandise" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="160" value="&lt;font color=&quot;#ffffff&quot;&gt;Table&amp;nbsp;&lt;br&gt;Marchandise&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="550" y="2345" width="120" height="90" as="geometry"/>
                 </mxCell>
                 <mxCell id="161" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;startArrow=classic;endSize=8;startSize=8;exitX=0.431;exitY=1.19;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.437;entryY=-0.01;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="37" target="30" edge="1">
