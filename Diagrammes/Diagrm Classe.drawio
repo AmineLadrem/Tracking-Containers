@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="-SLYa7uZ8JZ05PMzf6wq" name="Page-1">
-        <mxGraphModel dx="1922" dy="-532" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1978" dy="-514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -139,7 +139,7 @@
                 <mxCell id="227" style="edgeStyle=none;html=1;exitX=0.4;exitY=0.1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.403;entryY=1.17;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="70" target="17" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="70" value="Propriaitaire du&amp;nbsp;&lt;br&gt;Navire" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontFamily=Helvetica;fontColor=#FFFFFF;" parent="1" vertex="1">
+                <mxCell id="70" value="&lt;font color=&quot;#000000&quot;&gt;Propriaitaire du&amp;nbsp;&lt;br&gt;Navire&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontFamily=Helvetica;fontColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="40" y="2750" width="120" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="76" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontColor=#FFFFFF;entryX=0.5;entryY=1.05;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="71" target="189" edge="1">
@@ -147,13 +147,13 @@
                         <mxPoint x="1380" y="2490" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="71" value="Table Client" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontFamily=Helvetica;fontColor=#FFFFFF;" parent="1" vertex="1">
+                <mxCell id="71" value="&lt;font color=&quot;#000000&quot;&gt;Table Client&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontFamily=Helvetica;fontColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="1030" y="2550" width="120" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="74" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#FFFFFF;" parent="1" source="73" target="19" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="73" value="Ensemble de&amp;nbsp;&lt;br&gt;Pieces pour&amp;nbsp;&lt;br&gt;le suivie&amp;nbsp;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontFamily=Helvetica;fontColor=#FFFFFF;" parent="1" vertex="1">
+                <mxCell id="73" value="&lt;font color=&quot;#000000&quot;&gt;Ensemble de&amp;nbsp;&lt;br&gt;Pieces pour&amp;nbsp;&lt;br&gt;le suivie&amp;nbsp;&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontFamily=Helvetica;fontColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="175" y="1945" width="120" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="83" value="&lt;div style=&quot;text-align: start;&quot;&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;span style=&quot;font-size: 16px; background-color: rgb(32, 33, 36);&quot;&gt;Transitaire&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" parent="1" vertex="1">
@@ -325,7 +325,7 @@
                         <mxPoint x="596.5799999999999" y="2469.41" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="160" value="&lt;font color=&quot;#ffffff&quot;&gt;Table&amp;nbsp;&lt;br&gt;Marchandise&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="160" value="&lt;font color=&quot;#000000&quot;&gt;Table&amp;nbsp;&lt;br&gt;Marchandise&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="550" y="2345" width="120" height="90" as="geometry"/>
                 </mxCell>
                 <mxCell id="161" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;startArrow=classic;endSize=8;startSize=8;exitX=0.431;exitY=1.19;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.437;entryY=-0.01;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="37" target="30" edge="1">
