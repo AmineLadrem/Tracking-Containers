@@ -31,7 +31,7 @@ class _GestionConteneursState extends State<GestionConteneurs> {
         break;
       case 1:
         // Navigate to the search page
-        Navigator.pushNamed(context, '/search');
+        Navigator.pushNamed(context, '/modules');
         break;
       case 2:
         // Navigate to the containers page
