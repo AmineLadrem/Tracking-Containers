@@ -1,3 +1,5 @@
+import 'package:epal/Pages/GestionConteneurs.dart';
+import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:flutter/material.dart';
 import 'package:epal/pages/login_page.dart';
 import 'package:epal/pages/home_page.dart';
@@ -20,6 +22,9 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
         AdminHome.routeName: (context) => HomePage(),
+        '/containers': (context) => GestionConteneurs(),
+        '/employees': (context) => GestionEmployee(),
+        '/containers': (context) => GestionConteneurs(),
       },
     );
   }

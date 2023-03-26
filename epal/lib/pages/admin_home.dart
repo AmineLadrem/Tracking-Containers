@@ -20,6 +20,29 @@ class _AdminHomeState extends State<AdminHome> {
     setState(() {
       _selectedIndex = index;
     });
+
+    switch (index) {
+      case 0:
+        // Navigate to the home page
+        Navigator.pushNamed(context, '/');
+        break;
+      case 1:
+        // Navigate to the search page
+        Navigator.pushNamed(context, '/search');
+        break;
+      case 2:
+        // Navigate to the containers page
+        Navigator.pushNamed(context, '/containers');
+        break;
+      case 3:
+        // Navigate to the employees page
+        Navigator.pushNamed(context, '/employees');
+        break;
+      case 4:
+        // Navigate to the profile page
+        Navigator.pushNamed(context, '/profile');
+        break;
+    }
   }
 
   @override
@@ -120,10 +143,11 @@ class _AdminHomeState extends State<AdminHome> {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-                child: Text('Se déconnecter'))
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              child: Text('Se déconnecter'),
+            ),
           ]),
         )),
       ),
@@ -139,8 +163,8 @@ class _AdminHomeState extends State<AdminHome> {
               label: 'Acceuil',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Rechercher',
+              icon: Icon(Icons.memory),
+              label: 'Modules',
             ),
             BottomNavigationBarItem(
               icon: Icon(MyFlutterApp.container),
