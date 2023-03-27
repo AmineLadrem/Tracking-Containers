@@ -32,7 +32,7 @@ class _AdminHomeState extends State<AdminHome> {
         break;
       case 2:
         // Navigate to the containers page
-        Navigator.pushNamed(context, '/containers');
+        Navigator.pushNamed(context, '/GestionConteneurs');
         break;
       case 3:
         // Navigate to the employees page

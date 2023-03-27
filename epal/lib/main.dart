@@ -1,3 +1,4 @@
+import 'package:epal/Pages/AjoutConteneur.dart';
 import 'package:epal/Pages/GestionConteneurs.dart';
 import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         GestionEmployee.routeName: (context) => GestionEmployee(),
         GestionModules.routeName: (context) => GestionModules(),
         Profile.routeName: (context) => Profile(),
+        AjoutConteneur.routeName: (context) => AjoutConteneur(),
       },
     );
   }
