@@ -3,8 +3,6 @@ import 'package:epal/pages/admin_home.dart';
 import 'package:epal/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:epal/auth.dart';
 
 class Profile extends StatefulWidget {
   static const String routeName = '/profile';
