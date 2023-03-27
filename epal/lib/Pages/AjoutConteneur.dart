@@ -56,12 +56,13 @@ class _AjoutConteneurState extends State<AjoutConteneur> {
   final user = FirebaseAuth.instance.currentUser!;
   final _ConteneurController = TextEditingController();
   final _ConteneurTypeController = TextEditingController();
-  final _ConteneurDateDController = TextEditingController();
-
+  final _ConteneurDateDController1 = TextEditingController();
+  final _ConteneurDateDController2 = TextEditingController();
   @override
   void dispose() {
     _ConteneurController.dispose();
-    _ConteneurDateDController.dispose();
+    _ConteneurDateDController1.dispose();
+    _ConteneurDateDController2.dispose();
     _ConteneurTypeController.dispose();
     super.dispose();
   }
@@ -259,7 +260,7 @@ class _AjoutConteneurState extends State<AjoutConteneur> {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 10),
                                 child: TextField(
-                                  controller: _ConteneurDateDController,
+                                  controller: _ConteneurDateDController1,
                                   inputFormatters: [DateTextInputFormatter()],
                                   keyboardType: TextInputType.datetime,
                                   decoration: InputDecoration(
@@ -301,7 +302,7 @@ class _AjoutConteneurState extends State<AjoutConteneur> {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 10),
                                 child: TextField(
-                                  controller: _ConteneurDateDController,
+                                  controller: _ConteneurDateDController2,
                                   inputFormatters: [DateTextInputFormatter()],
                                   keyboardType: TextInputType.datetime,
                                   decoration: InputDecoration(
