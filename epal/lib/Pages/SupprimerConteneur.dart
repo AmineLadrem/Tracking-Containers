@@ -1,5 +1,9 @@
 import 'package:epal/icons.dart';
 import 'package:epal/pages/GestionConteneurs.dart';
+import 'package:epal/pages/GestionEmployee.dart';
+import 'package:epal/pages/GestionModules.dart';
+import 'package:epal/pages/admin_home.dart';
+import 'package:epal/pages/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -76,23 +80,23 @@ class _SupprimerConteneurState extends State<SupprimerConteneur> {
     switch (index) {
       case 0:
         // Navigate to the home page
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, AdminHome.routeName);
         break;
       case 1:
         // Navigate to the search page
-        Navigator.pushNamed(context, '/modules');
+        Navigator.pushNamed(context, GestionModules.routeName);
         break;
       case 2:
         // Navigate to the containers page
-        Navigator.pushNamed(context, '/GestionConteneurs');
+        Navigator.pushNamed(context, GestionConteneurs.routeName);
         break;
       case 3:
         // Navigate to the employees page
-        Navigator.pushNamed(context, '/employees');
+        Navigator.pushNamed(context, GestionEmployee.routeName);
         break;
       case 4:
         // Navigate to the profile page
-        Navigator.pushNamed(context, '/profile');
+        Navigator.pushNamed(context, Profile.routeName);
         break;
     }
   }
