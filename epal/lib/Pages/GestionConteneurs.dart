@@ -1,8 +1,5 @@
 import 'package:epal/Pages/AjoutConteneur.dart';
 import 'package:epal/Pages/ConsulterLocalisation.dart';
-import 'package:epal/Pages/GestionConteneurs.dart';
-import 'package:epal/Pages/GestionEmployee.dart';
-import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/ModifierConteneur.dart';
 import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/icons.dart';
@@ -35,7 +32,7 @@ class _GestionConteneursState extends State<GestionConteneurs> {
         break;
       case 2:
         // Navigate to the containers page
-        Navigator.pushNamed(context, '/containers');
+        Navigator.pushNamed(context, '/GestionConteneurs');
         break;
       case 3:
         // Navigate to the employees page

@@ -1,6 +1,9 @@
 import 'package:epal/icons.dart';
+import 'package:epal/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:epal/auth.dart';
 
 class Profile extends StatefulWidget {
   static const String routeName = '/profile';
@@ -10,7 +13,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final user = FirebaseAuth.instance.currentUser;
+  final user = FirebaseAuth.instance.currentUser!;
   int _selectedIndex = 4;
 
   void _onItemTapped(int index) {
@@ -273,10 +276,11 @@ class _ProfileState extends State<Profile> {
                           onPressed: () {
                             FirebaseAuth.instance.signOut();
                             Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                '/login',
-                                (route) =>
-                                    false); // so that the user can't go back to the home page
+                              context,
+                              LoginPage.routeName,
+                              (_) =>
+                                  false, // Remove all routes except the login page
+                            );
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
