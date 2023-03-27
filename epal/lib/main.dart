@@ -6,6 +6,7 @@ import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/pages/admin_home.dart';
+import 'package:epal/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:epal/pages/login_page.dart';
 import 'package:epal/auth.dart';
@@ -21,17 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        LoginPage.routeName: (context) => LoginPage(),
-        AdminHome.routeName: (context) => AdminHome(),
-        GestionConteneurs.routeName: (context) => GestionConteneurs(),
-        GestionEmployee.routeName: (context) => GestionEmployee(),
-        GestionModules.routeName: (context) => GestionModules(),
-        Profile.routeName: (context) => Profile(),
-        AjoutConteneur.routeName: (context) => AjoutConteneur(),
-        ModifierConteneur.routeName: (context) => ModifierConteneur(),
-        SupprimerConteneur.routeName: (context) => SupprimerConteneur(),
-      },
+      routes: Routes.routes,
     );
   }
 }
