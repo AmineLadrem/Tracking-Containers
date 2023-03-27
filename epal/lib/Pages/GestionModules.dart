@@ -15,7 +15,7 @@ class GestionModules extends StatefulWidget {
 }
 
 class _GestionModulesState extends State<GestionModules> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {

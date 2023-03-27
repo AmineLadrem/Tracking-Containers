@@ -18,7 +18,7 @@ class GestionConteneurs extends StatefulWidget {
 }
 
 class _GestionConteneursState extends State<GestionConteneurs> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   void _onItemTapped(int index) {
     setState(() {

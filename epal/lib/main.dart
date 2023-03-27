@@ -1,6 +1,7 @@
 import 'package:epal/Pages/GestionConteneurs.dart';
 import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
+import 'package:epal/Pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:epal/pages/login_page.dart';
 import 'package:epal/pages/home_page.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/containers': (context) => GestionConteneurs(),
         '/employees': (context) => GestionEmployee(),
         '/modules': (context) => GestionModules(),
+        '/profile': (context) => Profile(),
       },
     );
   }
