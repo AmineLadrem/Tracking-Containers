@@ -6,7 +6,6 @@ import 'package:epal/Pages/profile.dart';
 import 'package:epal/pages/admin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:epal/pages/login_page.dart';
-import 'package:epal/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future main() async {
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //enlever le debug marque
-      home: Auth(),
+      home: LoginPage(),
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
         AdminHome.routeName: (context) => AdminHome(),

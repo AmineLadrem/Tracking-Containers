@@ -24,7 +24,7 @@ class _AdminHomeState extends State<AdminHome> {
     switch (index) {
       case 0:
         // Navigate to the home page
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, AdminHome.routeName);
         break;
       case 1:
         // Navigate to the search page
@@ -142,20 +142,6 @@ class _AdminHomeState extends State<AdminHome> {
               ],
             ),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Text(
-                '  Se déconnecter  ',
-                style: TextStyle(
-                  fontFamily: 'Urbanist',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
           ]),
         )),
       ),

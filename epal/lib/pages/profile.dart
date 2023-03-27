@@ -1,4 +1,5 @@
 import 'package:epal/icons.dart';
+import 'package:epal/pages/admin_home.dart';
 import 'package:epal/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _ProfileState extends State<Profile> {
     switch (index) {
       case 0:
         // Navigate to the home page
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, AdminHome.routeName);
         break;
       case 1:
         // Navigate to the search page
