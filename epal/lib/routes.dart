@@ -1,4 +1,6 @@
 import 'package:epal/Pages/AjoutConteneur.dart';
+import 'package:epal/Pages/ModifierConteneur.dart';
+import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/Pages/GestionConteneurs.dart';
 import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
@@ -16,5 +18,7 @@ class Routes {
     GestionModules.routeName: (BuildContext context) => GestionModules(),
     Profile.routeName: (BuildContext context) => Profile(),
     AjoutConteneur.routeName: (BuildContext context) => AjoutConteneur(),
+    ModifierConteneur.routeName: (context) => ModifierConteneur(),
+    SupprimerConteneur.routeName: (context) => SupprimerConteneur(),
   };
 }
