@@ -50,7 +50,7 @@ class _ProfileState extends State<Profile> {
         SizedBox(height: 50),
         Padding(
             child: Image.asset("assets/epal.png", width: 184, height: 140),
-            padding: EdgeInsets.only(left: 200)),
+            padding: EdgeInsets.only(left: 0)),
         SizedBox(height: 50),
         Container(
           child: Stack(
