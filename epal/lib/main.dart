@@ -21,8 +21,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, //enlever le debug marque
-      home: Auth(),
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
         AdminHome.routeName: (context) => AdminHome(),
@@ -32,9 +30,8 @@ class MyApp extends StatelessWidget {
         Profile.routeName: (context) => Profile(),
         AjoutConteneur.routeName: (context) => AjoutConteneur(),
         ModifierConteneur.routeName: (context) => ModifierConteneur(),
-        
+        SupprimerConteneur.routeName: (context) => SupprimerConteneur(),
       },
-      
     );
   }
 }

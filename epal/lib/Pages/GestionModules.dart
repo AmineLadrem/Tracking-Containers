@@ -2,6 +2,7 @@ import 'package:epal/Pages/AjoutConteneur.dart';
 import 'package:epal/Pages/ModifierConteneur.dart';
 import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/icons.dart';
+import 'package:epal/pages/admin_home.dart';
 import 'package:flutter/material.dart';
 
 class GestionModules extends StatefulWidget {
@@ -20,7 +21,7 @@ class _GestionModulesState extends State<GestionModules> {
     switch (index) {
       case 0:
         // Navigate to the home page
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, AdminHome.routeName);
         break;
       case 1:
         // Navigate to the search page

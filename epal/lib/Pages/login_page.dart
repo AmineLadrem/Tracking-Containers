@@ -1,3 +1,4 @@
+import 'package:epal/pages/admin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,11 +12,22 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final PasswordController = TextEditingController();
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text.trim(),
-      password: PasswordController.text.trim(),
-    );
+  Future<void> signIn() async {
+    try {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: PasswordController.text.trim(),
+      );
+      // If sign-in was successful, navigate to the home page
+      Navigator.pushNamed(context, AdminHome.routeName);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
   }
 
   @override
