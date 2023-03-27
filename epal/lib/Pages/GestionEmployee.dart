@@ -145,12 +145,6 @@ class _GestionEmployeeState extends State<GestionEmployee> {
               ],
             ),
             SizedBox(height: 35),
-            ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Text('Se déconnecter'),
-            ),
           ]),
         )),
       ),

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
   static const String routeName = '/profile';
-  final user = FirebaseAuth.instance.currentUser;
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  final user = FirebaseAuth.instance.currentUser;
   int _selectedIndex = 4;
 
   void _onItemTapped(int index) {
@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Container(
-                  height: 350.0,
+                  height: 382.0,
                   width: 460.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
@@ -212,6 +212,28 @@ class _ProfileState extends State<Profile> {
                             ),
                             children: [
                               TextSpan(
+                                text: 'E-Mail: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: user!.email!,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(7.0),
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.black,
+                            ),
+                            children: [
+                              TextSpan(
                                 text: 'Tel: ',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -250,6 +272,11 @@ class _ProfileState extends State<Profile> {
                         child: ElevatedButton(
                           onPressed: () {
                             FirebaseAuth.instance.signOut();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                '/login',
+                                (route) =>
+                                    false); // so that the user can't go back to the home page
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(

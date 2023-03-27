@@ -1,8 +1,4 @@
 import 'package:epal/Pages/AjoutConteneur.dart';
-import 'package:epal/Pages/ConsulterLocalisation.dart';
-import 'package:epal/Pages/GestionConteneurs.dart';
-import 'package:epal/Pages/GestionEmployee.dart';
-import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/ModifierConteneur.dart';
 import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/icons.dart';
@@ -145,12 +141,6 @@ class _GestionModulesState extends State<GestionModules> {
               ],
             ),
             SizedBox(height: 35),
-            ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Text('Se déconnecter'),
-            ),
           ]),
         )),
       ),

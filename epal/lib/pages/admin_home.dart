@@ -142,12 +142,6 @@ class _AdminHomeState extends State<AdminHome> {
               ],
             ),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Text('Se déconnecter'),
-            ),
           ]),
         )),
       ),

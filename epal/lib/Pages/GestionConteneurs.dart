@@ -170,12 +170,6 @@ class _GestionConteneursState extends State<GestionConteneurs> {
               ],
             ),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Text('Se déconnecter'),
-            ),
           ]),
         )),
       ),
