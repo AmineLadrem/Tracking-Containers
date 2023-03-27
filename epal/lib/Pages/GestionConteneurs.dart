@@ -32,7 +32,7 @@ class _GestionConteneursState extends State<GestionConteneurs> {
         break;
       case 2:
         // Navigate to the containers page
-        Navigator.pushNamed(context, '/containers');
+        Navigator.pushNamed(context, '/GestionConteneurs');
         break;
       case 3:
         // Navigate to the employees page
@@ -167,12 +167,6 @@ class _GestionConteneursState extends State<GestionConteneurs> {
               ],
             ),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Text('Se déconnecter'),
-            ),
           ]),
         )),
       ),

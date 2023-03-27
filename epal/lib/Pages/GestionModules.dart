@@ -2,10 +2,10 @@ import 'package:epal/Pages/AjoutConteneur.dart';
 import 'package:epal/Pages/ModifierConteneur.dart';
 import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/icons.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class GestionModules extends StatefulWidget {
+  static const String routeName = '/modules';
   @override
   State<GestionModules> createState() => _GestionModulesState();
 }
@@ -28,7 +28,7 @@ class _GestionModulesState extends State<GestionModules> {
         break;
       case 2:
         // Navigate to the containers page
-        Navigator.pushNamed(context, '/containers');
+        Navigator.pushNamed(context, '/GestionConteneurs');
         break;
       case 3:
         // Navigate to the employees page
@@ -141,12 +141,6 @@ class _GestionModulesState extends State<GestionModules> {
               ],
             ),
             SizedBox(height: 35),
-            ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              child: Text('Se déconnecter'),
-            ),
           ]),
         )),
       ),
@@ -170,7 +164,7 @@ class _GestionModulesState extends State<GestionModules> {
               label: 'Conteneurs',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.place),
+              icon: Icon(Icons.people),
               label: 'employés',
             ),
             BottomNavigationBarItem(

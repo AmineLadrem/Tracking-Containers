@@ -32,7 +32,7 @@ class _AdminHomeState extends State<AdminHome> {
         break;
       case 2:
         // Navigate to the containers page
-        Navigator.pushNamed(context, '/containers');
+        Navigator.pushNamed(context, '/GestionConteneurs');
         break;
       case 3:
         // Navigate to the employees page
@@ -146,7 +146,15 @@ class _AdminHomeState extends State<AdminHome> {
               onPressed: () {
                 FirebaseAuth.instance.signOut();
               },
-              child: Text('Se déconnecter'),
+              child: Text(
+                '  Se déconnecter  ',
+                style: TextStyle(
+                  fontFamily: 'Urbanist',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ]),
         )),
