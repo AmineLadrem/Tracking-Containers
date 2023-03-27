@@ -1,3 +1,11 @@
+import 'package:epal/Pages/AjoutConteneur.dart';
+import 'package:epal/Pages/ModifierConteneur.dart';
+import 'package:epal/Pages/SupprimerConteneur.dart';
+import 'package:epal/Pages/GestionConteneurs.dart';
+import 'package:epal/Pages/GestionEmployee.dart';
+import 'package:epal/Pages/GestionModules.dart';
+import 'package:epal/Pages/profile.dart';
+import 'package:epal/pages/admin_home.dart';
 import 'package:epal/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:epal/pages/login_page.dart';
@@ -13,8 +21,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
         debugShowCheckedModeBanner: false, //enlever le debug marque
         home: LoginPage(),
         routes: Routes.routes);
+
+      routes: Routes.routes,
+    );
+
   }
 }
