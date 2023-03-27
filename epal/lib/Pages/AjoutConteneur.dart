@@ -57,16 +57,23 @@ class AjoutConteneur extends StatefulWidget {
 
 class _AjoutConteneurState extends State<AjoutConteneur> {
   final user = FirebaseAuth.instance.currentUser!;
-  final _ConteneurController = TextEditingController();
-  final _ConteneurTypeController = TextEditingController();
-  final _ConteneurDateDController1 = TextEditingController();
-  final _ConteneurDateDController2 = TextEditingController();
+  final ContID = TextEditingController();
+  final ContType = TextEditingController();
+  final ContDateArrPr = TextEditingController();
+  final ContDateArr = TextEditingController();
+  final status = TextEditingController();
+  final EmployeID = TextEditingController();
+  final ModuleID = TextEditingController();
+
   @override
   void dispose() {
-    _ConteneurController.dispose();
-    _ConteneurDateDController1.dispose();
-    _ConteneurDateDController2.dispose();
-    _ConteneurTypeController.dispose();
+    ContID.dispose();
+    ContType.dispose();
+    ContDateArrPr.dispose();
+    ContDateArr.dispose();
+    status.dispose();
+    EmployeID.dispose();
+    ModuleID.dispose();
     super.dispose();
   }
 
@@ -105,401 +112,217 @@ class _AjoutConteneurState extends State<AjoutConteneur> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFcbf2f2),
-      body: Column(children: <Widget>[
-        SizedBox(height: 50),
-        Padding(
-            child: Image.asset("assets/epal.png", width: 200, height: 85),
-            padding: EdgeInsets.only(left: 0)),
-        Center(
-          child: Padding(
-            padding: EdgeInsets.all(5.0),
-            child: Text(
-              'Ajout D’un Conteneur',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
+      body: SingleChildScrollView(
+        child: Column(children: <Widget>[
+          SizedBox(height: 50),
+          Padding(
+              child: Image.asset("assets/epal.png", width: 200, height: 85),
+              padding: EdgeInsets.only(left: 0)),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.all(5.0),
             ),
           ),
-        ),
-        Container(
-          width: 345,
-          height: 470,
-          child: Stack(
-            children: <Widget>[
-              Card(
-                elevation: 4.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Container(
-                  height: 470.0,
-                  width: 370.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
+          Container(
+            width: 345,
+            height: 470,
+            child: Stack(
+              children: <Widget>[
+                Card(
+                  elevation: 4.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(7.0),
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 17.0,
-                                  color: Colors.black,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Conteneur ID*: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 35),
-                            SizedBox(
-                              width: 170,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: TextField(
-                                  controller: _ConteneurController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Entrer le ID..',
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 5),
-                                  ),
-                                  maxLines:
-                                      1, // set to null to allow unlimited lines
-                                  keyboardType: TextInputType
-                                      .number, // allow multiline input
-                                ),
-                              ),
-                            ),
-                          ],
+                  child: Container(
+                    height: 470.0,
+                    width: 370.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white,
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(7.0),
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 17.0,
-                                  color: Colors.black,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Conteneur Type: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Center(
+                          child: Text(
+                            'Ajout D’un Conteneur',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
                             ),
-                            SizedBox(width: 22),
-                            SizedBox(
-                              width: 170,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: TextField(
-                                  controller: _ConteneurTypeController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Entrer le Type..',
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 5,
-                                        horizontal:
-                                            5), // adjust these values as needed
-                                  ),
-                                  maxLines: 1, //
-                                  keyboardType: TextInputType.text,
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(7.0),
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.black,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'DatePrevueArrivée: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                        SizedBox(height: 19),
+                        Center(
+                          child: Container(
+                            height: 50,
+                            width: 300,
+                            child: TextField(
+                              controller: ContID,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Conteneur ID',
                               ),
                             ),
-                            SizedBox(
-                              width: 170,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: TextField(
-                                  controller: _ConteneurDateDController1,
-                                  inputFormatters: [DateTextInputFormatter()],
-                                  keyboardType: TextInputType.datetime,
-                                  decoration: InputDecoration(
-                                    labelText: 'Date Prevue d’arrivée',
-                                    hintText: 'dd/mm/yyyy',
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 5),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(7.0),
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.black,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Date arrivée: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 50),
-                            SizedBox(
-                              width: 170,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: TextField(
-                                  controller: _ConteneurDateDController2,
-                                  inputFormatters: [DateTextInputFormatter()],
-                                  keyboardType: TextInputType.datetime,
-                                  decoration: InputDecoration(
-                                    labelText: 'Date Arrive..',
-                                    hintText: 'dd/mm/yyyy',
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 5),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          height: 10.0,
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(7.0),
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 17.0,
-                                  color: Colors.black,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Status: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                        Center(
+                          child: Container(
+                            height: 50,
+                            width: 300,
+                            child: TextField(
+                              controller: ContType,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Type de Conteneur',
                               ),
                             ),
-                            SizedBox(width: 92),
-                            SizedBox(
-                              width: 170,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: TextField(
-                                  controller: _ConteneurTypeController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Entrer le Status..',
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 5,
-                                        horizontal:
-                                            5), // adjust these values as needed
-                                  ),
-                                  maxLines: 1, //
-                                  keyboardType: TextInputType.text,
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(7.0),
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 17.0,
-                                  color: Colors.black,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'ID Employee*: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 38),
-                            SizedBox(
-                              width: 170,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: TextField(
-                                  controller: _ConteneurTypeController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Entrer le ID Employee..',
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 5,
-                                        horizontal:
-                                            5), // adjust these values as needed
-                                  ),
-                                  maxLines: 1, //
-                                  keyboardType: TextInputType.text,
-                                ),
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          height: 10.0,
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(7.0),
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 17.0,
-                                  color: Colors.black,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Module ID*: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                        Center(
+                          child: Container(
+                            height: 50,
+                            width: 300,
+                            child: TextField(
+                              controller: ContDateArrPr,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Date d\'arrive prevue ',
                               ),
                             ),
-                            SizedBox(width: 55),
-                            SizedBox(
-                              width: 170,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: TextField(
-                                  controller: _ConteneurTypeController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Entrer le ID du Module..',
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 5,
-                                        horizontal:
-                                            5), // adjust these values as needed
-                                  ),
-                                  maxLines: 1, //
-                                  keyboardType: TextInputType.text,
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Center(
+                          child: Container(
+                            height: 50,
+                            width: 300,
+                            child: TextField(
+                              controller: ContDateArr,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Date d\'arrive',
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Center(
+                          child: Container(
+                            height: 50,
+                            width: 300,
+                            child: TextField(
+                              controller: status,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Status',
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Center(
+                          child: Container(
+                            height: 50,
+                            width: 300,
+                            child: TextField(
+                              controller: EmployeID,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Employe ID *',
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Center(
+                          child: Container(
+                            height: 50,
+                            width: 300,
+                            child: TextField(
+                              controller: ModuleID,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Module ID *',
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: FractionalTranslation(
+                    translation: Offset(-0.2, -0.5),
+                    child: Image.asset(
+                      'assets/container.png',
+                      width: 100.0,
+                      height: 100.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Center(
+              child: SizedBox(
+            width: 200.0,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  GestionConteneurs.routeName,
+                  (_) => false, // Remove all routes except the login page
+                );
+              },
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Color(0xFF8FABFE)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: FractionalTranslation(
-                  translation: Offset(-0.2, -0.5),
-                  child: Image.asset(
-                    'assets/container.png',
-                    width: 100.0,
-                    height: 100.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Center(
-            child: SizedBox(
-          width: 200.0,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                GestionConteneurs.routeName,
-                (_) => false, // Remove all routes except the login page
-              );
-            },
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Color(0xFF8FABFE)),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
+              child: Text(
+                '  Ajouter  ',
+                style: TextStyle(
+                  fontFamily: 'Urbanist',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                  color: Colors.white,
                 ),
               ),
             ),
-            child: Text(
-              '  Ajouter  ',
-              style: TextStyle(
-                fontFamily: 'Urbanist',
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        )),
-      ]),
+          )),
+        ]),
+      ),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
