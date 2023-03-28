@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
-import 'package:epal/auth.dart';
 
 class DateTextInputFormatter extends TextInputFormatter {
   final String formatPattern = 'dd/MM/yyyy';
