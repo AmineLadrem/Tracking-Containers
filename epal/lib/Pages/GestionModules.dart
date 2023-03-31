@@ -5,6 +5,7 @@ import 'package:epal/Pages/ModifierConteneur.dart';
 import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
+import 'package:epal/pages/AjoutModule.dart';
 import 'package:epal/pages/admin_home.dart';
 import 'package:flutter/material.dart';
 
@@ -71,12 +72,18 @@ class _GestionModulesState extends State<GestionModules> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side:
+                              BorderSide(color: Colors.black.withOpacity(0.5)),
+                        ),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => AjoutConteneur()),
+                        MaterialPageRoute(builder: (context) => AjoutModule()),
                       );
                     },
                     child: Row(
