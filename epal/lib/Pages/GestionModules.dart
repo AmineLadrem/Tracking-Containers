@@ -6,6 +6,7 @@ import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
 import 'package:epal/pages/AjoutModule.dart';
+import 'package:epal/pages/RechercheModule.dart';
 import 'package:epal/pages/admin_home.dart';
 import 'package:flutter/material.dart';
 
@@ -109,7 +110,7 @@ class _GestionModulesState extends State<GestionModules> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ModifierConteneur()),
+                            builder: (context) => RechercheModule()),
                       );
                     },
                     child: Row(

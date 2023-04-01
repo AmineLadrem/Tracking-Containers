@@ -1,55 +1,14 @@
+import 'package:epal/Pages/GestionConteneurs.dart';
 import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
-import 'package:epal/pages/GestionConteneurs.dart';
 import 'package:epal/pages/admin_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter/services.dart';
-
-class DateTextInputFormatter extends TextInputFormatter {
-  final String formatPattern = 'dd/MM/yyyy';
-  final DateFormat dateFormatter = DateFormat('dd/MM/yyyy');
-
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text.isEmpty) {
-      return newValue.copyWith(text: '');
-    }
-
-    String oldText = oldValue.text.replaceAll('/', '');
-    String newText = newValue.text.replaceAll('/', '');
-    int selectionIndex = newValue.selection.end;
-    String formatted = '';
-
-    for (int i = 0; i < newText.length; i++) {
-      if (i == 2 || i == 4) {
-        formatted += '/';
-      }
-      formatted += newText[i];
-    }
-
-    // Handle selection index adjustments
-    if (oldText.length < newText.length) {
-      // User typed a new character
-      selectionIndex += formatted.length - newValue.text.length;
-    } else {
-      // User deleted a character
-      selectionIndex -= oldText.length - newText.length;
-    }
-    selectionIndex = selectionIndex.clamp(0, formatted.length);
-
-    return TextEditingValue(
-      text: formatted,
-      selection: TextSelection.collapsed(offset: selectionIndex),
-    );
-  }
-}
 
 class AjoutModule extends StatefulWidget {
-  static const String routeName = '/AjoutConteneur';
+  static const String routeName = '/AjoutModule';
 
   @override
   State<AjoutModule> createState() => _AjoutModuleState();
@@ -57,22 +16,12 @@ class AjoutModule extends StatefulWidget {
 
 class _AjoutModuleState extends State<AjoutModule> {
   final user = FirebaseAuth.instance.currentUser!;
-  final ContID = TextEditingController();
-  final ContType = TextEditingController();
-  final ContDateArrPr = TextEditingController();
-  final ContDateArr = TextEditingController();
   final status = TextEditingController();
-  final EmployeID = TextEditingController();
   final ModuleID = TextEditingController();
 
   @override
   void dispose() {
-    ContID.dispose();
-    ContType.dispose();
-    ContDateArrPr.dispose();
-    ContDateArr.dispose();
     status.dispose();
-    EmployeID.dispose();
     ModuleID.dispose();
     super.dispose();
   }
@@ -123,6 +72,16 @@ class _AjoutModuleState extends State<AjoutModule> {
               padding: EdgeInsets.all(5.0),
             ),
           ),
+          SizedBox(height: 10),
+          Text(
+            'Ajout D\'un Module de suivie',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontFamily: 'Urbanist',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           SizedBox(height: 50),
           Container(
             width: 345,
@@ -151,22 +110,13 @@ class _AjoutModuleState extends State<AjoutModule> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Center(
-                          child: Text(
-                            '    Ajouter un Module',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 19),
+                        SizedBox(height: 45),
                         Center(
                           child: Container(
                             height: 50,
                             width: 300,
                             child: TextField(
-                              controller: ContID,
+                              controller: ModuleID,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: 'Module ID',
@@ -182,7 +132,7 @@ class _AjoutModuleState extends State<AjoutModule> {
                             height: 50,
                             width: 300,
                             child: TextField(
-                              controller: ContType,
+                              controller: status,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: 'Status de module',
@@ -203,7 +153,9 @@ class _AjoutModuleState extends State<AjoutModule> {
                             child: Text(
                               'Ajouter',
                               style: TextStyle(
-                                  fontFamily: 'Poppins', fontSize: 14),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
                             ),
                           ),
                         ),

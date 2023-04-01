@@ -56,6 +56,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+ 
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -79,9 +80,24 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: MyFlutterApp
-       fonts:
-         - asset: assets/MyFlutterApp.ttf
+  - family: MyFlutterApp
+    fonts:
+      - asset: assets/MyFlutterApp.ttf
+  - family: Urbanist
+    fonts:
+      - asset: fonts/Urbanist-Regular.ttf
+      - asset: fonts/Urbanist-Bold.ttf
+      - asset: fonts/Urbanist-Italic-VariableFont_wght.ttf 
+      - asset: fonts/Urbanist-VariableFont_wght.ttf 
+  - family: Poppins
+    fonts:
+      - asset: fonts/Poppins-Regular.ttf
+      - asset: fonts/Poppins-Medium.ttf
+      - asset: fonts/Poppins-SemiBold.ttf
+      - asset: fonts/Poppins-Bold.ttf
+      - asset: fonts/Poppins-ExtraBold.ttf
+      - asset: fonts/Poppins-Black.ttf
+            
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
