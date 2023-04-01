@@ -82,7 +82,7 @@ flutter:
   fonts:
   - family: MyFlutterApp
     fonts:
-      - asset: assets/MyFlutterApp.ttf
+      - asset: fonts/MyFlutterApp.ttf
   - family: Urbanist
     fonts:
       - asset: fonts/Urbanist-Regular.ttf
