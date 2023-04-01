@@ -1,5 +1,5 @@
 import 'package:epal/Pages/GestionConteneurs.dart';
-import 'package:epal/modules/modules.dart';
+import 'package:epal/modules/conteneurs.dart';
 import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/profile.dart';
@@ -8,16 +8,16 @@ import 'package:epal/pages/admin_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class RechercheModule extends StatefulWidget {
-  static const String routeName = '/RechercheModule';
+class RechercheConteneur extends StatefulWidget {
+  static const String routeName = '/RechercheConteneur';
 
   @override
-  State<RechercheModule> createState() => _RechercheModuleState();
+  State<RechercheConteneur> createState() => _RechercheConteneurState();
 }
 
-class _RechercheModuleState extends State<RechercheModule> {
+class _RechercheConteneurState extends State<RechercheConteneur> {
   final user = FirebaseAuth.instance.currentUser!;
-  int nbr = module.modules.length;
+  int nbr = conteneur.conteneurs.length;
   @override
   void dispose() {
     super.dispose();
@@ -117,7 +117,7 @@ class _RechercheModuleState extends State<RechercheModule> {
                             SizedBox(height: 13),
                             Center(
                                 child: Column(
-                              children: module.modules
+                              children: conteneur.conteneurs
                                   .map((item) => Column(
                                         children: [
                                           SizedBox(
@@ -137,7 +137,7 @@ class _RechercheModuleState extends State<RechercheModule> {
                                               children: [
                                                 SizedBox(width: 5),
                                                 Image.asset(
-                                                  'assets/gpsModule.png',
+                                                  'assets/container.png',
                                                   height: 55.0,
                                                   width: 55.0,
                                                 ),
@@ -158,8 +158,7 @@ class _RechercheModuleState extends State<RechercheModule> {
                                                           ),
                                                           children: [
                                                             TextSpan(
-                                                              text:
-                                                                  'ID_Module: ',
+                                                              text: 'ID: ',
                                                               style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -167,7 +166,7 @@ class _RechercheModuleState extends State<RechercheModule> {
                                                               ),
                                                             ),
                                                             TextSpan(
-                                                              text: item.ModNum
+                                                              text: item.ContID
                                                                   .toString(),
                                                             ),
                                                           ],
@@ -182,8 +181,31 @@ class _RechercheModuleState extends State<RechercheModule> {
                                                           ),
                                                           children: [
                                                             TextSpan(
-                                                              text:
-                                                                  'Status_Module: ',
+                                                              text: 'Poids ',
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: item.Cont_Poids
+                                                                      .toString() +
+                                                                  ' Kg',
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 10),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: Colors.black,
+                                                          ),
+                                                          children: [
+                                                            TextSpan(
+                                                              text: 'Status: ',
                                                               style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -192,33 +214,8 @@ class _RechercheModuleState extends State<RechercheModule> {
                                                             ),
                                                             TextSpan(
                                                               text: item
-                                                                      .ModStatus
+                                                                      .Cont_Status
                                                                   .toString(),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 10),
-                                                      RichText(
-                                                        text: TextSpan(
-                                                          style: TextStyle(
-                                                            fontSize: 15.0,
-                                                            color: Colors.black,
-                                                          ),
-                                                          children: [
-                                                            TextSpan(
-                                                              text:
-                                                                  'Batterie: ',
-                                                              style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                            TextSpan(
-                                                              text: item.ModBattrie
-                                                                      .toString() +
-                                                                  "%",
                                                             ),
                                                           ],
                                                         ),
@@ -226,7 +223,18 @@ class _RechercheModuleState extends State<RechercheModule> {
                                                     ],
                                                   ),
                                                 ),
-                                                SizedBox(width: 60),
+                                                SizedBox(width: 10),
+                                                Column(
+                                                  children: [
+                                                    IconButton(
+                                                      icon: Icon(Icons
+                                                          .location_on_outlined),
+                                                      onPressed: () {
+                                                        // Do something when the button is pressed
+                                                      },
+                                                    )
+                                                  ],
+                                                ),
                                                 Column(
                                                   children: [
                                                     IconButton(

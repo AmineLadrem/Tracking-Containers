@@ -3,6 +3,7 @@ import 'package:epal/Pages/ConsulterLocalisation.dart';
 import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/ModifierConteneur.dart';
+import 'package:epal/Pages/RechercheConteneur.dart';
 import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
@@ -105,7 +106,7 @@ class _GestionConteneursState extends State<GestionConteneurs> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ModifierConteneur()),
+                            builder: (context) => RechercheConteneur()),
                       );
                     },
                     child: Row(
@@ -130,7 +131,7 @@ class _GestionConteneursState extends State<GestionConteneurs> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SupprimerConteneur()),
+                            builder: (context) => RechercheConteneur()),
                       );
                     },
                     child: Row(
