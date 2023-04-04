@@ -1,9 +1,11 @@
 import 'package:epal/Pages/AjoutConteneur.dart';
+import 'package:epal/Pages/AjoutEmploye.dart';
 import 'package:epal/Pages/GestionConteneurs.dart';
 import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/ModifierConteneur.dart';
 import 'package:epal/Pages/RechercheConteneur.dart';
+import 'package:epal/Pages/RechercheEmploye.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/pages/AjoutModule.dart';
 import 'package:epal/pages/RechercheModule.dart';
@@ -28,5 +30,7 @@ class Routes {
     RechercheModule.routeName: (BuildContext context) => RechercheModule(),
     RechercheConteneur.routeName: (BuildContext context) =>
         RechercheConteneur(),
+    AjoutEmploye.routeName: (BuildContext context) => AjoutEmploye(),
+    RechercheEmploye.routeName: (BuildContext context) => RechercheEmploye(),
   };
 }

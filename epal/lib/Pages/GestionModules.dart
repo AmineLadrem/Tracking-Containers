@@ -105,6 +105,13 @@ class _GestionModulesState extends State<GestionModules> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side:
+                              BorderSide(color: Colors.black.withOpacity(0.5)),
+                        ),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -131,12 +138,19 @@ class _GestionModulesState extends State<GestionModules> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side:
+                              BorderSide(color: Colors.black.withOpacity(0.5)),
+                        ),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SupprimerConteneur()),
+                            builder: (context) => RechercheModule()),
                       );
                     },
                     child: Row(

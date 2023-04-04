@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^4.4.5
   firebase_auth: ^4.3.0
   flutter_svg: ^0.22.0
+  pin_input_text_field: ^4.5.0
 
 dev_dependencies:
   flutter_test:

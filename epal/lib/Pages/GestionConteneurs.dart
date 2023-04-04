@@ -76,6 +76,13 @@ class _GestionConteneursState extends State<GestionConteneurs> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side:
+                              BorderSide(color: Colors.black.withOpacity(0.5)),
+                        ),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -101,6 +108,13 @@ class _GestionConteneursState extends State<GestionConteneurs> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side:
+                              BorderSide(color: Colors.black.withOpacity(0.5)),
+                        ),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -126,6 +140,13 @@ class _GestionConteneursState extends State<GestionConteneurs> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side:
+                              BorderSide(color: Colors.black.withOpacity(0.5)),
+                        ),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -151,6 +172,13 @@ class _GestionConteneursState extends State<GestionConteneurs> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side:
+                              BorderSide(color: Colors.black.withOpacity(0.5)),
+                        ),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
