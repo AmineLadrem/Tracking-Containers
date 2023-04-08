@@ -126,7 +126,7 @@ class _AjoutEmployeState extends State<AjoutEmploye> {
           ),
           SizedBox(height: 10),
           Text(
-            'Ajout D\'un Module de suivie',
+            'Ajout D\'un Employé',
             style: TextStyle(
               color: Colors.black,
               fontSize: 20,
