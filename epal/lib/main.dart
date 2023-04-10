@@ -1,6 +1,4 @@
 import 'package:epal/WebPages/LoginPage.dart';
-import 'package:epal/WebPages/largescreen.dart';
-import 'package:epal/WebPages/smallscreen.dart';
 import 'package:epal/WebRoutes.dart';
 import 'package:epal/routes.dart';
 import 'package:flutter/material.dart';
