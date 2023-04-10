@@ -117,7 +117,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                   ),
                   SizedBox(height: 10),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 130),
+                    padding: const EdgeInsets.only(bottom: 140),
                     child: Text(
                       'Gestion des Contneurs de l\'EPAL',
                       style: TextStyle(
