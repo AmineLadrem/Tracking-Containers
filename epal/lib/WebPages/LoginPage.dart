@@ -128,7 +128,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 100),
+                  SizedBox(height: 1),
                   Stack(
                     children: <Widget>[
                       Card(
