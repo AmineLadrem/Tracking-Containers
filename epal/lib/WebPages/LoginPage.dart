@@ -71,7 +71,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 88, left: 300),
+                        padding: EdgeInsets.only(top: 88, left: 220),
                         child: Image.asset("assets/epal.png",
                             width: 300, height: 220),
                       ),
@@ -83,7 +83,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 88, left: 250),
+                        padding: EdgeInsets.only(top: 88, left: 170),
                         child: Image.asset("assets/port.png",
                             width: 576, height: 433),
                       ),
@@ -92,7 +92,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                 ],
               ),
               SizedBox(
-                width: 400,
+                width: 320,
               ),
               Column(
                 children: [
