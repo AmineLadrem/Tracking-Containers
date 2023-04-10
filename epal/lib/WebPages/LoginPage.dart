@@ -183,14 +183,14 @@ class _WebLoginPageState extends State<WebLoginPage> {
                                 ),
                               ),
                               SizedBox(
-                                height: 20.0,
+                                height: 35.0,
                               ),
                               Center(
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Color(0xFFC7F5F5),
-                                    minimumSize: Size(250, 50),
+                                    minimumSize: Size(310, 50),
                                     side: BorderSide(
                                         color: Color(0xFF20B6C7), width: 2),
                                   ),
