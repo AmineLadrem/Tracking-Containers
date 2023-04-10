@@ -116,13 +116,16 @@ class _WebLoginPageState extends State<WebLoginPage> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    'Gestion des Contneurs de l\'EPAL',
-                    style: TextStyle(
-                      color: Color(0xFF02558F),
-                      fontFamily: 'Urbanist',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 7),
+                    child: Text(
+                      'Gestion des Contneurs de l\'EPAL',
+                      style: TextStyle(
+                        color: Color(0xFF02558F),
+                        fontFamily: 'Urbanist',
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(height: 100),
@@ -207,11 +210,11 @@ class _WebLoginPageState extends State<WebLoginPage> {
                       Align(
                         alignment: Alignment.topRight,
                         child: FractionalTranslation(
-                          translation: Offset(1.7, -0.5),
+                          translation: Offset(2.3, -0.5),
                           child: Image.asset(
                             'assets/ship.png',
-                            width: 140.0,
-                            height: 140.0,
+                            width: 120.0,
+                            height: 120.0,
                           ),
                         ),
                       )
