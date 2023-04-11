@@ -120,7 +120,7 @@ class LargeScreen extends StatelessWidget {
             height: 1000,
             width: 300,
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.white,
               border: Border.all(
                 color: Colors.black,
                 width: 1,

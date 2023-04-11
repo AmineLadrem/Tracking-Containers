@@ -62,6 +62,56 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
             color: dark,
             margin: EdgeInsets.symmetric(horizontal: 12.0),
           ),
+          PopupMenuButton<String>(
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'profile',
+                child: Text('Profile'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'logout',
+                child: Text('Logout'),
+              ),
+            ],
+            onSelected: (String value) async {
+              if (value == 'profile') {
+                // Navigate to profile screen
+              } else if (value == 'logout') {
+                // Handle logout
+              }
+            },
+            child: IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: dark.withOpacity(.9),
+              ),
+              onPressed: () {
+                // Show menu
+                showMenu<String>(
+                  context: context,
+                  position: RelativeRect.fromLTRB(1000, 0, 0, 0),
+                  items: <PopupMenuEntry<String>>[
+                    const PopupMenuItem<String>(
+                      value: 'profile',
+                      child: Text('Profile'),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'logout',
+                      child: Text('Logout'),
+                    ),
+                  ],
+                ).then((String? value) {
+                  if (value != null) {
+                    if (value == 'profile') {
+                      // Navigate to profile screen
+                    } else if (value == 'logout') {
+                      // Handle logout
+                    }
+                  }
+                });
+              },
+            ),
+          )
         ],
       ),
       backgroundColor: back,
