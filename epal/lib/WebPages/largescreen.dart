@@ -1,3 +1,4 @@
+import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
 
 class LargeScreen extends StatelessWidget {
@@ -9,12 +10,17 @@ class LargeScreen extends StatelessWidget {
       children: [
         Expanded(
             child: Container(
-          color: Colors.red,
+          color: light,
+          child: Column(
+            children: [
+              Image.asset('assets/epal.png', width: 200, height: 200),
+            ],
+          ),
         )),
         Expanded(
           flex: 5,
           child: Container(
-            color: Colors.blue,
+            color: Colors.white,
           ),
         )
       ],

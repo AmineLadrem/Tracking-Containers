@@ -1,6 +1,4 @@
-import 'package:epal/WebPages/largescreen.dart';
-import 'package:epal/WebPages/smallscreen.dart';
-import 'package:epal/helpers/responsive.dart';
+import 'package:epal/WebPages/dashboard.dart';
 import 'package:epal/pages/admin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +22,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
         password: PasswordController.text.trim(),
       );
       // If sign-in was successful, navigate to the home page
-      Navigator.pushNamed(context, AdminHome.routeName);
+      Navigator.pushNamed(context, Dashboard.routeName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -175,6 +173,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                                   width: 300,
                                   child: TextField(
                                     controller: PasswordController,
+                                    obscureText: true,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
                                       labelText: 'Mot de passe',
@@ -187,7 +186,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                               ),
                               Center(
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: signIn,
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Color(0xFFC7F5F5),
                                     minimumSize: Size(310, 50),
