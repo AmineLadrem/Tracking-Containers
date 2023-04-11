@@ -14,6 +14,16 @@ class LargeScreen extends StatelessWidget {
           child: Column(
             children: [
               Image.asset('assets/epal.png', width: 200, height: 200),
+              Card(
+                child: Container(
+                  width: 200,
+                  height: 700,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
             ],
           ),
         )),
