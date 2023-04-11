@@ -14,10 +14,11 @@ class LargeScreen extends StatelessWidget {
           color: back,
           child: Column(
             children: [
+              //  Image.asset('assets/epal.png', width: 200, height: 200),
               Card(
                 child: Container(
                   width: 220,
-                  height: 610,
+                  height: 681.5,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
@@ -43,7 +44,7 @@ class LargeScreen extends StatelessWidget {
                             children: [
                               Icon(MyFlutterApp.container),
                               SizedBox(width: 4),
-                              Text('    Conteneurs     ',
+                              Text('    Conteneurs      ',
                                   style: TextStyle(
                                       fontFamily: 'Urbanist',
                                       fontWeight: FontWeight.bold)),
@@ -80,7 +81,7 @@ class LargeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 460),
+                      SizedBox(height: 540),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF80CFCC),
