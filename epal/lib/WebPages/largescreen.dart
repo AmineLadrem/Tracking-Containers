@@ -18,7 +18,7 @@ class LargeScreen extends StatelessWidget {
               Card(
                 child: Container(
                   width: 200,
-                  height: 700,
+                  height: 470,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
@@ -81,7 +81,7 @@ class LargeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 500),
+                      SizedBox(height: 270),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF80CFCC),
@@ -119,7 +119,16 @@ class LargeScreen extends StatelessWidget {
         Expanded(
           flex: 5,
           child: Container(
-            color: Colors.white,
+            height: 1000,
+            width: 300,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              border: Border.all(
+                color: Colors.black,
+                width: 1,
+              ),
+            ),
+            child: Text("data"),
           ),
         )
       ],
