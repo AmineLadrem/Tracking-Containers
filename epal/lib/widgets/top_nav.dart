@@ -62,24 +62,7 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
             color: dark,
             margin: EdgeInsets.symmetric(horizontal: 12.0),
           ),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(light),
-            ),
-            onPressed: () {
-              // perform logout action
-            },
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.logout, color: dark),
-                SizedBox(width: 5.0),
-                Text('Se Deconnecter',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: dark)),
-              ],
-            ),
-          ),
         ],
       ),
-      backgroundColor: light,
+      backgroundColor: back,
     );

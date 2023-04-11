@@ -11,14 +11,14 @@ class LargeScreen extends StatelessWidget {
       children: [
         Expanded(
             child: Container(
-          color: light,
+          color: back,
           child: Column(
             children: [
               Image.asset('assets/epal.png', width: 200, height: 200),
               Card(
                 child: Container(
-                  width: 200,
-                  height: 470,
+                  width: 220,
+                  height: 410,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
@@ -38,7 +38,7 @@ class LargeScreen extends StatelessWidget {
                           // handle button press
                         },
                         child: Container(
-                          height: 50,
+                          height: 20,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -66,7 +66,7 @@ class LargeScreen extends StatelessWidget {
                           // handle button press
                         },
                         child: Container(
-                          height: 50,
+                          height: 20,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -94,7 +94,7 @@ class LargeScreen extends StatelessWidget {
                           // handle button press
                         },
                         child: Container(
-                          height: 50,
+                          height: 20,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
