@@ -37,15 +37,17 @@ class LargeScreen extends StatelessWidget {
                         },
                         child: Container(
                           height: 20,
+                          width: 155,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(MyFlutterApp.container),
-                              SizedBox(width: 4),
-                              Text('    Conteneurs     ',
+                              SizedBox(width: 2),
+                              Text('    Conteneurs    ',
                                   style: TextStyle(
                                       fontFamily: 'Urbanist',
                                       fontWeight: FontWeight.bold)),
+                              SizedBox(width: 6),
                               Icon(MyFlutterApp.container),
                             ],
                           ),
@@ -65,16 +67,18 @@ class LargeScreen extends StatelessWidget {
                         },
                         child: Container(
                           height: 20,
+                          width: 155,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.gps_fixed),
+                              Icon(Icons.gps_fixed, size: 16),
                               SizedBox(width: 4),
                               Text('Tracker_Module',
                                   style: TextStyle(
                                       fontFamily: 'Urbanist',
                                       fontWeight: FontWeight.bold)),
-                              Icon(Icons.gps_fixed),
+                              SizedBox(width: 8),
+                              Icon(Icons.gps_fixed, size: 16),
                             ],
                           ),
                         ),
@@ -93,18 +97,17 @@ class LargeScreen extends StatelessWidget {
                         },
                         child: Container(
                           height: 20,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.logout),
-                              SizedBox(width: 4),
-                              Text('Se déconnecter',
-                                  style: TextStyle(
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.bold)),
-                              Icon(Icons.logout),
-                            ],
-                          ),
+                          width: 155,
+                          child: Row(mainAxisSize: MainAxisSize.min, children: [
+                            Icon(Icons.logout, size: 16),
+                            SizedBox(width: 4),
+                            Text('Se déconnecter',
+                                style: TextStyle(
+                                    fontFamily: 'Urbanist',
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(width: 8),
+                            Icon(Icons.logout, size: 16),
+                          ]),
                         ),
                       ),
                     ],
