@@ -14,11 +14,10 @@ class LargeScreen extends StatelessWidget {
           color: back,
           child: Column(
             children: [
-              Image.asset('assets/epal.png', width: 200, height: 200),
               Card(
                 child: Container(
                   width: 220,
-                  height: 410,
+                  height: 590,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
@@ -80,7 +79,7 @@ class LargeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 270),
+                      SizedBox(height: 450),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF80CFCC),
