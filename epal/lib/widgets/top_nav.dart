@@ -81,10 +81,7 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
               }
             },
             child: IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: dark.withOpacity(.9),
-              ),
+              icon: Icon(Icons.menu, color: dark.withOpacity(.9)),
               onPressed: () {
                 // Show menu
                 showMenu<String>(
@@ -93,11 +90,27 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
                   items: <PopupMenuEntry<String>>[
                     const PopupMenuItem<String>(
                       value: 'profile',
-                      child: Text('Profile'),
+                      child: Row(
+                        children: [
+                          Icon(Icons.person),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('Profile')
+                        ],
+                      ),
                     ),
                     const PopupMenuItem<String>(
                       value: 'logout',
-                      child: Text('Logout'),
+                      child: Row(
+                        children: [
+                          Icon(Icons.logout),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('Se déconnecter')
+                        ],
+                      ),
                     ),
                   ],
                 ).then((String? value) {
