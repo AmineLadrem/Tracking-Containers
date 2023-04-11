@@ -17,7 +17,7 @@ class LargeScreen extends StatelessWidget {
               Card(
                 child: Container(
                   width: 220,
-                  height: 610,
+                  height: 591,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
