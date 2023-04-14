@@ -2,10 +2,15 @@ import 'package:epal/WebPages/LoginPage.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/icons.dart';
 import 'package:epal/widgets/conteneurs.dart';
+import 'package:epal/widgets/debarquement.dart';
+import 'package:epal/widgets/deplacement.dart';
+import 'package:epal/widgets/embarquement.dart';
 import 'package:epal/widgets/home.dart';
+import 'package:epal/widgets/livraison.dart';
 import 'package:epal/widgets/modules.dart';
 import 'package:epal/widgets/notifications.dart';
 import 'package:epal/widgets/profile.dart';
+import 'package:epal/widgets/visite.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -163,6 +168,167 @@ class _LargeScreenState extends State<LargeScreen> {
                           ),
                         ),
                       ),
+                      /*SizedBox(height: 20),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF80CFCC),
+                          // elevation
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _selectedIndex = 5;
+                          });
+                        },
+                        child: Container(
+                          height: 20,
+                          width: 155,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.arrow_circle_down_outlined, size: 16),
+                              SizedBox(width: 4),
+                              Text('    Debarquement',
+                                  style: TextStyle(
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(width: 8),
+                              Icon(Icons.arrow_circle_down_outlined, size: 16),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF80CFCC),
+                          // elevation
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _selectedIndex = 6;
+                          });
+                        },
+                        child: Container(
+                          height: 20,
+                          width: 155,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.arrow_circle_up_outlined, size: 16),
+                              SizedBox(width: 4),
+                              Text('   Embarquement',
+                                  style: TextStyle(
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(width: 8),
+                              Icon(Icons.arrow_circle_up_outlined, size: 16),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF80CFCC),
+                          // elevation
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _selectedIndex = 7;
+                          });
+                        },
+                        child: Container(
+                          height: 20,
+                          width: 155,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.content_paste_search, size: 16),
+                              SizedBox(width: 4),
+                              Text('            Visite         ',
+                                  style: TextStyle(
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(width: 8),
+                              Icon(Icons.content_paste_search, size: 16),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF80CFCC),
+                          // elevation
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _selectedIndex = 8;
+                          });
+                        },
+                        child: Container(
+                          height: 20,
+                          width: 155,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.send, size: 16),
+                              SizedBox(width: 4),
+                              Text('         Livraison      ',
+                                  style: TextStyle(
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(width: 8),
+                              Icon(Icons.send, size: 16),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF80CFCC),
+                          // elevation
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _selectedIndex = 9;
+                          });
+                        },
+                        child: Container(
+                          height: 20,
+                          width: 155,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.move_up, size: 16),
+                              SizedBox(width: 4),
+                              Text('     Deplacement  ',
+                                  style: TextStyle(
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(width: 8),
+                              Icon(Icons.move_down, size: 16),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),*/
                       SizedBox(height: 400),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -219,7 +385,7 @@ class _LargeScreenState extends State<LargeScreen> {
                           child: Row(mainAxisSize: MainAxisSize.min, children: [
                             Icon(Icons.logout, size: 16),
                             SizedBox(width: 4),
-                            Text('Se déconnecter',
+                            Text('  Se déconnecter ',
                                 style: TextStyle(
                                     fontFamily: 'Urbanist',
                                     fontWeight: FontWeight.bold)),
@@ -242,12 +408,22 @@ class _LargeScreenState extends State<LargeScreen> {
                 : _selectedIndex == 1
                     ? containers()
                     : _selectedIndex == 2
-                        ? modules()
+                        ? GererModule()
                         : _selectedIndex == 3
                             ? notifications()
                             : _selectedIndex == 4
                                 ? home()
-                                : Container())
+                                : _selectedIndex == 5
+                                    ? debarquement()
+                                    : _selectedIndex == 6
+                                        ? embarquement()
+                                        : _selectedIndex == 7
+                                            ? visite()
+                                            : _selectedIndex == 8
+                                                ? livraison()
+                                                : _selectedIndex == 9
+                                                    ? deplacement()
+                                                    : Container()),
       ],
     );
   }

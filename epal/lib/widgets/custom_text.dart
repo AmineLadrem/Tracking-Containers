@@ -20,9 +20,9 @@ class CustomText extends StatelessWidget {
       text,
       style: TextStyle(
         fontFamily: 'Urbanist',
-        fontSize: size ?? 16,
-        color: color ?? Colors.black,
-        fontWeight: weight ?? FontWeight.normal,
+        fontSize: size,
+        color: color,
+        fontWeight: weight,
       ),
     );
   }

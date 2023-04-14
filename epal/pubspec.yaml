@@ -45,6 +45,10 @@ dependencies:
   data_table_2: ^2.4.2
   google_maps_flutter_web: ^0.4.0+7
   google_maps_flutter: ^2.2.5
+  sqflite_common_ffi_web: ^0.3.4
+  sqflite: ^2.2.6
+  search_page: ^2.3.0
+ 
 
 
 dev_dependencies:

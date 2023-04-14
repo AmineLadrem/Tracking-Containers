@@ -1,4 +1,3 @@
-import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
 
 class home extends StatelessWidget {
@@ -18,7 +17,7 @@ class home extends StatelessWidget {
       ),
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.only(left: 1295.0),
+          padding: const EdgeInsets.only(left: 1000.0),
           child: Container(
             height: 170,
             width: 300,

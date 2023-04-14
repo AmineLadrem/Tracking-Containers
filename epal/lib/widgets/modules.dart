@@ -1,46 +1,68 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:epal/modules/modules.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class modules extends StatefulWidget {
-  const modules({super.key});
+class GererModule extends StatefulWidget {
+  const GererModule({super.key});
 
   @override
-  State<modules> createState() => _modulesState();
+  State<GererModule> createState() => _modulesState();
 }
 
-class _modulesState extends State<modules> {
+class _modulesState extends State<GererModule> {
+  var listmodules = [];
   @override
   Widget build(BuildContext context) {
-    GoogleMapController? mapController;
-    Set<Marker> markers = Set(); //markers for google map
-    LatLng showLocation = LatLng(27.7089427, 85.3086209);
-    //location to show in map //contrller for Google ma
+    Future<Map<String, dynamic>> fetchModules() async {
+      final response =
+          await http.get(Uri.parse('http://127.0.0.1:8000/api/modulesuivis'));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data;
+      } else {
+        throw Exception('Failed to load modules');
+      }
+    }
+
+    final ModuleIDController = TextEditingController();
+    final ModuleBatterieController = TextEditingController();
+    Future<void> _makeApiCall() async {
+      final String apiUrl = 'http://127.0.0.1:8000/api/modulesuivis?ModNum=' +
+          ModuleIDController.text +
+          '&ModBatterie=' +
+          ModuleBatterieController.text;
+      print(apiUrl);
+
+      final response = await http.post(Uri.parse(apiUrl));
+
+      //pop notification
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Module ajouté avec succès'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur lors de l\'ajout du module'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+
     return Container(
       height: 1000,
       width: 300,
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: Colors.white,
         border: Border.all(
           color: Colors.black,
           width: 1,
         ),
-      ),
-      child: GoogleMap(
-        //Map widget from google_maps_flutter package
-        zoomGesturesEnabled: true, //enable Zoom in, out on map
-        initialCameraPosition: CameraPosition(
-          //innital position in map
-          target: showLocation, //initial position
-          zoom: 10.0, //initial zoom level
-        ),
-        markers: markers, //markers to show on map
-        mapType: MapType.normal, //map type
-        onMapCreated: (controller) {
-          //method called when map is created
-          setState(() {
-            mapController = controller;
-          });
-        },
       ),
     );
   }

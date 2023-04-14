@@ -1,4 +1,3 @@
-import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
 
 class notifications extends StatelessWidget {
