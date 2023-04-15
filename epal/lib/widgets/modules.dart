@@ -1,7 +1,5 @@
-import 'package:epal/modules/modules.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class GererModule extends StatefulWidget {
   const GererModule({super.key});
@@ -11,20 +9,8 @@ class GererModule extends StatefulWidget {
 }
 
 class _modulesState extends State<GererModule> {
-  var listmodules = [];
   @override
   Widget build(BuildContext context) {
-    Future<Map<String, dynamic>> fetchModules() async {
-      final response =
-          await http.get(Uri.parse('http://127.0.0.1:8000/api/modulesuivis'));
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return data;
-      } else {
-        throw Exception('Failed to load modules');
-      }
-    }
-
     final ModuleIDController = TextEditingController();
     final ModuleBatterieController = TextEditingController();
     Future<void> _makeApiCall() async {

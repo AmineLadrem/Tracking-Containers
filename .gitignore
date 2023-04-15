@@ -8,3 +8,8 @@ epal/windows/flutter/generated_plugin_registrant.cc
 epal/windows/flutter/generated_plugin_registrant.h
 epal/windows/flutter/generated_plugins.cmake
 epal/linux/flutter/generated_plugin_registrant.cc
+server/package-lock.json
+server/composer.lock
+server/composer.lock
+server/.env.example
+epal/macos/Flutter/GeneratedPluginRegistrant.swift
