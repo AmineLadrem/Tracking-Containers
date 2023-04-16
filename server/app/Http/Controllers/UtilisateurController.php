@@ -12,7 +12,8 @@ class UtilisateurController extends Controller
      */
     public function index()
     {
-        //
+        $utilisateur=utilisateur::all();
+        return response($utilisateur,200);
     }
 
     /**
@@ -26,9 +27,9 @@ class UtilisateurController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(utilisateur $utilisateur)
+    public function show($id)
     {
-        //
+    
     }
 
     /**

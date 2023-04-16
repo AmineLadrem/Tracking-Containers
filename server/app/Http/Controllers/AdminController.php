@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\admin;
+use App\Models\utilisateur;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,7 +13,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $admin=admin::all();
+            return response($admin,200);
     }
 
     /**
@@ -26,9 +28,13 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(admin $admin)
+    public function show($id)
     {
-        //
+        $admin = utilisateur::where('id', $id)->where('role', 'admin')->first();
+        if (!$admin) {
+            return response()->json(['message' => 'Admin not found'], 404);
+        }
+        return response()->json($admin, 200);
     }
 
     /**

@@ -1,20 +1,38 @@
 class module {
-  late int ModNum;
-  late String ModStatus;
-  late double ModBatterie;
-  late double PositionX;
-  late double PositionY;
-  late double PositionH;
+  int? modNum;
+  String? modStatus;
+  int? modBatterie;
+  int? positionX;
+  int? positionY;
+  int? positionH;
 
-  module(this.ModNum, this.ModStatus, this.ModBatterie, this.PositionX,
-      this.PositionY, this.PositionH);
+  module({
+    this.modNum,
+    this.modStatus,
+    this.modBatterie,
+    this.positionX,
+    this.positionY,
+    this.positionH,
+  });
 
   module.fromJson(Map<String, dynamic> json) {
-    ModNum = json['ModNum'];
-    ModStatus = json['ModStatus'];
-    ModBatterie = json['ModBatterie'];
-    PositionX = json['PositionX'];
-    PositionY = json['PositionY'];
-    PositionH = json['PositionH'];
+    modNum = json['ModNum'];
+    modStatus = json['ModStatus'];
+    modBatterie = json['ModBatterie'];
+    positionX = json['PositionX'];
+    positionY = json['PositionY'];
+    positionH = json['PositionH'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ModNum'] = this.modNum;
+    data['ModStatus'] = this.modStatus;
+    data['ModBatterie'] = this.modBatterie;
+    data['PositionX'] = this.positionX;
+    data['PositionY'] = this.positionY;
+    data['PositionH'] = this.positionH;
+
+    return data;
   }
 }
