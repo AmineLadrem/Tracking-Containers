@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:epal/constants/style.dart';
+import 'package:epal/constants/polygon.dart';
 import 'package:epal/widgets/top_nav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_utils/google_maps_utils.dart';
 
 class location extends StatefulWidget {
   static const String routeName = '/location';
@@ -28,7 +32,7 @@ class _locationState extends State<location> {
   late double _PositionX;
   late double _PositionY;
   late double _PositionH;
-
+  BitmapDescriptor? _markerIcon;
   @override
   void initState() {
     super.initState();
@@ -36,73 +40,37 @@ class _locationState extends State<location> {
     _PositionX = widget.PositionX;
     _PositionY = widget.PositionY;
     _PositionH = widget.PositionH;
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(30, 30)),
+      'assets/gpsModule.png',
+    ).then((value) => setState(() {
+          _markerIcon = value;
+        }));
   }
 
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
   final user = FirebaseAuth.instance.currentUser;
 
-  List<Polygon> _polygons = [
-    Polygon(
-      polygonId: PolygonId('square1'),
-      points: [
-        LatLng(36.764500, 3.070831),
-        LatLng(36.764500, 3.075830),
-        LatLng(36.760500, 3.075830),
-        LatLng(36.760500, 3.070831),
-      ],
-      strokeColor: Colors.red,
-      strokeWidth: 2,
-      fillColor: Colors.red.withOpacity(0.3),
-    ),
-    Polygon(
-      polygonId: PolygonId('square3'),
-      points: [
-        LatLng(36.759586, 3.066584),
-        LatLng(36.757379, 3.066652),
-        LatLng(36.757393, 3.069241),
-        LatLng(36.759575, 3.069203),
-      ],
-      strokeColor: Colors.blue,
-      strokeWidth: 2,
-      fillColor: Colors.blue.withOpacity(0.3),
-    ),
-    Polygon(
-      polygonId: PolygonId('square3'),
-      points: [
-        LatLng(36.761924, 3.066640),
-        LatLng(36.759702, 3.066584),
-        LatLng(36.759630, 3.069592),
-        LatLng(36.761906, 3.069567),
-      ],
-      strokeColor: Colors.blue,
-      strokeWidth: 2,
-      fillColor: Colors.blue.withOpacity(0.3),
-    ),
-    Polygon(
-      polygonId: PolygonId('square2'),
-      points: [
-        LatLng(36.763000, 3.071331),
-        LatLng(36.763000, 3.074830),
-        LatLng(36.761000, 3.074830),
-        LatLng(36.761000, 3.071331),
-      ],
-      strokeColor: Colors.blue,
-      strokeWidth: 2,
-      fillColor: Colors.blue.withOpacity(0.3),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    const google_API = "AIzaSyAg0fdIUbAOiJeN9a-LHIcIdQQs8eNL-co";
+    var point = Point(_PositionX, _PositionY);
+    String zone = '';
+    if (PolyUtils.containsLocationPoly(point, psquare1)) {
+      zone = 'Zone 1';
+    } else if (PolyUtils.containsLocationPoly(point, psquare2)) {
+      zone = 'Zone 2';
+    } else if (PolyUtils.containsLocationPoly(point, psquare3)) {
+      zone = 'Zone 3';
+    } else if (PolyUtils.containsLocationPoly(point, psquare4)) {
+      zone = 'Zone 4';
+    }
+
     Set<Marker> _markers = {
       Marker(
         markerId: MarkerId('myLocation'),
         position: LatLng(_PositionX, _PositionY),
-        infoWindow: InfoWindow(title: 'My Location'),
+        infoWindow: InfoWindow(title: zone),
       ),
-      Marker(markerId: MarkerId('A'), position: LatLng(36.761000, 3.071331)),
-      Marker(markerId: MarkerId('B'), position: LatLng(36.761000, 3.074830)),
     };
 
     return Scaffold(
@@ -303,7 +271,7 @@ class _locationState extends State<location> {
                       ),
                       mapType: MapType.hybrid,
                       markers: _markers,
-                      polygons: Set.from(_polygons),
+                      polygons: Set<Polygon>.of(mylist),
                     ),
                   ))
             ],

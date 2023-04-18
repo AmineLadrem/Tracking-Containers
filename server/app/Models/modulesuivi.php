@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class modulesuivi extends Model
 {
     use HasFactory;
+  
+    protected $primaryKey = 'ModNum';
 
     protected $fillable=[
         'ModNum',

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
-import 'package:epal/WebPages/LoginPage.dart';
 import 'package:epal/widgets/location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

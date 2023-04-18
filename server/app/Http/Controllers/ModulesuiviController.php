@@ -39,10 +39,12 @@ class ModulesuiviController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($id)
     {
-     
+        $module = modulesuivi::findOrFail($id);
+        return $module;
     }
+    
 
     /**
      * Update the specified resource in storage.

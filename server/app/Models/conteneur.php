@@ -13,6 +13,7 @@ class conteneur extends Model
         'Cont_Type',
         'Cont_Poids',
         'Cont_Status',
+        'ModNum',
         'NumLivraison',
         'NumEmbarquement',
         'NumDebarquement',

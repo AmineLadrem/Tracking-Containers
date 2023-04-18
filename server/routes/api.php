@@ -38,10 +38,12 @@ Route::delete('/cars/{id}',[CarsController::class, 'destroy']);
 Route::get('/utilisateur',[UtilisateurController::class, 'index']);
 
 Route::get('/modulesuivis',[ModulesuiviController::class, 'index']);
+Route::get('/modulesuivis/{id}',[ModulesuiviController::class, 'show']);
 
 Route::get('/admin/{id}',[AdminController::class, 'show']);
 
-
+Route::get('/conteneur',[ConteneurController::class, 'index']);
+Route::post('/conteneur',[ConteneurController::class, 'store']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

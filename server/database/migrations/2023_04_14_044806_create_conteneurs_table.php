@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('Cont_Type', 5);
             $table->double('Cont_Poids');
             $table->string('Cont_Status', 15);
+            $table->integer('NumLivraison');
             $table->unsignedBigInteger('NumLivraison');
             $table->unsignedBigInteger('NumEmbarquement');
             $table->unsignedBigInteger('NumDebarquement');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->integer('Admin_ID');
             $table->foreign('NumParc')->references('NumParc')->on('parcs');
             $table->foreign('Admin_ID')->references('ID')->on('admins');
+            $table->foreign('ModNum')->references('ModNum')->on('modulesuivis');
             $table->foreign('NumLivraison')->references('NumLivraison')->on('livraisons');
             $table->foreign('NumEmbarquement')->references('NumEmbarquement')->on('embarquements');
             $table->foreign('NumDebarquement')->references('NumDebarquement')->on('debarquements');
