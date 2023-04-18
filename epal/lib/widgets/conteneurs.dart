@@ -105,14 +105,14 @@ class _containersState extends State<containers> {
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Module ajouté avec succès'),
+            content: Text('Conteneur ajouté avec succès'),
             backgroundColor: Colors.green,
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Erreur lors de l\'ajout du module'),
+            content: Text('Erreur lors de l\'ajout du Conteneur'),
             backgroundColor: Colors.red,
           ),
         );

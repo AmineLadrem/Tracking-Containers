@@ -38,6 +38,7 @@ Route::delete('/cars/{id}',[CarsController::class, 'destroy']);
 Route::get('/utilisateur',[UtilisateurController::class, 'index']);
 
 Route::get('/modulesuivis',[ModulesuiviController::class, 'index']);
+Route::post('/modulesuivis',[ModulesuiviController::class, 'store']);
 Route::get('/modulesuivis/{id}',[ModulesuiviController::class, 'show']);
 
 Route::get('/admin/{id}',[AdminController::class, 'show']);

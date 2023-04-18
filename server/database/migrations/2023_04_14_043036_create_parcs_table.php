@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('parcs', function (Blueprint $table) {
             $table->integer('NumParc')->primary();
             $table->string('NomParc', 30);
-            $table->integer('Zone_ID');
+            $table->string('Zone_ID',6);
             $table->foreign('Zone_ID')->references('Zone_ID')->on('zones');
             $table->timestamps();
         });

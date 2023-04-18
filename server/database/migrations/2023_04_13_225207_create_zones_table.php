@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('zones', function (Blueprint $table) {
-            $table->integer('Zone_ID')->primary();
+            $table->string('Zone_ID',6)->primary();
             $table->string('Zone_Nom')->nullable(false);
             $table->string('Zone_Type')->nullable(false);
             $table->timestamps();
