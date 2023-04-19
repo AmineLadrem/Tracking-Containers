@@ -63,7 +63,6 @@ class _containersState extends State<containers> {
   }
 
   Widget build(BuildContext context) {
-    var module;
     TextEditingController contIDController = TextEditingController();
     TextEditingController contTypeController = TextEditingController();
     TextEditingController contPoidsController = TextEditingController();
@@ -117,6 +116,36 @@ class _containersState extends State<containers> {
           ),
         );
       }
+    }
+
+    Future<void> getPosition(int id) async {
+      // Make the API call and get the response
+      var response = await http.get(
+          Uri.parse('http://127.0.0.1:8000/api/modulesuivis/' + id.toString()));
+
+      // Parse the JSON response
+      var data = json.decode(response.body);
+
+      // Store the position values in variables
+      var positionX = data['PositionX'];
+      var positionY = data['PositionY'];
+      var positionH = data['PositionH'];
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => location(
+            ModNum: id.toString(),
+            PositionX: positionX,
+            PositionY: positionY,
+            PositionH: positionH,
+          ),
+        ),
+      );
+      // Use the position values as needed in your code
+      print('Position X: $positionX');
+      print('Position Y: $positionY');
+      print('Position H: $positionH');
     }
 
     return Container(
@@ -641,7 +670,11 @@ class _containersState extends State<containers> {
                                                 ),
                                               ),
                                               TextButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  getPosition(
+                                                      _foundConteneurs[index]
+                                                          ['ModNum']);
+                                                },
                                                 onHover: (event) {},
                                                 child: Row(
                                                   children: [
@@ -687,6 +720,24 @@ class _containersState extends State<containers> {
                 padding: const EdgeInsets.all(9.0),
                 child: Column(
                   children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: light,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Ajouter un Conteneur',
+                          style: TextStyle(
+                            fontFamily: 'Urbanist',
+                            color: dark,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     TextField(
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),

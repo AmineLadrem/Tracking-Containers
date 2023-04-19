@@ -380,57 +380,72 @@ class _modulesState extends State<GererModule> {
           ),
           Container(
             width: 450,
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                ModuleIDController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Numero de Module',
-                          hintText: 'Numero de Module'),
-                      controller: ModuleIDController,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 250.0, left: 5),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: light,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    SizedBox(height: 10),
-                    TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                ModuleBatterieController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Batterie',
-                          hintText: 'Batterie'),
-                      controller: ModuleBatterieController,
-                    ),
-                    SizedBox(height: 10),
-                    SizedBox(height: 20),
-                    Container(
-                      height: 45,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFF8FABFE),
-                      ),
-                      child: ElevatedButton(
-                        onPressed: makeApiCall,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xFF8FABFE)),
+                    child: Center(
+                      child: Text(
+                        'Ajouter un Module',
+                        style: TextStyle(
+                          fontFamily: 'Urbanist',
+                          color: dark,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: Text('Ajouter',
-                            style: TextStyle(fontFamily: 'Poppins')),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              ModuleIDController.clear();
+                            },
+                            icon: Icon(Icons.clear)),
+                        labelText: 'Numero de Module',
+                        hintText: 'Numero de Module'),
+                    controller: ModuleIDController,
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              ModuleBatterieController.clear();
+                            },
+                            icon: Icon(Icons.clear)),
+                        labelText: 'Batterie',
+                        hintText: 'Batterie'),
+                    controller: ModuleBatterieController,
+                  ),
+                  SizedBox(height: 30),
+                  Container(
+                    height: 45,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFF8FABFE),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: makeApiCall,
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xFF8FABFE)),
+                      ),
+                      child: Text('Ajouter',
+                          style: TextStyle(fontFamily: 'Poppins')),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
