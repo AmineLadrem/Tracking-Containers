@@ -36,12 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   geolocator: ^9.0.2
-  baseflow_plugin_template: ^2.1.1
   flutter_background_service: ^2.4.6
-  flutter_background_service_android: ^3.0.3
-  flutter_local_notifications: ^13.0.0
-  shared_preferences: ^2.1.0
-  device_info_plus: ^8.2.0
+  workmanager: ^0.5.1
 
 dev_dependencies:
   flutter_test:

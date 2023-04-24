@@ -2,16 +2,14 @@ import 'package:epal/WebPages/LoginPage.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/icons.dart';
 import 'package:epal/widgets/conteneurs.dart';
-import 'package:epal/widgets/debarquement.dart';
-import 'package:epal/widgets/deplacement.dart';
-import 'package:epal/widgets/embarquement.dart';
+
 import 'package:epal/widgets/home.dart';
-import 'package:epal/widgets/livraison.dart';
+
 import 'package:epal/widgets/modules.dart';
 import 'package:epal/widgets/notifications.dart';
 import 'package:epal/widgets/profile.dart';
 import 'package:epal/widgets/settings.dart';
-import 'package:epal/widgets/visite.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
