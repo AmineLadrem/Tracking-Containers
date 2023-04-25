@@ -9,19 +9,6 @@ void main() {
   runApp(MyApp());
 }
 
-void onStart() {
-  // Start the timer when the background service is started
-  Timer.periodic(Duration(seconds: 2), (timer) {
-    print('Hello from background service!');
-    // Update the service status
-    FlutterBackgroundService().on('onStart').listen((event) {
-      // Here is the current status
-      // You can use it to update your UI or send it to the server
-      print(event);
-    });
-  });
-}
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,6 +33,18 @@ class _BackgroundServiceState extends State<BackgroundService> {
     // Start the background service
     FlutterBackgroundService().startService();
     // Listen for service updates
+  }
+
+  void onStart() async {
+    // Check if the service is already running
+    bool isRunning = await FlutterBackgroundService().isRunning();
+    if (!isRunning) {
+      // Start the timer when the background service is started
+      Timer.periodic(Duration(seconds: 5), (timer) {
+        print('Hello from background service!');
+        // Update the service status
+      });
+    }
   }
 
   @override
