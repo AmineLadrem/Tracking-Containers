@@ -1,63 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:tracker/back_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocationPermission permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      print('Location permissions are denied');
-    }
-  }
-  await Permission.notification.isDenied.then((value) async {
-    if (value) {
-      await Permission.notification.request();
-    }
-  });
   await initializeSerive();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // This widget is the root of your application.
+  @override
+  void initState() {
+    super.initState();
+    initializeSerive();
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Background Service Demo',
-        home: Scaffold(
-            body: Center(
-                child: Column(
+      home: Scaffold(
+        body: Center(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              child: Text('Start Foregrond Service'),
               onPressed: () {
                 FlutterBackgroundService().invoke('setAsForeground');
               },
+              child: const Text('Foreground'),
             ),
             ElevatedButton(
-              child: Text('Start Background Service'),
               onPressed: () {
                 FlutterBackgroundService().invoke('setAsBackground');
               },
+              child: const Text('Background'),
             ),
             ElevatedButton(
-              child: Text('Stop'),
-              onPressed: () async {
-                final service = FlutterBackgroundService();
-                bool isRunning = await service.isRunning();
-                if (isRunning) {
-                  service.invoke('stopService');
-                } else {
-                  service.startService();
-                }
+              onPressed: () {
+                FlutterBackgroundService().invoke('stopService');
               },
+              child: const Text('Stop'),
             ),
           ],
-        ))));
+        )),
+      ),
+    );
   }
 }
