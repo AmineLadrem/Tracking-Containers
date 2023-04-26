@@ -1,11 +1,24 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:tracker/back_services.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Start the background service
-  FlutterBackgroundService().startService();
+  LocationPermission permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      print('Location permissions are denied');
+    }
+  }
+  await Permission.notification.isDenied.then((value) async {
+    if (value) {
+      await Permission.notification.request();
+    }
+  });
+  await initializeSerive();
   runApp(MyApp());
 }
 
@@ -13,56 +26,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Background Service Demo',
-      home: BackgroundService(),
-    );
-  }
-}
-
-class BackgroundService extends StatefulWidget {
-  @override
-  _BackgroundServiceState createState() => _BackgroundServiceState();
-}
-
-class _BackgroundServiceState extends State<BackgroundService> {
-  int _count = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    // Start the background service
-    FlutterBackgroundService().startService();
-    // Listen for service updates
-  }
-
-  void onStart() async {
-    // Check if the service is already running
-    bool isRunning = await FlutterBackgroundService().isRunning();
-    if (!isRunning) {
-      // Start the timer when the background service is started
-      Timer.periodic(Duration(seconds: 5), (timer) {
-        print('Hello from background service!');
-        // Update the service status
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Background Service Demo'),
-      ),
-      body: Center(
-        child: Text('Count: $_count'),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    // Stop the background service when the widget is disposed
-
-    super.dispose();
+        debugShowCheckedModeBanner: false,
+        title: 'Background Service Demo',
+        home: Scaffold(
+            body: Center(
+                child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: Text('Start Foregrond Service'),
+              onPressed: () {
+                FlutterBackgroundService().invoke('setAsForeground');
+              },
+            ),
+            ElevatedButton(
+              child: Text('Start Background Service'),
+              onPressed: () {
+                FlutterBackgroundService().invoke('setAsBackground');
+              },
+            ),
+            ElevatedButton(
+              child: Text('Stop'),
+              onPressed: () async {
+                final service = FlutterBackgroundService();
+                bool isRunning = await service.isRunning();
+                if (isRunning) {
+                  service.invoke('stopService');
+                } else {
+                  service.startService();
+                }
+              },
+            ),
+          ],
+        ))));
   }
 }
