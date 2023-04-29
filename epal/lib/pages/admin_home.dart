@@ -64,28 +64,32 @@ class _AdminHomeState extends State<AdminHome> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(
-                  width: 260, // Set the desired width here
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                      foregroundColor: MaterialStateProperty.all(Colors.black),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GestionConteneurs()),
-                      );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(MyFlutterApp.container),
-                        Text('Gestion Des Conteneurs'),
-                        SizedBox(width: 7),
-                        Icon(MyFlutterApp.container),
-                      ],
+                Visibility(
+                  child: SizedBox(
+                    width: 260, // Set the desired width here
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => GestionConteneurs()),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(MyFlutterApp.container),
+                          Text('Gestion Des Conteneurs'),
+                          SizedBox(width: 7),
+                          Icon(MyFlutterApp.container),
+                        ],
+                      ),
                     ),
                   ),
                 ),

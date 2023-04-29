@@ -6,7 +6,7 @@ import 'package:epal/widgets/conteneurs.dart';
 import 'package:epal/widgets/home.dart';
 
 import 'package:epal/widgets/modules.dart';
-import 'package:epal/widgets/notifications.dart';
+import 'package:epal/widgets/map.dart';
 import 'package:epal/widgets/profile.dart';
 import 'package:epal/widgets/settings.dart';
 
@@ -161,14 +161,14 @@ class _LargeScreenState extends State<LargeScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.notifications, size: 16),
+                              Icon(Icons.map, size: 16),
                               SizedBox(width: 4),
-                              Text('     Notifications   ',
+                              Text('     Carte Map     ',
                                   style: TextStyle(
                                       fontFamily: 'Urbanist',
                                       fontWeight: FontWeight.bold)),
                               SizedBox(width: 8),
-                              Icon(Icons.notifications, size: 16),
+                              Icon(Icons.map, size: 16),
                             ],
                           ),
                         ),
@@ -559,7 +559,7 @@ class _LargeScreenState extends State<LargeScreen> {
                     : _selectedIndex == 2
                         ? GererModule()
                         : _selectedIndex == 3
-                            ? notifications()
+                            ? map()
                             : _selectedIndex == 4
                                 ? home()
                                 : _selectedIndex == 5

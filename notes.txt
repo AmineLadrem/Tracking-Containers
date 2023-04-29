@@ -20,3 +20,8 @@ Directions :
   
    Stockage------>Visite
    Visite-------->Embarquement
+
+
+
+   ------
+   ki nkmlo deplacement de conteneur , nhet une position win conteneur ykon dakhel parc
