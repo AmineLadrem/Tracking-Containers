@@ -1,4 +1,5 @@
 import 'package:epal/constants/style.dart';
+import 'package:epal/icons.dart';
 import 'package:epal/widgets/location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -119,7 +120,6 @@ class _containersState extends State<containers> {
     }
 
     Future<void> getPosition(int id) async {
-      // Make the API call and get the response
       var response = await http.get(
           Uri.parse('http://127.0.0.1:8000/api/modulesuivis/' + id.toString()));
 
@@ -722,150 +722,365 @@ class _containersState extends State<containers> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: light,
+                        color: Color(0xFF80CFCC),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Center(
-                        child: Text(
-                          'Ajouter un Conteneur',
-                          style: TextStyle(
-                            fontFamily: 'Urbanist',
-                            color: dark,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5),
+                          Center(
+                            child: Text(
+                              'Ajouter un Conteneur',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
+                          SizedBox(height: 5),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      controller: contIDController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Conteneur-ID',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez votre Conteneur-ID',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon:
+                            Icon(Icons.confirmation_number, color: dark),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            contIDController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                contIDController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Conteneur-ID',
-                          hintText: 'Conteneur-ID'),
-                      controller: contIDController,
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                contStatusController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Status',
-                          hintText: 'Status'),
                       controller: contStatusController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Status',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez le statut du conteneur',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon:
+                            Icon(Icons.check_circle, color: Colors.green[500]),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            contStatusController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                contTypeController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Type de Conteneur',
-                          hintText: 'Type de Conteneur'),
                       controller: contTypeController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Type de Conteneur',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez le type de conteneur',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon: Icon(MyFlutterApp.container,
+                            color: Colors.orange[500]),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            contTypeController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                contPoidsController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Poids (Kg)',
-                          hintText: 'Poids (Kg)'),
                       controller: contPoidsController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Poids (Kg)',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez le poids du conteneur',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon:
+                            Icon(Icons.fitness_center, color: Colors.blue[500]),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            contPoidsController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                modNumController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Numero de Module de suivi',
-                          hintText: 'Numero de Module de suivi'),
                       controller: modNumController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Numero de Module de suivi',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez le Numero de Module de suivi',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon:
+                            Icon(Icons.track_changes, color: Colors.green),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            modNumController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                numDebarquementController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Numero de debarquement',
-                          hintText: 'Numero de debarquement'),
                       controller: numDebarquementController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Numero de debarquement',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez votre Numero de debarquement',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon:
+                            Icon(Icons.call_missed_outgoing, color: Colors.red),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            numDebarquementController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                numEmbarquementController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Numero d\'embarquement',
-                          hintText: 'Numero d\'embarquement'),
                       controller: numEmbarquementController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Numero d\'embarquement',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez le Numero d\'embarquement',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon:
+                            Icon(Icons.call_missed, color: Colors.green),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            numEmbarquementController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                numLivraisonController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Numero de livraison',
-                          hintText: 'Numero de livraison'),
                       controller: numLivraisonController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Numero de livraison',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez le Numero de livraison',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon: Icon(Icons.local_shipping,
+                            color: Color(0xFFFF9800)),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            numLivraisonController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                numVisiteController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Numero de visite',
-                          hintText: 'Numero de visite'),
                       controller: numVisiteController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Numero de visite',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez le Numero de visite',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon: Icon(Icons.event, color: dark),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            numVisiteController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                numParcController.clear();
-                              },
-                              icon: Icon(Icons.clear)),
-                          labelText: 'Numero de Parc',
-                          hintText: 'Numero de Parc'),
                       controller: numParcController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: back,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        labelText: 'Numero de Parc',
+                        labelStyle: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        hintText: 'Entrez le Numero de Parc',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        prefixIcon:
+                            Icon(Icons.local_parking, color: Colors.blue),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            numParcController.clear();
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 20),
                     Container(
@@ -873,16 +1088,18 @@ class _containersState extends State<containers> {
                       width: 300,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFF8FABFE),
                       ),
                       child: ElevatedButton(
                         onPressed: addContainer,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xFF8FABFE)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF80CFCC),
                         ),
                         child: Text('Ajouter',
-                            style: TextStyle(fontFamily: 'Poppins')),
+                            style: TextStyle(
+                              fontFamily: 'Urbanist',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            )),
                       ),
                     )
                   ],

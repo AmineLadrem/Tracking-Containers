@@ -60,51 +60,126 @@ class settings extends StatelessWidget {
               SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
-                  color: light,
+                  color: Color(0xFF80CFCC),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Center(
-                  child: Text(
-                    'Changer le mot de passe',
-                    style: TextStyle(
-                      fontFamily: 'Urbanist',
-                      color: dark,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                child: Column(
+                  children: [
+                    SizedBox(height: 5),
+                    Center(
+                      child: Text(
+                        'Changer le mot de passe',
+                        style: TextStyle(
+                          fontFamily: 'Urbanist',
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 5),
+                  ],
                 ),
               ),
               SizedBox(height: 20),
               TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    suffixIcon:
-                        IconButton(onPressed: () {}, icon: Icon(Icons.clear)),
-                    labelText: 'Mot de passe actuel',
-                    hintText: 'Mot de passe actuel'),
+                  filled: true,
+                  fillColor: back,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  labelText: 'Mot de passe actuel',
+                  labelStyle: TextStyle(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                  hintText: 'Mot de passe actuel',
+                  hintStyle: TextStyle(
+                    color: Colors.grey[400],
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                  prefixIcon: Icon(Icons.lock, color: Colors.red),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      _oldPasswordController.clear();
+                    },
+                    icon: Icon(Icons.clear, color: Colors.grey[700]),
+                  ),
+                ),
                 controller: _oldPasswordController,
                 obscureText: true,
               ),
               SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    suffixIcon:
-                        IconButton(onPressed: () {}, icon: Icon(Icons.clear)),
-                    labelText: 'Nouveau mot de passe',
-                    hintText: 'Nouveau mot de passe'),
+                  filled: true,
+                  fillColor: back,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  labelText: 'Nouveau mot de passe',
+                  labelStyle: TextStyle(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                  hintText: 'Nouveau mot de passe',
+                  hintStyle: TextStyle(
+                    color: Colors.grey[400],
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                  prefixIcon: Icon(Icons.lock_open, color: Colors.orange),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      _newPasswordController.clear();
+                    },
+                    icon: Icon(Icons.clear, color: Colors.grey[700]),
+                  ),
+                ),
                 controller: _newPasswordController,
                 obscureText: true,
               ),
               SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    suffixIcon:
-                        IconButton(onPressed: () {}, icon: Icon(Icons.clear)),
-                    labelText: 'Confirmer le nouveau mot de passe',
-                    hintText: 'Confirmer le nouveau mot de passe'),
+                  filled: true,
+                  fillColor: back,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  labelText: 'Confirmer le nouveau mot de passe',
+                  labelStyle: TextStyle(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                  hintText: 'Confirmer le nouveau mot de passe',
+                  hintStyle: TextStyle(
+                    color: Colors.grey[400],
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                  prefixIcon: Icon(Icons.check, color: Colors.green),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      _confirmPasswordController.clear();
+                    },
+                    icon: Icon(Icons.clear, color: Colors.grey[700]),
+                  ),
+                ),
                 controller: _confirmPasswordController,
                 obscureText: true,
               ),
@@ -155,10 +230,13 @@ class settings extends StatelessWidget {
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Color(0xFF8FABFE)),
+                        MaterialStateProperty.all<Color>(Color(0xFF80CFCC)),
                   ),
                   child: Text('Changer !',
-                      style: TextStyle(fontFamily: 'Poppins')),
+                      style: TextStyle(
+                          fontFamily: 'Urbanist',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
                 ),
               )
             ],

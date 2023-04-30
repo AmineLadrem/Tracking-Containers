@@ -62,19 +62,20 @@ class _LargeScreenState extends State<LargeScreen> {
                         },
                         child: Container(
                           height: 20,
-                          width: 155,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.home_outlined),
-                              SizedBox(width: 2),
-                              Text('         Home       ',
-                                  style: TextStyle(
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(width: 6),
-                              Icon(Icons.home_outlined),
-                            ],
+                          width: 133,
+                          child: Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.home_outlined),
+                                SizedBox(width: 2),
+                                Text(' Home',
+                                    style: TextStyle(
+                                        fontFamily: 'Urbanist',
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(width: 6),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -93,19 +94,20 @@ class _LargeScreenState extends State<LargeScreen> {
                         },
                         child: Container(
                           height: 20,
-                          width: 155,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(MyFlutterApp.container),
-                              SizedBox(width: 2),
-                              Text('    Conteneurs    ',
-                                  style: TextStyle(
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(width: 6),
-                              Icon(MyFlutterApp.container),
-                            ],
+                          width: 133,
+                          child: Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(MyFlutterApp.container),
+                                SizedBox(width: 2),
+                                Text('Conteneurs',
+                                    style: TextStyle(
+                                        fontFamily: 'Urbanist',
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(width: 6),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -125,19 +127,20 @@ class _LargeScreenState extends State<LargeScreen> {
                         },
                         child: Container(
                           height: 20,
-                          width: 155,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.gps_fixed, size: 16),
-                              SizedBox(width: 4),
-                              Text('Tracker_Module',
-                                  style: TextStyle(
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(width: 8),
-                              Icon(Icons.gps_fixed, size: 16),
-                            ],
+                          width: 133,
+                          child: Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.gps_fixed, size: 16),
+                                SizedBox(width: 4),
+                                Text('Tracker_Module',
+                                    style: TextStyle(
+                                        fontFamily: 'Urbanist',
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(width: 8),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -157,19 +160,20 @@ class _LargeScreenState extends State<LargeScreen> {
                         },
                         child: Container(
                           height: 20,
-                          width: 155,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.map, size: 16),
-                              SizedBox(width: 4),
-                              Text('     Carte Map     ',
-                                  style: TextStyle(
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(width: 8),
-                              Icon(Icons.map, size: 16),
-                            ],
+                          width: 133,
+                          child: Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.map, size: 16),
+                                SizedBox(width: 4),
+                                Text(' Carte Map',
+                                    style: TextStyle(
+                                        fontFamily: 'Urbanist',
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(width: 8),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -189,19 +193,20 @@ class _LargeScreenState extends State<LargeScreen> {
                         },
                         child: Container(
                           height: 20,
-                          width: 155,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.settings, size: 16),
-                              SizedBox(width: 4),
-                              Text('         Settings       ',
-                                  style: TextStyle(
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(width: 8),
-                              Icon(Icons.settings, size: 16),
-                            ],
+                          width: 133,
+                          child: Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.settings, size: 16),
+                                SizedBox(width: 4),
+                                Text(' Settings',
+                                    style: TextStyle(
+                                        fontFamily: 'Urbanist',
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(width: 8),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -530,16 +535,14 @@ class _LargeScreenState extends State<LargeScreen> {
                         },
                         child: Container(
                           height: 20,
-                          width: 155,
+                          width: 133,
                           child: Row(mainAxisSize: MainAxisSize.min, children: [
                             Icon(Icons.logout, size: 16),
                             SizedBox(width: 4),
-                            Text('  Se déconnecter ',
+                            Text('  Se déconnecter',
                                 style: TextStyle(
                                     fontFamily: 'Urbanist',
                                     fontWeight: FontWeight.bold)),
-                            SizedBox(width: 8),
-                            Icon(Icons.logout, size: 16),
                           ]),
                         ),
                       ),

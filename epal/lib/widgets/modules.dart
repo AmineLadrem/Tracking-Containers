@@ -386,46 +386,93 @@ class _modulesState extends State<GererModule> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: light,
+                      color: Color(0xFF80CFCC),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Ajouter un Module',
-                        style: TextStyle(
-                          fontFamily: 'Urbanist',
-                          color: dark,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 5),
+                        Center(
+                          child: Text(
+                            'Ajouter un Module',
+                            style: TextStyle(
+                              fontFamily: 'Urbanist',
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(height: 5),
+                      ],
                     ),
                   ),
                   SizedBox(height: 20),
                   TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              ModuleIDController.clear();
-                            },
-                            icon: Icon(Icons.clear)),
-                        labelText: 'Numero de Module',
-                        hintText: 'Numero de Module'),
                     controller: ModuleIDController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: back,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      labelText: 'Numero de Module',
+                      labelStyle: TextStyle(
+                        color: dark,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                      hintText: 'Numero de Module',
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                      prefixIcon: Icon(Icons.track_changes, color: Colors.blue),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          ModuleIDController.clear();
+                        },
+                        icon: Icon(Icons.clear, color: Colors.grey[700]),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10),
                   TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              ModuleBatterieController.clear();
-                            },
-                            icon: Icon(Icons.clear)),
-                        labelText: 'Batterie',
-                        hintText: 'Batterie'),
                     controller: ModuleBatterieController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: back,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      labelText: 'Batterie',
+                      labelStyle: TextStyle(
+                        color: dark,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                      hintText: 'Batterie',
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                      prefixIcon: Icon(Icons.battery_charging_full,
+                          color: Colors.green),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          ModuleBatterieController.clear();
+                        },
+                        icon: Icon(Icons.clear, color: Colors.grey[700]),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 30),
                   Container(
@@ -437,12 +484,15 @@ class _modulesState extends State<GererModule> {
                     ),
                     child: ElevatedButton(
                       onPressed: makeApiCall,
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF8FABFE)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF80CFCC),
                       ),
                       child: Text('Ajouter',
-                          style: TextStyle(fontFamily: 'Poppins')),
+                          style: TextStyle(
+                            fontFamily: 'Urbanist',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          )),
                     ),
                   )
                 ],
