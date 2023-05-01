@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:epal/modules/employe.dart';
+import 'package:http/http.dart' as http;
 import 'package:epal/Pages/GestionConteneurs.dart';
-import 'package:epal/Pages/GestionEmployee.dart';
+
 import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
@@ -15,6 +19,7 @@ class AdminHome extends StatefulWidget {
 }
 
 class _AdminHomeState extends State<AdminHome> {
+  final user = FirebaseAuth.instance.currentUser;
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -35,10 +40,7 @@ class _AdminHomeState extends State<AdminHome> {
         // Navigate to the containers page
         Navigator.pushNamed(context, GestionConteneurs.routeName);
         break;
-      case 3:
-        // Navigate to the employees page
-        Navigator.pushNamed(context, GestionEmployee.routeName);
-        break;
+
       case 4:
         // Navigate to the profile page
         Navigator.pushNamed(context, Profile.routeName);
@@ -48,6 +50,42 @@ class _AdminHomeState extends State<AdminHome> {
 
   @override
   Widget build(BuildContext context) {
+    Future<employe> getUser(String email) async {
+      final String url =
+          Platform.isAndroid ? 'http://10.0.2.2:8000' : 'http://127.0.0.1:8000';
+      var response =
+          await http.get(Uri.parse(url + '/api/utilisateur/' + email));
+
+      // Parse the JSON response
+      var data = json.decode(response.body);
+      employe user = new employe(
+          data['ID'],
+          data['Nom'],
+          data['Prenom'],
+          data['Role'],
+          data['Adresse'],
+          data['tel'],
+          data['E-mail'],
+          data['MotPass']);
+
+      return user;
+    }
+
+    final user = FirebaseAuth.instance.currentUser;
+    Future<employe> utilisateur = getUser(user!.email!);
+
+    // When the data is available, print it.
+    utilisateur.then((employe) {
+      print('ID: ${employe.ID}');
+      print('Nom: ${employe.Nom}');
+      print('Prenom: ${employe.Prenom}');
+      print('Role: ${employe.Role}');
+      print('Adresse: ${employe.Adresse}');
+      print('tel: ${employe.tel}');
+      print('Email: ${employe.Email}');
+      print('Password: ${employe.Password}');
+    });
+
     return Scaffold(
       backgroundColor: Color(0xFFEAF6F6),
       body: Center(
@@ -100,13 +138,7 @@ class _AdminHomeState extends State<AdminHome> {
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GestionEmployee()),
-                      );
-                    },
+                    onPressed: () {},
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

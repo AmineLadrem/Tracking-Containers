@@ -1,20 +1,13 @@
 class employe {
-  int? EmployeID;
+  int? ID;
   String? Nom;
   String? Prenom;
   String? Role;
   String? Adresse;
   String? Email;
   String? Password;
-  String? Phone;
+  int? tel;
 
-  employe(this.EmployeID, this.Nom, this.Prenom, this.Role, this.Adresse,
+  employe(this.ID, this.Nom, this.Prenom, this.Role, this.Adresse, this.tel,
       this.Email, this.Password);
-
-  static List<employe> employees = [
-    employe(
-        1, 'hello', 'world', 'Admin', 'Alger', 'awpxrr@gmail.com', 'moha2002'),
-    employe(3, 'world', 'hello', 'Pointeur', 'Alger', 'awpxrr@gmail.com',
-        'moha2002')
-  ];
 }

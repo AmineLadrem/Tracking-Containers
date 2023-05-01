@@ -1,10 +1,9 @@
 import 'package:epal/Pages/GestionConteneurs.dart';
-import 'package:epal/modules/modules.dart';
-import 'package:epal/Pages/GestionEmployee.dart';
+
 import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
-import 'package:epal/pages/admin_home.dart';
+import 'package:epal/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -49,10 +48,7 @@ class _RechercheModuleState extends State<RechercheModule> {
         // Navigate to the containers page
         Navigator.pushNamed(context, GestionConteneurs.routeName);
         break;
-      case 3:
-        // Navigate to the employees page
-        Navigator.pushNamed(context, GestionEmployee.routeName);
-        break;
+
       case 4:
         // Navigate to the profile page
         Navigator.pushNamed(context, Profile.routeName);

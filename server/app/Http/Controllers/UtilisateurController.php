@@ -16,6 +16,16 @@ class UtilisateurController extends Controller
         return response($utilisateur,200);
     }
 
+    public function getUserRoleByEmail($email)
+{
+    $user = utilisateur::where('E-mail', $email)->first();
+    if ($user) {
+        return $user;
+    } else {
+        return 'User not found';
+    }
+}
+
     /**
      * Store a newly created resource in storage.
      */

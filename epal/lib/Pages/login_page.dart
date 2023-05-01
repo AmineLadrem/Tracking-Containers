@@ -1,5 +1,5 @@
 import 'package:epal/constants/style.dart';
-import 'package:epal/pages/admin_home.dart';
+import 'package:epal/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
         email: emailController.text.trim(),
         password: PasswordController.text.trim(),
       );
-      // If sign-in was successful, navigate to the home page
+
       Navigator.pushNamed(context, AdminHome.routeName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

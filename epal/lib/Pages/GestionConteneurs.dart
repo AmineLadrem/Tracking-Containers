@@ -1,13 +1,8 @@
-import 'package:epal/Pages/AjoutConteneur.dart';
-import 'package:epal/Pages/ConsulterLocalisation.dart';
-import 'package:epal/Pages/GestionEmployee.dart';
 import 'package:epal/Pages/GestionModules.dart';
-import 'package:epal/Pages/ModifierConteneur.dart';
 import 'package:epal/Pages/RechercheConteneur.dart';
-import 'package:epal/Pages/SupprimerConteneur.dart';
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
-import 'package:epal/pages/admin_home.dart';
+import 'package:epal/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -39,10 +34,6 @@ class _GestionConteneursState extends State<GestionConteneurs> {
       case 2:
         // Navigate to the containers page
         Navigator.pushNamed(context, GestionConteneurs.routeName);
-        break;
-      case 3:
-        // Navigate to the employees page
-        Navigator.pushNamed(context, GestionEmployee.routeName);
         break;
       case 4:
         // Navigate to the profile page
@@ -84,13 +75,7 @@ class _GestionConteneursState extends State<GestionConteneurs> {
                         ),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AjoutConteneur()),
-                      );
-                    },
+                    onPressed: () {},
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -180,13 +165,7 @@ class _GestionConteneursState extends State<GestionConteneurs> {
                         ),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ConsulterLocalisation()),
-                      );
-                    },
+                    onPressed: () {},
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

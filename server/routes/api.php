@@ -36,7 +36,7 @@ Route::put('/cars/{id}',[CarsController::class, 'update']);
 Route::delete('/cars/{id}',[CarsController::class, 'destroy']);
 
 Route::get('/utilisateur',[UtilisateurController::class, 'index']);
-
+Route::get('/utilisateur/{email}', [UtilisateurController::class, 'getUserRoleByEmail']);
 Route::get('/modulesuivis',[ModulesuiviController::class, 'index']);
 Route::post('/modulesuivis',[ModulesuiviController::class, 'store']);
 Route::get('/modulesuivis/{id}',[ModulesuiviController::class, 'show']);
