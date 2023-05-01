@@ -1,3 +1,4 @@
+import 'package:epal/constants/style.dart';
 import 'package:epal/pages/admin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,10 +48,6 @@ class _LoginPageState extends State<LoginPage> {
             child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SizedBox(
-                height: 40.0,
-                width: 450,
-              ),
               Image.asset("assets/epal.png", width: 184, height: 140),
               Image.asset("assets/navire.png", width: 321, height: 397),
               //2 inputs for username and password
@@ -59,8 +56,33 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextField(
                   controller: emailController,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Identifiant',
+                    filled: true,
+                    fillColor: light,
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    labelText: 'E-mail',
+                    labelStyle: TextStyle(
+                      color: dark,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                    hintText: 'E-mail',
+                    hintStyle: TextStyle(
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    prefixIcon: Icon(Icons.email, color: dark),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        PasswordController.clear();
+                      },
+                      icon: Icon(Icons.clear, color: Colors.red),
+                    ),
                   ),
                 ),
               ),
@@ -70,12 +92,37 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 300,
                 child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: light,
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    labelText: 'Mot de passe',
+                    labelStyle: TextStyle(
+                      color: dark,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                    hintText: 'Mot de passe',
+                    hintStyle: TextStyle(
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    prefixIcon: Icon(Icons.lock_open, color: dark),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        PasswordController.clear();
+                      },
+                      icon: Icon(Icons.clear, color: Colors.red),
+                    ),
+                  ),
                   controller: PasswordController,
                   obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Mot de passe',
-                  ),
                 ),
               ),
               SizedBox(
@@ -90,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                   ),
-                  icon: Icon(Icons.login_rounded, color: Colors.black),
+                  icon: Icon(Icons.login_rounded, color: dark),
                   label: Text(
                     'Se connecter',
                     style: TextStyle(
@@ -101,13 +148,27 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.grey,
                         ),
                       ],
-                      color: Colors.black,
+                      color: dark,
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    print('object');
+                  },
+                  child: Text(
+                    'Mot de passe oublié?',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ), //Forget password
+              )
             ],
           ),
         )),
