@@ -1,27 +1,13 @@
 -create an emulator as a tracking module
 
 
-
-
-
-
-
-
 ---------------------------------TO DO--------------------
  - Check old nd new with confirm pw
  - to get directions , use google maps , location we use the app
 -itineraire from parc to parc ( easiest one )
 
-Directions :
-   Debarquement----->Stockage
-   Stockage---------->Visite
-   Visite-------->Livraison
-   
-  
-   Stockage------>Visite
-   Visite-------->Embarquement
-
-
 
    ------
    ki nkmlo deplacement de conteneur , nhet une position win conteneur ykon dakhel parc
+
+   -Web login page : check if the user is an admin or not

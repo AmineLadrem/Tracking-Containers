@@ -1,6 +1,3 @@
-import 'package:epal/Pages/GestionConteneurs.dart';
-
-import 'package:epal/Pages/GestionModules.dart';
 import 'package:epal/icons.dart';
 import 'package:epal/pages/home.dart';
 import 'package:epal/pages/login_page.dart';
@@ -28,14 +25,7 @@ class _ProfileState extends State<Profile> {
         // Navigate to the home page
         Navigator.pushNamed(context, AdminHome.routeName);
         break;
-      case 1:
-        // Navigate to the search page
-        Navigator.pushNamed(context, GestionModules.routeName);
-        break;
-      case 2:
-        // Navigate to the containers page
-        Navigator.pushNamed(context, GestionConteneurs.routeName);
-        break;
+
       case 4:
         // Navigate to the profile page
         Navigator.pushNamed(context, Profile.routeName);
