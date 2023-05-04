@@ -1,7 +1,11 @@
 import 'package:epal/constants/style.dart';
 import 'package:epal/pages/home.dart';
+import 'package:epal/pointeur_pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   static const String routeName = '/login';
@@ -21,7 +25,15 @@ class _LoginPageState extends State<LoginPage> {
         password: PasswordController.text.trim(),
       );
 
-      Navigator.pushNamed(context, AdminHome.routeName);
+      final String url =
+          Platform.isAndroid ? 'http://10.0.2.2:8000' : 'http://127.0.0.1:8000';
+      var response = await http.get(
+          Uri.parse(url + '/api/utilisateur/' + emailController.text.trim()));
+      var user = json.decode(response.body);
+      if (user['Role'] == 'pointeur')
+        Navigator.pushNamed(context, PointeurHome.routeName);
+      else
+        Navigator.pushNamed(context, AdminHome.routeName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

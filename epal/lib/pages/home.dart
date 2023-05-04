@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:epal/helpers/database.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:sqflite/sqflite.dart';
 import 'package:epal/helpers/bottom_nav.dart';
 
 import 'package:epal/Pages/profile.dart';
@@ -47,20 +47,15 @@ class _AdminHomeState extends State<AdminHome> {
     List<bool> _visible = [true, true, true, true, true];
 
     // Define the getUser function as async
-    Future<String> getUser(String email) {
+    Future<String> getUser(String email) async {
       final String url =
           Platform.isAndroid ? 'http://10.0.2.2:8000' : 'http://127.0.0.1:8000';
-      return http
-          .get(Uri.parse(url + '/api/utilisateur/' + email))
-          .then((response) => json.decode(response.body)['Role']);
+      var response =
+          await http.get(Uri.parse(url + '/api/utilisateur/' + email));
+      var user = json.decode(response.body);
+      print(user);
+      return user;
     }
-
-    String? userRole;
-    getUser(user!.email!).then((role) {
-      userRole = role;
-      DatabaseHelper.instance.saveUserRole(userRole!);
-      print(userRole);
-    });
 
     return Scaffold(
       backgroundColor: Color(0xFFEAF6F6),
