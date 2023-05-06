@@ -15,7 +15,7 @@ class Conteneurs extends StatefulWidget {
 class _ConteneursState extends State<Conteneurs> {
   final _searchController = TextEditingController();
   Future<List<dynamic>> fetchConteneurs() async {
-    final apiUrl = 'http://10.0.2.2:8000/api/conteneur';
+    final apiUrl = 'http://192.168.1.100:8000/api/conteneur';
     final response = await http.get(Uri.parse(apiUrl));
     final conteneurList = <dynamic>[];
     final conteneurData = json.decode(response.body);
@@ -33,10 +33,11 @@ class _ConteneursState extends State<Conteneurs> {
   }
 
   Future<void> getPosition(int id) async {
-    var response = await http.get(
-        Uri.parse('http://10.0.2.2:8000/api/modulesuivis/' + id.toString()));
+    var response = await http.get(Uri.parse(
+        'http://192.168.1.100:8000/api/modulesuivis/' + id.toString()));
     var container = await http.get(Uri.parse(
-        'http://10.0.2.2:8000/api/conteneur/modulesuivi/' + id.toString()));
+        'http://192.168.1.100:8000/api/conteneur/modulesuivi/' +
+            id.toString()));
 
     // Parse the JSON response
     var data = json.decode(response.body);
@@ -421,9 +422,7 @@ class _ConteneursState extends State<Conteneurs> {
                                               actions: [
                                                 TextButton(
                                                   onPressed: () {
-                                                    getPosition(
-                                                        _foundConteneurs[index]
-                                                            ['ModNum']);
+                                                    Navigator.of(context).pop();
                                                   },
                                                   child: Text('Fermer'),
                                                 ),

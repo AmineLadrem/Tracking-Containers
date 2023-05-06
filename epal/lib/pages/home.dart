@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:epal/helpers/database.dart';
 import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
-import 'package:epal/helpers/bottom_nav.dart';
 
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
@@ -140,11 +139,6 @@ class _AdminHomeState extends State<AdminHome> {
             SizedBox(height: 16),
           ]),
         )),
-      ),
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-        visible: _visible, // Set visible items
       ),
     );
   }

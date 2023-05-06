@@ -25,8 +25,9 @@ class _LoginPageState extends State<LoginPage> {
         password: PasswordController.text.trim(),
       );
 
-      final String url =
-          Platform.isAndroid ? 'http://10.0.2.2:8000' : 'http://0.0.0.0:8000';
+      final String url = Platform.isAndroid
+          ? 'http://192.168.1.100:8000'
+          : 'http://0.0.0.0:8000';
       var response = await http.get(
           Uri.parse(url + '/api/utilisateur/' + emailController.text.trim()));
       var user = json.decode(response.body);

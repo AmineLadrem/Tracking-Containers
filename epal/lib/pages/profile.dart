@@ -14,7 +14,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final user = FirebaseAuth.instance.currentUser!;
   Future<http.Response> fetchUser(String email) {
-    return http.get(Uri.parse('http://10.0.2.2:8000/api/utilisateur/$email'));
+    return http
+        .get(Uri.parse('http://192.168.1.100:8000/api/utilisateur/$email'));
   }
 
   @override
