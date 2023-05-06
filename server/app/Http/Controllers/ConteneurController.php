@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\conteneur;
+use App\Models\modulesuivi;
 use Illuminate\Http\Request;
 
 class ConteneurController extends Controller
@@ -54,6 +55,12 @@ class ConteneurController extends Controller
     public function show(conteneur $conteneur)
     {
         //
+    }
+
+    public function function1($id)
+    {
+        $conteneur = Conteneur::where('ModNum',$id)->first();
+        return $conteneur;
     }
 
     /**

@@ -40,6 +40,11 @@ dependencies:
   flutter_background_service_android: ^3.0.3
   http: ^0.13.5
   device_info_plus: ^8.2.1
+  google_maps_flutter: ^2.2.5
+  google_maps_utils: ^1.5.0+0
+  firebase_database: ^10.1.2
+  firebase_core: ^2.11.0
+  baseflow_plugin_template: ^2.1.1
 
 dev_dependencies:
   flutter_test:

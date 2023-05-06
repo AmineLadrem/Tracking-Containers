@@ -44,6 +44,7 @@ Route::get('/modulesuivis/{id}',[ModulesuiviController::class, 'show']);
 Route::get('/admin/{id}',[AdminController::class, 'show']);
 
 Route::get('/conteneur',[ConteneurController::class, 'index']);
+Route::get('/conteneur/modulesuivi/{id}',[ConteneurController::class, 'function1']);
 Route::post('/conteneur',[ConteneurController::class, 'store']);
 
 

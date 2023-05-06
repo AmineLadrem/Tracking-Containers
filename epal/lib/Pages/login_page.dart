@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       final String url =
-          Platform.isAndroid ? 'http://10.0.2.2:8000' : 'http://127.0.0.1:8000';
+          Platform.isAndroid ? 'http://10.0.2.2:8000' : 'http://0.0.0.0:8000';
       var response = await http.get(
           Uri.parse(url + '/api/utilisateur/' + emailController.text.trim()));
       var user = json.decode(response.body);
@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushNamed(context, PointeurHome.routeName);
       else
         Navigator.pushNamed(context, AdminHome.routeName);
+      print('Login successfull');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -91,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: Icon(Icons.email, color: dark),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        PasswordController.clear();
+                        emailController.clear();
                       },
                       icon: Icon(Icons.clear, color: Colors.red),
                     ),

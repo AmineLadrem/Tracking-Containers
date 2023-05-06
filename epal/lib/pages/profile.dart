@@ -1,4 +1,4 @@
-import 'package:epal/constants/style.dart';
+import 'package:epal/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -13,8 +13,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final user = FirebaseAuth.instance.currentUser!;
-  Future<http.Response> fetchAdmin(int id) {
-    return http.get(Uri.parse('http://10.0.2.2:8000/api/admin/$id'));
+  Future<http.Response> fetchUser(String email) {
+    return http.get(Uri.parse('http://10.0.2.2:8000/api/utilisateur/$email'));
   }
 
   @override
@@ -24,12 +24,12 @@ class _ProfileState extends State<Profile> {
       child: Row(
         children: [
           FutureBuilder<http.Response>(
-            future: fetchAdmin(6),
+            future: fetchUser(user.email!),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                final admin = jsonDecode(snapshot.data!.body);
+                final utilisateur = jsonDecode(snapshot.data!.body);
                 return Padding(
-                  padding: const EdgeInsets.only(top: 70.0),
+                  padding: const EdgeInsets.only(top: 100.0),
                   child: Column(children: <Widget>[
                     Container(
                       child: Stack(
@@ -89,7 +89,7 @@ class _ProfileState extends State<Profile> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: '2002',
+                                            text: utilisateur['ID'].toString(),
                                           ),
                                         ],
                                       ),
@@ -111,7 +111,7 @@ class _ProfileState extends State<Profile> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: 'Ladrem',
+                                            text: utilisateur['Nom'],
                                           ),
                                         ],
                                       ),
@@ -133,7 +133,7 @@ class _ProfileState extends State<Profile> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: 'Amine',
+                                            text: utilisateur['Prenom'],
                                           ),
                                         ],
                                       ),
@@ -155,7 +155,7 @@ class _ProfileState extends State<Profile> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: 'ksh haja wla haja',
+                                            text: utilisateur['Role'],
                                           ),
                                         ],
                                       ),
@@ -177,7 +177,7 @@ class _ProfileState extends State<Profile> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: 'ksh haja',
+                                            text: utilisateur['Adresse'],
                                           ),
                                         ],
                                       ),
@@ -199,7 +199,7 @@ class _ProfileState extends State<Profile> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: user!.email!,
+                                            text: user.email!,
                                           ),
                                         ],
                                       ),
@@ -221,7 +221,7 @@ class _ProfileState extends State<Profile> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: '+213xxxxxx',
+                                            text: utilisateur['tel'].toString(),
                                           ),
                                         ],
                                       ),
@@ -237,25 +237,26 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: 'Shift-Curret: ',
+                                            text: 'Shift-Current: ',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           TextSpan(
-                                            text: 'Nuit',
+                                            text: utilisateur['Shift'],
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  Center(
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5.0),
                                     child: ElevatedButton(
                                       onPressed: () {},
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Color(0xFF8FABFE)),
+                                                Color(0xFF80CFCC)),
                                         shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
@@ -264,14 +265,65 @@ class _ProfileState extends State<Profile> {
                                           ),
                                         ),
                                       ),
-                                      child: Text(
-                                        '  Se déconnecter  ',
-                                        style: TextStyle(
-                                          fontFamily: 'Urbanist',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.0,
-                                          color: Colors.white,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            '  Changer le mot de passe ',
+                                            style: TextStyle(
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 37.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        FirebaseAuth.instance.signOut();
+                                        Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          LoginPage.routeName,
+                                          (_) =>
+                                              false, // Remove all routes except the login page
+                                        );
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Color(0xFF80CFCC)),
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
                                         ),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.logout,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            '  Se déconnecter  ',
+                                            style: TextStyle(
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -298,11 +350,14 @@ class _ProfileState extends State<Profile> {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                return Center(
+                return Padding(
+                  padding: const EdgeInsets.only(left: 120.0),
                   child: Container(
                     width: 30,
                     height: 30,
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: Color(0xFF80CFCC),
+                    ),
                   ),
                 );
               }

@@ -1,56 +1,56 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:tracker/back_services.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await initializeSerive();
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  MyApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-  @override
-  void initState() {
-    super.initState();
-    initializeSerive();
-  }
-
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                FlutterBackgroundService().invoke('setAsForeground');
-              },
-              child: const Text('Foreground'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                FlutterBackgroundService().invoke('setAsBackground');
-              },
-              child: const Text('Background'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                FlutterBackgroundService().invoke('stopService');
-              },
-              child: const Text('Stop'),
-            ),
-          ],
-        )),
+        appBar: AppBar(title: Text('Geolocator Example')),
+        body: Center(child: GeolocatorWidget()),
       ),
     );
+  }
+}
+
+class GeolocatorWidget extends StatefulWidget {
+  const GeolocatorWidget({Key? key}) : super(key: key);
+
+  @override
+  _GeolocatorWidgetState createState() => _GeolocatorWidgetState();
+}
+
+class _GeolocatorWidgetState extends State<GeolocatorWidget> {
+  late StreamSubscription<Position> _positionStreamSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _positionStreamSubscription =
+        Geolocator.getPositionStream().listen((position) async {
+      print('Location update: ${position.latitude}, ${position.longitude}');
+      String data =
+          "{\"latitude\":${position.latitude},\"longitude\":${position.longitude}}";
+
+      String url =
+          'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/2.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH';
+      http.Response response = await http.patch(Uri.parse(url), body: data);
+      print('Response status: ${response.statusCode}');
+    });
+  }
+
+  @override
+  void dispose() {
+    _positionStreamSubscription.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
   }
 }

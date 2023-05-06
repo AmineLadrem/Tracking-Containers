@@ -1,3 +1,5 @@
+import 'package:epal/icons.dart';
+import 'package:epal/pointeur_pages/conteneurs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -23,27 +25,21 @@ class _PointeurHomeState extends State<PointeurHome> {
         child: SingleChildScrollView(
             child: Column(children: [
           SizedBox(
-            height: 10.0,
+            height: 20.0,
             width: 350,
           ),
           Image.asset("assets/epal.png", width: 164, height: 120),
           Container(
-            height: 570,
+            height: 558,
             child: _selectedIndex == 0
                 ? Container(
                     color: Colors.red,
                   )
                 : _selectedIndex == 1
-                    ? Container(
-                        color: Colors.blue,
-                      )
+                    ? Conteneurs()
                     : _selectedIndex == 2
-                        ? Container(
-                            color: Colors.green,
-                          )
-                        : _selectedIndex == 3
-                            ? Profile()
-                            : Container(),
+                        ? Profile()
+                        : Container(),
           ),
           Container(
             height: 60,
@@ -54,7 +50,7 @@ class _PointeurHomeState extends State<PointeurHome> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(children: [
-                SizedBox(width: 10),
+                SizedBox(width: 50),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF80CFCC),
@@ -102,14 +98,14 @@ class _PointeurHomeState extends State<PointeurHome> {
                   },
                   child: Container(
                     height: 41,
-                    width: 71,
+                    width: 80,
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.transform_outlined),
+                          Icon(MyFlutterApp.container),
                           SizedBox(width: 2),
-                          Text(' Demandes',
+                          Text(' Conteneurs',
                               style: TextStyle(
                                   fontFamily: 'Urbanist',
                                   fontWeight: FontWeight.bold)),
@@ -130,38 +126,6 @@ class _PointeurHomeState extends State<PointeurHome> {
                   onPressed: () {
                     setState(() {
                       _selectedIndex = 2;
-                    });
-                  },
-                  child: Container(
-                    height: 41,
-                    width: 71,
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.compare_arrows),
-                          SizedBox(width: 2),
-                          Text(' Deplacer',
-                              style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontWeight: FontWeight.bold)),
-                          SizedBox(width: 6),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF80CFCC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 3;
                     });
                   },
                   child: Container(
