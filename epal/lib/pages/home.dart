@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:epal/helpers/database.dart';
 import 'package:http/http.dart' as http;
+<<<<<<< Updated upstream
 import 'package:sqflite/sqflite.dart';
+=======
+
+import 'package:epal/helpers/bottom_nav.dart';
+>>>>>>> Stashed changes
 
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';
@@ -42,7 +46,6 @@ class _AdminHomeState extends State<AdminHome> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
     List<bool> _visible = [true, true, true, true, true];
 
     // Define the getUser function as async
