@@ -1,10 +1,12 @@
 import 'package:epal/constants/style.dart';
+import 'package:epal/helpers/ipAddresses.dart';
 import 'package:epal/pages/home.dart';
 import 'package:epal/pointeur_pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 import 'dart:io';
+import 'package:epal/helpers/ipAddresses.dart' as listIpAddresses;
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -25,9 +27,10 @@ class _LoginPageState extends State<LoginPage> {
         password: PasswordController.text.trim(),
       );
 
-      final String url = Platform.isAndroid
-          ? 'http://192.168.1.100:8000'
-          : 'http://0.0.0.0:8000';
+      String url;
+
+      url = Platform.isAndroid ? usedIPAddress : 'http://0.0.0.0:8000';
+
       var response = await http.get(
           Uri.parse(url + '/api/utilisateur/' + emailController.text.trim()));
       var user = json.decode(response.body);

@@ -41,6 +41,9 @@ class _PointeurHomeState extends State<PointeurHome> {
                         ? Profile()
                         : Container(),
           ),
+          SizedBox(
+            height: 41,
+          ),
           Container(
             height: 60,
             width: 600,
@@ -50,7 +53,7 @@ class _PointeurHomeState extends State<PointeurHome> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(children: [
-                SizedBox(width: 50),
+                SizedBox(width: 57),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF80CFCC),
@@ -83,7 +86,7 @@ class _PointeurHomeState extends State<PointeurHome> {
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF80CFCC),
@@ -115,7 +118,7 @@ class _PointeurHomeState extends State<PointeurHome> {
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF80CFCC),

@@ -11,3 +11,4 @@
    ki nkmlo deplacement de conteneur , nhet une position win conteneur ykon dakhel parc
 
    -Web login page : check if the user is an admin or not
+   -refresh map every 1 sec ( live tracking)

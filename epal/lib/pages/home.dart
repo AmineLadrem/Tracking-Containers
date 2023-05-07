@@ -2,12 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-<<<<<<< Updated upstream
-import 'package:sqflite/sqflite.dart';
-=======
-
-import 'package:epal/helpers/bottom_nav.dart';
->>>>>>> Stashed changes
 
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/icons.dart';

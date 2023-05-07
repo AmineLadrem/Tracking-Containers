@@ -188,7 +188,7 @@ class _RealTimeState extends State<RealTime> {
           Image.asset("assets/epal.png", width: 164, height: 120),
           Container(
             height: 558,
-            width: 400,
+            width: 500,
             child: GoogleMap(
               polygons: Set<Polygon>.of(mylist),
               mapType: MapType.normal,
@@ -207,9 +207,10 @@ class _RealTimeState extends State<RealTime> {
                   : {},
             ),
           ),
+          SizedBox(height: 20.0),
           Container(
             height: 60,
-            width: 380,
+            width: 400,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.black,
@@ -220,7 +221,7 @@ class _RealTimeState extends State<RealTime> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(children: [
-                SizedBox(width: 20.0),
+                SizedBox(width: 30.0),
                 Column(
                   children: [
                     SizedBox(height: 10.0),
@@ -264,7 +265,10 @@ class _RealTimeState extends State<RealTime> {
                                 fontSize: 15.0,
                                 fontFamily: 'Urbanist')),
                         SizedBox(height: 5.0),
-                        Text(_currentLocation!.latitude.toString(),
+                        Text(
+                            _currentLocation != null
+                                ? _currentLocation!.latitude.toString()
+                                : '',
                             style: TextStyle(fontFamily: 'Urbanist')),
                       ],
                     ),
@@ -277,7 +281,10 @@ class _RealTimeState extends State<RealTime> {
                                 fontSize: 15.0,
                                 fontFamily: 'Urbanist')),
                         SizedBox(height: 5.0),
-                        Text(_currentLocation!.longitude.toString(),
+                        Text(
+                            _currentLocation != null
+                                ? _currentLocation!.longitude.toString()
+                                : '',
                             style: TextStyle(fontFamily: 'Urbanist')),
                       ],
                     ),

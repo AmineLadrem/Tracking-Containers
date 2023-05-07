@@ -1,3 +1,4 @@
+import 'package:epal/helpers/ipAddresses.dart';
 import 'package:epal/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final user = FirebaseAuth.instance.currentUser!;
   Future<http.Response> fetchUser(String email) {
-    return http
-        .get(Uri.parse('http://192.168.1.100:8000/api/utilisateur/$email'));
+    return http.get(Uri.parse(usedIPAddress + '/api/utilisateur/$email'));
   }
 
   @override
