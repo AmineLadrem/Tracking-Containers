@@ -201,7 +201,7 @@ class _RealTimeState extends State<RealTime> {
                       Marker(
                         markerId: MarkerId('current_location'),
                         position: _currentLocation ?? LatLng(0, 0),
-                        infoWindow: InfoWindow(title: 'Current Location'),
+                        infoWindow: InfoWindow(title: _Cont_ID),
                       )
                     }
                   : {},
