@@ -13,3 +13,4 @@ server/composer.lock
 server/composer.lock
 server/.env.example
 epal/macos/Flutter/GeneratedPluginRegistrant.swift
+epal/lib/helpers/ipAddresses.dart
