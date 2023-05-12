@@ -39,7 +39,7 @@ class _RealTimeState extends State<RealTime> {
   Completer<GoogleMapController> _controller = Completer();
   CameraPosition _initialCameraPosition = CameraPosition(
     target: LatLng(36.7596037, 3.07286),
-    zoom: 15,
+    zoom: 16,
   );
   late Timer _timer;
   LatLng? _currentLocation;
@@ -75,7 +75,7 @@ class _RealTimeState extends State<RealTime> {
 
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
   final user = FirebaseAuth.instance.currentUser;
-
+  bool _isMapTypeNormal = false;
   @override
   Widget build(BuildContext context) {
     var point = Point(_PositionX, _PositionY);
@@ -171,10 +171,6 @@ class _RealTimeState extends State<RealTime> {
         parc = 'Parc 6';
       }
     }
-    String getMarkerText(String zone, String parc) {
-      String text = 'Zone : $zone\nParc : $parc\nHauteur : $_PositionH ';
-      return text;
-    }
 
     return Scaffold(
       backgroundColor: Color(0xFFEAF6F6),
@@ -185,29 +181,82 @@ class _RealTimeState extends State<RealTime> {
             height: 20.0,
             width: 350,
           ),
-          Image.asset("assets/epal.png", width: 164, height: 120),
-          Container(
-            height: 558,
-            width: 500,
-            child: GoogleMap(
-              polygons: Set<Polygon>.of(mylist),
-              mapType: MapType.normal,
-              initialCameraPosition: _initialCameraPosition,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              markers: _currentLocation != null
-                  ? {
-                      Marker(
-                        markerId: MarkerId('current_location'),
-                        position: _currentLocation ?? LatLng(0, 0),
-                        infoWindow: InfoWindow(title: _Cont_ID),
-                      )
-                    }
-                  : {},
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 70.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xFF80CFCC)),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(
+                        context); // Navigate to the previous interface
+                  },
+                  child: Container(
+                    child: Icon(Icons.arrow_back_rounded),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 85,
+              ),
+              Image.asset("assets/epal.png", width: 164, height: 120),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Container(
+                height: 550,
+                width: 500,
+                child: GoogleMap(
+                  polygons: Set<Polygon>.of(mylist),
+                  mapType: _isMapTypeNormal ? MapType.normal : MapType.hybrid,
+                  initialCameraPosition: _initialCameraPosition,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  markers: _currentLocation != null
+                      ? {
+                          Marker(
+                            markerId: MarkerId('current_location'),
+                            position: _currentLocation ?? LatLng(0, 0),
+                            infoWindow: InfoWindow(title: _Cont_ID),
+                          )
+                        }
+                      : {},
+                ),
+              ),
             ),
           ),
-          SizedBox(height: 20.0),
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Color(0xFF80CFCC)),
+            ),
+            child: Container(
+              width: 160,
+              height: 20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.sync_alt_outlined, color: Colors.white),
+                  Text(_isMapTypeNormal
+                      ? 'Switch to Hybrid'
+                      : 'Switch to Normal'),
+                  Icon(Icons.sync_alt_outlined, color: Colors.white),
+                ],
+              ),
+            ),
+            onPressed: () {
+              setState(() {
+                _isMapTypeNormal = !_isMapTypeNormal;
+              });
+            },
+          ),
           Container(
             height: 60,
             width: 400,
@@ -223,10 +272,13 @@ class _RealTimeState extends State<RealTime> {
               child: Row(children: [
                 SizedBox(width: 30.0),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 10.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Zone:',
                             style: TextStyle(
@@ -255,6 +307,8 @@ class _RealTimeState extends State<RealTime> {
                 Icon(Icons.my_location),
                 SizedBox(width: 30.0),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,

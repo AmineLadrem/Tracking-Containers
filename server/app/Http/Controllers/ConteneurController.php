@@ -63,6 +63,14 @@ class ConteneurController extends Controller
         return $conteneur;
     }
 
+    public function function2($numParc)
+    {
+        $conteneurs = Conteneur::where('NumParc', $numParc)->get();
+
+        return response()->json($conteneurs);
+    }
+
+
     /**
      * Update the specified resource in storage.
      */

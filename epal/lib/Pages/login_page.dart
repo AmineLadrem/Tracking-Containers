@@ -1,3 +1,4 @@
+import 'package:epal/chef_pages/home.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
 import 'package:epal/pages/home.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:epal/helpers/ipAddresses.dart' as listIpAddresses;
+
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -36,6 +37,8 @@ class _LoginPageState extends State<LoginPage> {
       var user = json.decode(response.body);
       if (user['Role'] == 'pointeur')
         Navigator.pushNamed(context, PointeurHome.routeName);
+      else if (user['Role'] == 'chef_de_parc')
+        Navigator.pushNamed(context, ChefHome.routeName);
       else
         Navigator.pushNamed(context, AdminHome.routeName);
       print('Login successfull');
