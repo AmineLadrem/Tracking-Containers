@@ -1,5 +1,6 @@
 import 'package:epal/icons.dart';
 import 'package:epal/pointeur_pages/conteneurs.dart';
+import 'package:epal/pointeur_pages/lien.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -38,8 +39,10 @@ class _PointeurHomeState extends State<PointeurHome> {
                 : _selectedIndex == 1
                     ? Conteneurs()
                     : _selectedIndex == 2
-                        ? Profile()
-                        : Container(),
+                        ? Lien()
+                        : _selectedIndex == 3
+                            ? Profile()
+                            : Container(),
           ),
           SizedBox(
             height: 41,
@@ -53,7 +56,7 @@ class _PointeurHomeState extends State<PointeurHome> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(children: [
-                SizedBox(width: 57),
+                SizedBox(width: 16),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF80CFCC),
@@ -86,7 +89,7 @@ class _PointeurHomeState extends State<PointeurHome> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF80CFCC),
@@ -118,7 +121,7 @@ class _PointeurHomeState extends State<PointeurHome> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF80CFCC),
@@ -129,6 +132,39 @@ class _PointeurHomeState extends State<PointeurHome> {
                   onPressed: () {
                     setState(() {
                       _selectedIndex = 2;
+                    });
+                  },
+                  child: Container(
+                    height: 41,
+                    width: 82,
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.swap_horiz_outlined),
+                          SizedBox(width: 2),
+                          Text(' Dé/Attacher',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontWeight: FontWeight.bold,
+                              )),
+                          SizedBox(width: 6),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF80CFCC),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 3;
                     });
                   },
                   child: Container(

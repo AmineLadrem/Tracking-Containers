@@ -70,6 +70,41 @@ class ConteneurController extends Controller
         return response()->json($conteneurs);
     }
 
+    
+    public function function3(string $cont_id,$mod_num)
+    {
+        $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>$mod_num]);
+
+        if ($affectedRows > 0) {
+            return response()->json([
+                'success' => true,
+                'message' => 'ModNum updated successfully'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update ModNum'
+            ]);
+        }
+    }
+
+    public function function4(string $cont_id)
+    {
+        $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0]);
+
+        if ($affectedRows > 0) {
+            return response()->json([
+                'success' => true,
+                'message' => 'ModNum updated successfully'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update ModNum'
+            ]);
+        }
+    }
+
 
     /**
      * Update the specified resource in storage.
