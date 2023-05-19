@@ -11,7 +11,7 @@ final List<String> LydiaIPAddresses = [
   'http://41.220.148.201:8000'
 ];
 
-final String usedIPAddress = ipAddresses[3];
+final String usedIPAddress = ipAddresses[1];
 
 //final String usedIPAddress = LydiaIPAddresses[0]; // works with real device
 //final String usedIPAddress = LydiaIPAddresses[1]; // works with real device

@@ -14,3 +14,4 @@
    -refresh map every 1 sec ( live tracking)
    -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)
    -ki nzido conteneur , we have to check numero ta3 parc so we can know ama zone rana + his status
+   -we remove module input f add container admin

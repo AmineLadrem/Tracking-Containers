@@ -44,6 +44,8 @@ Route::get('/modulesuivis/{id}',[ModulesuiviController::class, 'show']);
 Route::get('/cdp',[ChefDeParcController::class, 'index']);
 Route::get('/cdp/{id}',[ChefDeParcController::class, 'show']);
 
+Route::get('/parcs',[ParcController::class, 'index']);
+
 Route::get('/admin/{id}',[AdminController::class, 'show']);
 
 Route::get('/conteneur',[ConteneurController::class, 'index']);
