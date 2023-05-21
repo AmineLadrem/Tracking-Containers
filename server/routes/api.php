@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CarsController;
 use App\Http\Controllers\ConteneurController;
+use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\DebarquementController;
 use App\Http\Controllers\DeplacementController;
 use App\Http\Controllers\EmbarquementController;
@@ -54,6 +55,11 @@ Route::get('/conteneur/numparc/{id}',[ConteneurController::class, 'function2']);
 Route::put('conteneurs/{conteneur}/{modNum}', [ConteneurController::class, 'function3']);
 Route::put('conteneurs/{conteneur}', [ConteneurController::class, 'function4']);
 Route::post('/conteneur',[ConteneurController::class, 'store']);
+
+Route::post('/demande',[DemandeController::class, 'store']);
+Route::get('/demandes',[DemandeController::class, 'index']);
+Route::get('/demandes/{cdp}',[DemandeController::class, 'function1']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

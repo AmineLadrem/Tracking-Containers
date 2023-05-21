@@ -33,7 +33,7 @@ class _ConteneursState extends State<Conteneurs> {
     return conteneurList;
   }
 
-  Future<void> getPosition(int id) async {
+  Future<void> getPosition(String id) async {
     var response = await http
         .get(Uri.parse(usedIPAddress + '/api/modulesuivis/' + id.toString()));
     var container = await http.get(Uri.parse(
@@ -47,8 +47,7 @@ class _ConteneursState extends State<Conteneurs> {
       context,
       MaterialPageRoute(
         builder: (context) => RealTime(
-          Cont_ID: data2['Cont_ID'],
-          ModNum: data['ModNum'].toString(),
+          Cont_ID: data2['Cont_ID'].toString(),
           PositionX: double.parse(data['PositionX'].toString()),
           PositionY: double.parse(data['PositionY'].toString()),
           PositionH: double.parse(data['PositionH'].toString()),

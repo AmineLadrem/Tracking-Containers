@@ -12,7 +12,6 @@ import '../constants/points.dart';
 
 class RealTime extends StatefulWidget {
   final String Cont_ID;
-  final String ModNum;
   final double PositionX;
   final double PositionY;
   final double PositionH;
@@ -20,7 +19,6 @@ class RealTime extends StatefulWidget {
   RealTime(
       {Key? key,
       required this.Cont_ID,
-      required this.ModNum,
       required this.PositionX,
       required this.PositionY,
       required this.PositionH})
@@ -32,7 +30,6 @@ class RealTime extends StatefulWidget {
 
 class _RealTimeState extends State<RealTime> {
   late String _Cont_ID;
-  late String _ModNum;
   late double _PositionX;
   late double _PositionY;
   late double _PositionH;
@@ -52,7 +49,7 @@ class _RealTimeState extends State<RealTime> {
       _getLocationData();
     });
     _Cont_ID = widget.Cont_ID;
-    _ModNum = widget.ModNum;
+
     _PositionX = widget.PositionX;
     _PositionY = widget.PositionY;
     _PositionH = widget.PositionH;
