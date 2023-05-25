@@ -33,7 +33,7 @@ class _ConteneursState extends State<Conteneurs> {
     return conteneurList;
   }
 
-  Future<void> getPosition(String id) async {
+  Future<void> getPosition(int id) async {
     var response = await http
         .get(Uri.parse(usedIPAddress + '/api/modulesuivis/' + id.toString()));
     var container = await http.get(Uri.parse(
@@ -48,9 +48,7 @@ class _ConteneursState extends State<Conteneurs> {
       MaterialPageRoute(
         builder: (context) => RealTime(
           Cont_ID: data2['Cont_ID'].toString(),
-          PositionX: double.parse(data['PositionX'].toString()),
-          PositionY: double.parse(data['PositionY'].toString()),
-          PositionH: double.parse(data['PositionH'].toString()),
+          ModNum: data['ModNum'],
         ),
       ),
     );
@@ -224,33 +222,6 @@ class _ConteneursState extends State<Conteneurs> {
                                                       ),
                                                       children: [
                                                         TextSpan(
-                                                          text: 'Status:  ',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          style: TextStyle(
-                                                              color: dark),
-                                                          text: _foundConteneurs[
-                                                                  index]
-                                                              ['Cont_Status'],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      style: TextStyle(
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 16.0,
-                                                      ),
-                                                      children: [
-                                                        TextSpan(
                                                           text: 'Cont-Type:  ',
                                                           style: TextStyle(
                                                             fontFamily:
@@ -267,6 +238,63 @@ class _ConteneursState extends State<Conteneurs> {
                                                               _foundConteneurs[
                                                                       index]
                                                                   ['Cont_Type'],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      style: TextStyle(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 16.0,
+                                                      ),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: 'Cont-Poids:  ',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          style: TextStyle(
+                                                              color: dark),
+                                                          text: _foundConteneurs[
+                                                                          index]
+                                                                      [
+                                                                      'Cont_Poids']
+                                                                  .toString() +
+                                                              ' KG',
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      style: TextStyle(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 16.0,
+                                                      ),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: 'Status:  ',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          style: TextStyle(
+                                                              color: dark),
+                                                          text: _foundConteneurs[
+                                                                  index]
+                                                              ['Cont_Status'],
                                                         ),
                                                       ],
                                                     ),
@@ -435,8 +463,8 @@ class _ConteneursState extends State<Conteneurs> {
                                           color: Colors.black)),
                                   TextButton(
                                       onPressed: () {
-                                        getPosition(
-                                            _foundConteneurs[index]['ModNum']);
+                                        getPosition(int.parse(
+                                            _foundConteneurs[index]['ModNum']));
                                       },
                                       onHover: (event) {},
                                       child: Icon(Icons.location_on,

@@ -1,6 +1,6 @@
 final List<String> ipAddresses = [
   'http://192.168.0.7:8000',
-  'http://192.168.1.100:8000',
+  'http://192.168.1.104:8000',
   'http://10.0.2.2:8000',
   'http://192.168.184.189:8000'
   // add more IP addresses here as needed

@@ -1,5 +1,6 @@
 import 'package:epal/chef_pages/conteneurs.dart';
 import 'package:epal/chef_pages/demandes.dart';
+import 'package:epal/chef_pages/notifications.dart';
 import 'package:epal/icons.dart';
 import 'package:epal/pointeur_pages/conteneurs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,9 +35,7 @@ class _ChefHomeState extends State<ChefHome> {
           Container(
             height: 558,
             child: _selectedIndex == 0
-                ? Container(
-                    color: Colors.blue,
-                  )
+                ? notifications()
                 : _selectedIndex == 1
                     ? Demandes()
                     : _selectedIndex == 2

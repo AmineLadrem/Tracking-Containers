@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
-import 'package:epal/pages/location.dart';
 import 'package:epal/pages/realtime_location.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
@@ -50,7 +49,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
     return conteneurList;
   }
 
-  Future<void> getPosition(String id) async {
+  Future<void> getPosition(int id) async {
     var response = await http
         .get(Uri.parse(usedIPAddress + '/api/modulesuivis/' + id.toString()));
     var container = await http.get(Uri.parse(
@@ -65,9 +64,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
       MaterialPageRoute(
         builder: (context) => RealTime(
           Cont_ID: data2['Cont_ID'],
-          PositionX: double.parse(data['PositionX'].toString()),
-          PositionY: double.parse(data['PositionY'].toString()),
-          PositionH: double.parse(data['PositionH'].toString()),
+          ModNum: data['ModNum'],
         ),
       ),
     );
@@ -241,33 +238,6 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                                       ),
                                                       children: [
                                                         TextSpan(
-                                                          text: 'Status:  ',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          style: TextStyle(
-                                                              color: dark),
-                                                          text: _foundConteneurs[
-                                                                  index]
-                                                              ['Cont_Status'],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      style: TextStyle(
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 16.0,
-                                                      ),
-                                                      children: [
-                                                        TextSpan(
                                                           text: 'Cont-Type:  ',
                                                           style: TextStyle(
                                                             fontFamily:
@@ -284,6 +254,63 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                                               _foundConteneurs[
                                                                       index]
                                                                   ['Cont_Type'],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      style: TextStyle(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 16.0,
+                                                      ),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: 'Cont-Poids:  ',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          style: TextStyle(
+                                                              color: dark),
+                                                          text: _foundConteneurs[
+                                                                          index]
+                                                                      [
+                                                                      'Cont_Poids']
+                                                                  .toString() +
+                                                              ' KG',
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      style: TextStyle(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 16.0,
+                                                      ),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: 'Status:  ',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          style: TextStyle(
+                                                              color: dark),
+                                                          text: _foundConteneurs[
+                                                                  index]
+                                                              ['Cont_Status'],
                                                         ),
                                                       ],
                                                     ),
@@ -452,8 +479,8 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                           color: Colors.black)),
                                   TextButton(
                                       onPressed: () {
-                                        getPosition(
-                                            _foundConteneurs[index]['ModNum']);
+                                        getPosition(int.parse(
+                                            _foundConteneurs[index]['ModNum']));
                                       },
                                       onHover: (event) {},
                                       child: Icon(Icons.location_on,

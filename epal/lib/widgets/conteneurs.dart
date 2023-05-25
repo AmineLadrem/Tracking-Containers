@@ -1,6 +1,7 @@
 import 'package:epal/constants/style.dart';
 import 'package:epal/icons.dart';
 import 'package:epal/widgets/location.dart';
+import 'package:epal/widgets/realtime_location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -13,6 +14,9 @@ class containers extends StatefulWidget {
 }
 
 class _containersState extends State<containers> {
+  final _searchController = TextEditingController();
+  dynamic selectedStatusItem;
+  dynamic selectedTypeItem;
   Future<List<dynamic>> fetchConteneurs() async {
     final apiUrl = 'http://127.0.0.1:8000/api/conteneur';
     final response = await http.get(Uri.parse(apiUrl));
@@ -22,53 +26,43 @@ class _containersState extends State<containers> {
     for (var conteneur in conteneurData) {
       conteneurList.add(conteneur);
     }
-    print(conteneurList);
+    if (_searchController.text.isNotEmpty) {
+      conteneurList.retainWhere((conteneur) => conteneur['Cont_ID']
+          .toLowerCase()
+          .contains(_searchController.text.toLowerCase()));
+    }
     return conteneurList;
   }
 
-  Future<List<dynamic>> fetchModule(int id) async {
-    final apiUrl = 'http://127.0.0.1:8000/api/modulesuivis/' + id.toString();
-    final response = await http.get(Uri.parse(apiUrl));
-    final moduleList = <dynamic>[];
-    final moduleData = json.decode(response.body);
+  Future<void> getPosition(int id) async {
+    var response = await http.get(
+        Uri.parse('http://127.0.0.1:8000/api/modulesuivis/' + id.toString()));
 
-    for (var module in moduleData) {
-      moduleList.add(module);
-    }
-    print(moduleList);
-    return moduleList;
+    var container = await http.get(Uri.parse(
+        'http://127.0.0.1:8000/api/conteneur/modulesuivi/' + id.toString()));
+
+    // Parse the JSON response
+    var data = json.decode(response.body);
+    var data2 = json.decode(container.body);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RealTime(
+          Cont_ID: data2['Cont_ID'],
+          ModNum: data['ModNum'],
+        ),
+      ),
+    );
+    // Use the position values as needed in your code
   }
-
-  Future<List<dynamic>> _foundConteneurs = Future.value([]);
 
   @override
-  void initState() {
-    _foundConteneurs = fetchConteneurs();
-    super.initState();
-  }
-
-  void _runFilter(String keyword) {
-    Future<List<dynamic>> results = Future.value([]);
-    if (keyword.isEmpty) {
-      results = fetchConteneurs();
-    } else {
-      results = _foundConteneurs.then((moduleList) {
-        return moduleList
-            .where((module) => module['ModNum'].contains(keyword))
-            .toList();
-      });
-    }
-    setState(() {
-      _foundConteneurs = results;
-    });
-  }
-
   Widget build(BuildContext context) {
     TextEditingController contIDController = TextEditingController();
     TextEditingController contTypeController = TextEditingController();
     TextEditingController contPoidsController = TextEditingController();
-    TextEditingController contStatusController = TextEditingController();
-    TextEditingController modNumController = TextEditingController();
+
     TextEditingController numLivraisonController = TextEditingController();
     TextEditingController numEmbarquementController = TextEditingController();
     TextEditingController numDebarquementController = TextEditingController();
@@ -81,10 +75,8 @@ class _containersState extends State<containers> {
           contTypeController.text +
           '&Cont_Poids=' +
           contPoidsController.text +
-          '&Cont_Status=' +
-          contStatusController.text +
-          '&ModNum=' +
-          modNumController.text +
+          '&Cont_Status=In-Board' +
+          '&ModNum=0' +
           '&NumLivraison=' +
           numLivraisonController.text +
           '&NumEmbarquement=' +
@@ -96,7 +88,7 @@ class _containersState extends State<containers> {
           '&NumParc=' +
           numParcController.text +
           '&Admin_ID=' +
-          6.toString();
+          1.toString();
       print(apiUrl);
 
       final response = await http.post(Uri.parse(apiUrl));
@@ -119,158 +111,69 @@ class _containersState extends State<containers> {
       }
     }
 
-    Future<void> getPosition(int id) async {
-      var response = await http.get(
-          Uri.parse('http://127.0.0.1:8000/api/modulesuivis/' + id.toString()));
-
-      // Parse the JSON response
-      var data = json.decode(response.body);
-
-      // Store the position values in variables
-      var positionX = data['PositionX'];
-      var positionY = data['PositionY'];
-      var positionH = data['PositionH'];
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => location(
-            ModNum: id.toString(),
-            PositionX: positionX,
-            PositionY: positionY,
-            PositionH: positionH,
-          ),
-        ),
-      );
-      // Use the position values as needed in your code
-      print('Position X: $positionX');
-      print('Position Y: $positionY');
-      print('Position H: $positionH');
-    }
-
     return Container(
         height: 1000,
         width: 300,
         child: Row(children: [
           Expanded(
-            child: Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 400,
-                    child: TextField(
-                      onChanged: (value) => _runFilter(value),
-                      decoration: InputDecoration(
-                        labelText: 'Search',
-                        labelStyle: TextStyle(color: dark),
-                        prefixIcon: Icon(Icons.search, color: light),
-                        filled: true,
-                        fillColor: Colors.white,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: light),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: light),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      // Call setState to rebuild the widget when the text changes
+                      setState(() {});
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Search',
+                      labelStyle: TextStyle(color: dark),
+                      prefixIcon: Icon(Icons.search, color: light),
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: light),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: light),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: FutureBuilder<List<dynamic>>(
-                      future: fetchConteneurs(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          final _foundConteneurs = snapshot.data!;
-                          return ListView.builder(
-                            itemCount: _foundConteneurs.length,
-                            itemBuilder: (context, index) => Card(
-                              key: ValueKey(_foundConteneurs[index]['Cont_ID']),
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: back,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        child: Image.asset(
-                                            "assets/container.png",
-                                            width: 100,
-                                            height: 100),
-                                      ),
-                                      SizedBox(
-                                        width: 30,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Expanded(
-                                          child: Container(
-                                            child: Column(
-                                              children: [
-                                                RichText(
-                                                  text: TextSpan(
-                                                    style: TextStyle(
-                                                      fontFamily: 'Poppins',
-                                                      fontSize: 16.0,
-                                                    ),
-                                                    children: [
-                                                      TextSpan(
-                                                        text: 'Conteneur-ID:  ',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontFamily: 'Poppins',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      TextSpan(
-                                                        style: TextStyle(
-                                                            color: dark),
-                                                        text: _foundConteneurs[
-                                                            index]['Cont_ID'],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                RichText(
-                                                  text: TextSpan(
-                                                    style: TextStyle(
-                                                      fontFamily: 'Poppins',
-                                                      fontSize: 16.0,
-                                                    ),
-                                                    children: [
-                                                      TextSpan(
-                                                        text: 'Status:  ',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontFamily: 'Poppins',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      TextSpan(
-                                                        style: TextStyle(
-                                                            color: dark),
-                                                        text: _foundConteneurs[
-                                                                index]
-                                                            ['Cont_Status'],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
+                ),
+                Expanded(
+                  child: FutureBuilder<List<dynamic>>(
+                    future: fetchConteneurs(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final _foundConteneurs = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: _foundConteneurs.length,
+                          itemBuilder: (context, index) => Card(
+                            key: ValueKey(_foundConteneurs[index]['Cont_ID']),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: back,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      child: Image.asset("assets/container.png",
+                                          width: 100, height: 100),
+                                    ),
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Expanded(
                                         child: Container(
                                           child: Column(
                                             children: [
@@ -282,10 +185,10 @@ class _containersState extends State<containers> {
                                                   ),
                                                   children: [
                                                     TextSpan(
-                                                      text: 'Tracker-ID:  ',
+                                                      text: 'Conteneur-ID:  ',
                                                       style: TextStyle(
-                                                        fontFamily: 'Poppins',
                                                         color: Colors.black,
+                                                        fontFamily: 'Poppins',
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
@@ -294,8 +197,7 @@ class _containersState extends State<containers> {
                                                       style: TextStyle(
                                                           color: dark),
                                                       text: _foundConteneurs[
-                                                              index]['ModNum']
-                                                          .toString(),
+                                                          index]['Cont_ID'],
                                                     ),
                                                   ],
                                                 ),
@@ -308,10 +210,10 @@ class _containersState extends State<containers> {
                                                   ),
                                                   children: [
                                                     TextSpan(
-                                                      text: 'Cont-Type:  ',
+                                                      text: 'Status:  ',
                                                       style: TextStyle(
-                                                        fontFamily: 'Poppins',
                                                         color: Colors.black,
+                                                        fontFamily: 'Poppins',
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
@@ -320,7 +222,7 @@ class _containersState extends State<containers> {
                                                       style: TextStyle(
                                                           color: dark),
                                                       text: _foundConteneurs[
-                                                          index]['Cont_Type'],
+                                                          index]['Cont_Status'],
                                                     ),
                                                   ],
                                                 ),
@@ -329,389 +231,438 @@ class _containersState extends State<containers> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 30),
-                                      Expanded(
-                                        child: Container(
-                                          child: Column(
-                                            children: [
-                                              TextButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return AlertDialog(
-                                                        title: Text('Details'),
-                                                        content: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize:
-                                                                      16.0,
-                                                                ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Conteneur-ID:  ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            dark),
-                                                                    text: _foundConteneurs[
-                                                                            index]
-                                                                        [
-                                                                        'Cont_ID'],
-                                                                  ),
-                                                                ],
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        child: Column(
+                                          children: [
+                                            RichText(
+                                              text: TextSpan(
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 16.0,
+                                                ),
+                                                children: [
+                                                  TextSpan(
+                                                    text: 'Tracker-ID:  ',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    style:
+                                                        TextStyle(color: dark),
+                                                    text:
+                                                        _foundConteneurs[index]
+                                                                ['ModNum']
+                                                            .toString(),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 16.0,
+                                                ),
+                                                children: [
+                                                  TextSpan(
+                                                    text: 'Cont-Type:  ',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    style:
+                                                        TextStyle(color: dark),
+                                                    text:
+                                                        _foundConteneurs[index]
+                                                            ['Cont_Type'],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 30),
+                                    Expanded(
+                                      child: Container(
+                                        child: Column(
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text('Details'),
+                                                      content: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
                                                               ),
-                                                            ),
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize:
-                                                                      16.0,
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
+                                                                      'Conteneur-ID:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                                 ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Status:  ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            dark),
-                                                                    text: _foundConteneurs[
-                                                                            index]
-                                                                        [
-                                                                        'Cont_Status'],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize:
-                                                                      16.0,
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                          index]
+                                                                      [
+                                                                      'Cont_ID'],
                                                                 ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Cont-Type:  ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            dark),
-                                                                    text: _foundConteneurs[
-                                                                            index]
-                                                                        [
-                                                                        'Cont_Type'],
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                              ],
                                                             ),
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize:
-                                                                      16.0,
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
+                                                                      'Status:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                                 ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Tracker-ID:  ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            dark),
-                                                                    text: _foundConteneurs[index]
-                                                                            [
-                                                                            'ModNum']
-                                                                        .toString(),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize:
-                                                                      16.0,
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                          index]
+                                                                      [
+                                                                      'Cont_Status'],
                                                                 ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Numero de debarquement:  ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            dark),
-                                                                    text: _foundConteneurs[index]
-                                                                            [
-                                                                            'NumDebarquement']
-                                                                        .toString(),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                              ],
                                                             ),
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize:
-                                                                      16.0,
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
+                                                                      'Cont-Type:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                                 ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Numero d\'embarquement:  ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            dark),
-                                                                    text: _foundConteneurs[index]
-                                                                            [
-                                                                            'NumEmbarquement']
-                                                                        .toString(),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize:
-                                                                      16.0,
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                          index]
+                                                                      [
+                                                                      'Cont_Type'],
                                                                 ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Numero de visite:  ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            dark),
-                                                                    text: _foundConteneurs[index]
-                                                                            [
-                                                                            'NumVisite']
-                                                                        .toString(),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                              ],
                                                             ),
-                                                            RichText(
-                                                              text: TextSpan(
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontSize:
-                                                                      16.0,
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
+                                                                      'Tracker-ID:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                                 ),
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Numero de livraison:  ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            dark),
-                                                                    text: _foundConteneurs[index]
-                                                                            [
-                                                                            'NumLivraison']
-                                                                        .toString(),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                              index]
+                                                                          [
+                                                                          'ModNum']
+                                                                      .toString(),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
-                                                            child:
-                                                                Text('Fermer'),
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
+                                                                      'Numero de debarquement:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                              index]
+                                                                          [
+                                                                          'NumDebarquement']
+                                                                      .toString(),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
+                                                                      'Numero d\'embarquement:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                              index]
+                                                                          [
+                                                                          'NumEmbarquement']
+                                                                      .toString(),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
+                                                                      'Numero de visite:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                              index]
+                                                                          [
+                                                                          'NumVisite']
+                                                                      .toString(),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
+                                                                      'Numero de livraison:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                              index]
+                                                                          [
+                                                                          'NumLivraison']
+                                                                      .toString(),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ],
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                onHover: (event) {},
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      'Details    ',
-                                                      style: TextStyle(
-                                                        color: dark,
                                                       ),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: Text('Fermer'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              onHover: (event) {},
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    'Details    ',
+                                                    style: TextStyle(
+                                                      color: dark,
                                                     ),
-                                                    SizedBox(width: 10),
-                                                    Icon(Icons.menu,
-                                                        color: Colors.black)
-                                                  ],
-                                                ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Icon(Icons.menu,
+                                                      color: Colors.black)
+                                                ],
                                               ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  getPosition(
-                                                      _foundConteneurs[index]
-                                                          ['ModNum']);
-                                                },
-                                                onHover: (event) {},
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      'Localiser',
-                                                      style: TextStyle(
-                                                        color: dark,
-                                                      ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                getPosition(int.parse(
+                                                    _foundConteneurs[index]
+                                                        ['ModNum']));
+                                              },
+                                              onHover: (event) {},
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    'Localiser',
+                                                    style: TextStyle(
+                                                      color: dark,
                                                     ),
-                                                    SizedBox(width: 10),
-                                                    Icon(Icons.location_on,
-                                                        color: Colors.black)
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Icon(Icons.location_on,
+                                                      color: Colors.black)
+                                                ],
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      )
-                                    ],
-                                  ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
-                    ),
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -779,40 +730,6 @@ class _containersState extends State<containers> {
                     ),
                     SizedBox(height: 10),
                     TextField(
-                      controller: contStatusController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: back,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        ),
-                        labelText: 'Status',
-                        labelStyle: TextStyle(
-                          color: dark,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                        hintText: 'Entrez le statut du conteneur',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[400],
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                        prefixIcon:
-                            Icon(Icons.check_circle, color: Colors.green[500]),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            contStatusController.clear();
-                          },
-                          icon: Icon(Icons.clear, color: dark),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
                       controller: contTypeController,
                       decoration: InputDecoration(
                         filled: true,
@@ -823,13 +740,13 @@ class _containersState extends State<containers> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        labelText: 'Type de Conteneur',
+                        labelText: 'Type',
                         labelStyle: TextStyle(
                           color: dark,
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),
-                        hintText: 'Entrez le type de conteneur',
+                        hintText: 'Entrez le type du conteneur(20p-40p)',
                         hintStyle: TextStyle(
                           color: Colors.grey[400],
                           fontWeight: FontWeight.w500,
@@ -874,40 +791,6 @@ class _containersState extends State<containers> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             contPoidsController.clear();
-                          },
-                          icon: Icon(Icons.clear, color: dark),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      controller: modNumController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: back,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        ),
-                        labelText: 'Numero de Module de suivi',
-                        labelStyle: TextStyle(
-                          color: dark,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                        hintText: 'Entrez le Numero de Module de suivi',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[400],
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                        prefixIcon:
-                            Icon(Icons.track_changes, color: Colors.green),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            modNumController.clear();
                           },
                           icon: Icon(Icons.clear, color: dark),
                         ),

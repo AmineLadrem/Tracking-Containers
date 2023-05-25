@@ -1,17 +1,9 @@
--create an emulator as a tracking module
-
-
 ---------------------------------TO DO--------------------
- - Check old nd new with confirm pw
- - to get directions , use google maps , location we use the app
--itineraire from parc to parc ( easiest one )
-
-
-   ------
-   ki nkmlo deplacement de conteneur , nhet une position win conteneur ykon dakhel parc
-
-   -Web login page : check if the user is an admin or not
-   -refresh map every 1 sec ( live tracking)
+   -Check old nd new with confirm pw
+   -Web login page : check if the user is an admin or not ( les autres ne sont pas autorisee)
    -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)
    -ki nzido conteneur , we have to check numero ta3 parc so we can know ama zone rana + his status
    -we remove module input f add container admin
+   -if the module is inactive , we can't track it 
+   -container in board = can't track him
+   -

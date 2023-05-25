@@ -12,17 +12,13 @@ import '../constants/points.dart';
 
 class RealTime extends StatefulWidget {
   final String Cont_ID;
-  final double PositionX;
-  final double PositionY;
-  final double PositionH;
+  final int ModNum;
 
-  RealTime(
-      {Key? key,
-      required this.Cont_ID,
-      required this.PositionX,
-      required this.PositionY,
-      required this.PositionH})
-      : super(key: key);
+  RealTime({
+    Key? key,
+    required this.Cont_ID,
+    required this.ModNum,
+  }) : super(key: key);
 
   @override
   State<RealTime> createState() => _RealTimeState();
@@ -30,13 +26,12 @@ class RealTime extends StatefulWidget {
 
 class _RealTimeState extends State<RealTime> {
   late String _Cont_ID;
-  late double _PositionX;
-  late double _PositionY;
-  late double _PositionH;
+  late int _ModNum;
+
   Completer<GoogleMapController> _controller = Completer();
   CameraPosition _initialCameraPosition = CameraPosition(
-    target: LatLng(36.7596037, 3.07286),
-    zoom: 16,
+    target: LatLng(36.759760, 3.068675),
+    zoom: 15.6,
   );
   late Timer _timer;
   LatLng? _currentLocation;
@@ -49,10 +44,7 @@ class _RealTimeState extends State<RealTime> {
       _getLocationData();
     });
     _Cont_ID = widget.Cont_ID;
-
-    _PositionX = widget.PositionX;
-    _PositionY = widget.PositionY;
-    _PositionH = widget.PositionH;
+    _ModNum = widget.ModNum;
   }
 
   @override
@@ -63,7 +55,9 @@ class _RealTimeState extends State<RealTime> {
 
   void _getLocationData() async {
     final response = await http.get(Uri.parse(
-        'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/2.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH'));
+        'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/' +
+            _ModNum.toString() +
+            '.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH'));
     final data = jsonDecode(response.body);
     setState(() {
       _currentLocation = LatLng(data['latitude'], data['longitude']);
@@ -75,7 +69,15 @@ class _RealTimeState extends State<RealTime> {
   bool _isMapTypeNormal = false;
   @override
   Widget build(BuildContext context) {
-    var point = Point(_PositionX, _PositionY);
+    num lat, lon;
+    if (_currentLocation != null) {
+      lat = _currentLocation!.latitude;
+      lon = _currentLocation!.longitude;
+    } else {
+      lat = 0;
+      lon = 0;
+    }
+    var point = Point(lat, lon);
     String zone = '';
     String parc = '';
     if (PolyUtils.containsLocationPoly(point, debarquement)) {
@@ -172,11 +174,10 @@ class _RealTimeState extends State<RealTime> {
     return Scaffold(
       backgroundColor: Color(0xFFEAF6F6),
       body: Container(
-        child: SingleChildScrollView(
-            child: Column(children: [
+        child: Column(children: [
           SizedBox(
-            height: 20.0,
-            width: 350,
+            height: 15.0,
+            width: 340,
           ),
           Row(
             children: [
@@ -255,7 +256,7 @@ class _RealTimeState extends State<RealTime> {
             },
           ),
           Container(
-            height: 60,
+            height: 57,
             width: 400,
             decoration: BoxDecoration(
               border: Border.all(
@@ -307,6 +308,7 @@ class _RealTimeState extends State<RealTime> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 10.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -339,25 +341,12 @@ class _RealTimeState extends State<RealTime> {
                             style: TextStyle(fontFamily: 'Urbanist')),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('Hauteur:',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
-                                fontFamily: 'Urbanist')),
-                        SizedBox(height: 5.0),
-                        Text(_PositionH.toString(),
-                            style: TextStyle(fontFamily: 'Urbanist')),
-                      ],
-                    ),
                   ],
                 )
               ]),
             ),
           )
-        ])),
+        ]),
       ),
     );
   }

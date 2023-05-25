@@ -387,7 +387,7 @@ class _LargeScreenState extends State<LargeScreen> {
                                 width: 50, height: 50),
                             SizedBox(width: 20),
                             FutureBuilder<http.Response>(
-                              future: fetchAdmin(6),
+                              future: fetchAdmin(1),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   final admin = jsonDecode(snapshot.data!.body);

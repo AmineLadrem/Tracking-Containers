@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:epal/widgets/location.dart';
+import 'package:epal/widgets/realtime_location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +14,7 @@ class GererModule extends StatefulWidget {
 }
 
 class _modulesState extends State<GererModule> {
+  final _searchController = TextEditingController();
   Future<List<dynamic>> fetchModules() async {
     final apiUrl = 'http://127.0.0.1:8000/api/modulesuivis';
     final response = await http.get(Uri.parse(apiUrl));
@@ -23,31 +25,40 @@ class _modulesState extends State<GererModule> {
       moduleList.add(module);
     }
     print(moduleList);
+    if (_searchController.text.isNotEmpty) {
+      int searchNumber =
+          int.parse(_searchController.text); // Convert search text to integer
+      moduleList.retainWhere((module) => module['ModNum'] == searchNumber);
+    }
     return moduleList;
   }
 
-  Future<List<dynamic>> _foundModules = Future.value([]);
+  Future<void> getPosition(int id) async {
+    var response = await http.get(
+        Uri.parse('http://127.0.0.1:8000/api/modulesuivis/' + id.toString()));
+
+    var container = await http.get(Uri.parse(
+        'http://127.0.0.1:8000/api/conteneur/modulesuivi/' + id.toString()));
+
+    // Parse the JSON response
+    var data = json.decode(response.body);
+    var data2 = json.decode(container.body);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RealTime(
+          Cont_ID: data2['Cont_ID'],
+          ModNum: data['ModNum'],
+        ),
+      ),
+    );
+    // Use the position values as needed in your code
+  }
 
   @override
   void initState() {
-    _foundModules = fetchModules();
     super.initState();
-  }
-
-  void _runFilter(String keyword) {
-    Future<List<dynamic>> results = Future.value([]);
-    if (keyword.isEmpty) {
-      results = fetchModules();
-    } else {
-      results = _foundModules.then((moduleList) {
-        return moduleList
-            .where((module) => module['ModNum'].contains(keyword))
-            .toList();
-      });
-    }
-    setState(() {
-      _foundModules = results;
-    });
   }
 
   Widget build(BuildContext context) {
@@ -95,7 +106,11 @@ class _modulesState extends State<GererModule> {
                   Container(
                     width: 400,
                     child: TextField(
-                      onChanged: (value) => _runFilter(value),
+                      controller: _searchController,
+                      onChanged: (value) {
+                        // Call setState to rebuild the widget when the text changes
+                        setState(() {});
+                      },
                       decoration: InputDecoration(
                         labelText: 'Search',
                         labelStyle: TextStyle(color: dark),
@@ -317,27 +332,9 @@ class _modulesState extends State<GererModule> {
                                             children: [
                                               TextButton(
                                                 onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          location(
-                                                        ModNum:
-                                                            _foundModules[index]
-                                                                    ['ModNum']
-                                                                .toString(),
-                                                        PositionX:
-                                                            _foundModules[index]
-                                                                ['PositionX'],
-                                                        PositionY:
-                                                            _foundModules[index]
-                                                                ['PositionY'],
-                                                        PositionH:
-                                                            _foundModules[index]
-                                                                ['PositionH'],
-                                                      ),
-                                                    ),
-                                                  );
+                                                  getPosition(
+                                                      _foundModules[index]
+                                                          ['ModNum']);
                                                 },
                                                 onHover: (event) {},
                                                 child: Row(
