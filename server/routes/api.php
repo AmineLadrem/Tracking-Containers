@@ -48,6 +48,7 @@ Route::get('/cdp',[ChefDeParcController::class, 'index']);
 Route::get('/cdp/{id}',[ChefDeParcController::class, 'show']);
 
 Route::get('/parcs',[ParcController::class, 'index']);
+Route::get('/parc',[ParcController::class, 'parcdispo']);
 
 Route::get('/admin/{id}',[AdminController::class, 'show']);
 

@@ -11,6 +11,8 @@ class parc extends Model
     protected $fillable=[
         'NumParc',
         'NomParc',
+        'NbrTotal',
+        'NbrDispo',
         'Zone_ID'
      
     ];

@@ -15,10 +15,17 @@ class ParcController extends Controller
         $parc=Parc::all();
         return response($parc,200);
     }
+    public function parcdispo()
+    {
+        $parc = Parc::where('nbrdispo', '>', 0)->where('Zone_ID', 1)->first();
 
-    /**
-     * Store a newly created resource in storage.
-     */
+        if ($parc) {
+            return response()->json($parc);
+        } else {
+            return response()->json(['message' => 'Aucun parc est disponible'], 404);
+        }
+    }
+   
     public function store(Request $request)
     {
         //

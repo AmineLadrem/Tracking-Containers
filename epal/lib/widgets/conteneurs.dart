@@ -62,13 +62,18 @@ class _containersState extends State<containers> {
     TextEditingController contIDController = TextEditingController();
     TextEditingController contTypeController = TextEditingController();
     TextEditingController contPoidsController = TextEditingController();
-
     TextEditingController numLivraisonController = TextEditingController();
     TextEditingController numEmbarquementController = TextEditingController();
     TextEditingController numDebarquementController = TextEditingController();
     TextEditingController numVisiteController = TextEditingController();
-    TextEditingController numParcController = TextEditingController();
+    String selectedItem = '20p';
     addContainer() async {
+      var response2 =
+          await http.get(Uri.parse('http://127.0.0.1:8000/api/parc'));
+      var res = jsonDecode(response2.body);
+      var parc = res['NumParc'];
+      print(parc);
+
       final String apiUrl = 'http://127.0.0.1:8000/api/conteneur?Cont_ID=' +
           contIDController.text +
           '&Cont_Type=' +
@@ -86,14 +91,11 @@ class _containersState extends State<containers> {
           '&NumVisite=' +
           numVisiteController.text +
           '&NumParc=' +
-          numParcController.text +
+          parc.toString() +
           '&Admin_ID=' +
           1.toString();
       print(apiUrl);
-
       final response = await http.post(Uri.parse(apiUrl));
-
-      //pop notification
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -141,6 +143,40 @@ class _containersState extends State<containers> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: light),
                         borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 250, // Adjust the width as needed
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: back,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButton<String>(
+                        value: selectedItem,
+                        items: ['20p', '40p'].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedItem = newValue!;
+                          });
+                        },
+                        dropdownColor: back,
+                        icon: Icon(Icons.arrow_drop_down, color: dark),
+                        style: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
@@ -621,25 +657,30 @@ class _containersState extends State<containers> {
                                                 ],
                                               ),
                                             ),
-                                            TextButton(
-                                              onPressed: () {
-                                                getPosition(int.parse(
-                                                    _foundConteneurs[index]
-                                                        ['ModNum']));
-                                              },
-                                              onHover: (event) {},
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    'Localiser',
-                                                    style: TextStyle(
-                                                      color: dark,
+                                            Visibility(
+                                              visible: (_foundConteneurs[index]
+                                                      ['Cont_Status'] !=
+                                                  'In-Board'),
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  getPosition(int.parse(
+                                                      _foundConteneurs[index]
+                                                          ['ModNum']));
+                                                },
+                                                onHover: (event) {},
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      'Localiser',
+                                                      style: TextStyle(
+                                                        color: dark,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(width: 10),
-                                                  Icon(Icons.location_on,
-                                                      color: Colors.black)
-                                                ],
+                                                    SizedBox(width: 10),
+                                                    Icon(Icons.location_on,
+                                                        color: Colors.black)
+                                                  ],
+                                                ),
                                               ),
                                             )
                                           ],
@@ -926,40 +967,6 @@ class _containersState extends State<containers> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             numVisiteController.clear();
-                          },
-                          icon: Icon(Icons.clear, color: dark),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      controller: numParcController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: back,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        ),
-                        labelText: 'Numero de Parc',
-                        labelStyle: TextStyle(
-                          color: dark,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                        hintText: 'Entrez le Numero de Parc',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[400],
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                        prefixIcon:
-                            Icon(Icons.local_parking, color: Colors.blue),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            numParcController.clear();
                           },
                           icon: Icon(Icons.clear, color: dark),
                         ),

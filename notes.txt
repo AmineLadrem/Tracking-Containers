@@ -3,7 +3,7 @@
    -Web login page : check if the user is an admin or not ( les autres ne sont pas autorisee) (DOOONEEEE )
    -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)
    -ki nzido conteneur , we have to check numero ta3 parc so we can know ama zone rana + his status
-   -we remove module input f add container admin
-   -if the module is inactive , we can't track it 
-   -container in board = can't track him
+   -we remove module input f add container admin ( doneeee)
+   -if the module is inactive , we can't track it (Doneee)
+   -container in board = can't track him 
    -
