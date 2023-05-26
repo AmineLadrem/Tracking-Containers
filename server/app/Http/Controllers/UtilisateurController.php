@@ -22,7 +22,22 @@ class UtilisateurController extends Controller
     if ($user) {
         return $user;
     } else {
-        return 'User not found';
+        return response()->json(['message' => 'User not found'], 404);
+    }
+}
+public function UpdatePW(string $email, string $pw)
+{
+    $user = utilisateur::where('E-mail', $email)->update(['MotPass' => $pw]);
+    if ($user > 0) {
+        return response()->json([
+            'success' => true,
+            'message' => 'updated'
+        ]);
+    } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'failed'
+        ]);
     }
 }
 

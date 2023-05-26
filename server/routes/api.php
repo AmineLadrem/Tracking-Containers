@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CarsController;
 use App\Http\Controllers\ConteneurController;
+use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\DebarquementController;
 use App\Http\Controllers\DeplacementController;
 use App\Http\Controllers\EmbarquementController;
@@ -37,14 +38,30 @@ Route::delete('/cars/{id}',[CarsController::class, 'destroy']);
 
 Route::get('/utilisateur',[UtilisateurController::class, 'index']);
 Route::get('/utilisateur/{email}', [UtilisateurController::class, 'getUserRoleByEmail']);
+Route::put('/utilisateur/{email}/{pw}', [UtilisateurController::class, 'UpdatePW']);
+
 Route::get('/modulesuivis',[ModulesuiviController::class, 'index']);
 Route::post('/modulesuivis',[ModulesuiviController::class, 'store']);
 Route::get('/modulesuivis/{id}',[ModulesuiviController::class, 'show']);
 
+Route::get('/cdp',[ChefDeParcController::class, 'index']);
+Route::get('/cdp/{id}',[ChefDeParcController::class, 'show']);
+
+Route::get('/parcs',[ParcController::class, 'index']);
+
 Route::get('/admin/{id}',[AdminController::class, 'show']);
 
 Route::get('/conteneur',[ConteneurController::class, 'index']);
+Route::get('/conteneur/modulesuivi/{id}',[ConteneurController::class, 'function1']);
+Route::get('/conteneur/numparc/{id}',[ConteneurController::class, 'function2']);
+Route::put('conteneurs/{conteneur}/{modNum}', [ConteneurController::class, 'function3']);
+Route::put('conteneurs/{conteneur}', [ConteneurController::class, 'function4']);
 Route::post('/conteneur',[ConteneurController::class, 'store']);
+
+Route::post('/demande',[DemandeController::class, 'store']);
+Route::get('/demandes',[DemandeController::class, 'index']);
+Route::get('/demandes/{cdp}',[DemandeController::class, 'function1']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

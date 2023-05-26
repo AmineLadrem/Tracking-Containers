@@ -9,11 +9,13 @@ class demande extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'NumDem',
         'CDP_ID',
         'CDC_ID',
         'DateDemande',
-        'HeureDemande'
+        'HeureDemande',
+        'Cont_ID',
+        'ParcDest',
+        'Status'
      
     ];
 }

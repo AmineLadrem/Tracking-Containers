@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\conteneur;
+use App\Models\modulesuivi;
 use Illuminate\Http\Request;
 
 class ConteneurController extends Controller
@@ -55,6 +56,55 @@ class ConteneurController extends Controller
     {
         //
     }
+
+    public function function1($id)
+    {
+        $conteneur = Conteneur::where('ModNum',$id)->first();
+        return $conteneur;
+    }
+
+    public function function2($numParc)
+    {
+        $conteneurs = Conteneur::where('NumParc', $numParc)->get();
+
+        return response()->json($conteneurs);
+    }
+
+    
+    public function function3(string $cont_id,$mod_num)
+    {
+        $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>$mod_num]);
+
+        if ($affectedRows > 0) {
+            return response()->json([
+                'success' => true,
+                'message' => 'ModNum updated successfully'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update ModNum'
+            ]);
+        }
+    }
+
+    public function function4(string $cont_id)
+    {
+        $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0]);
+
+        if ($affectedRows > 0) {
+            return response()->json([
+                'success' => true,
+                'message' => 'ModNum updated successfully'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update ModNum'
+            ]);
+        }
+    }
+
 
     /**
      * Update the specified resource in storage.

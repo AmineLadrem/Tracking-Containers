@@ -1,6 +1,8 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:epal/WebPages/LoginPage.dart';
 import 'package:epal/WebRoutes.dart';
 import 'package:epal/routes.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:epal/pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,6 +13,7 @@ import 'package:get/get.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(_firebasePushHandler);
   if (kIsWeb) {
     Get.put(MenuController());
     runApp(MyWebApp());
@@ -41,4 +44,10 @@ class MyWebApp extends StatelessWidget {
       routes: WebRoutes.routes,
     );
   }
+}
+
+Future<void> _firebasePushHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background message ${message.data}');
+  AwesomeNotifications().createNotificationFromJsonData(message.data);
 }

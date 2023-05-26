@@ -12,7 +12,8 @@ class DemandeController extends Controller
      */
     public function index()
     {
-        //
+        $demande=Demande::all();
+        return response($demande,200);
     }
 
     /**
@@ -20,7 +21,28 @@ class DemandeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $demandeValidation=$request->validate([
+            'CDP_ID'=>['required'],
+            'CDC_ID'=>['required'],
+            'DateDemande'=>['required'],
+            'HeureDemande'=>['required'],
+            'Cont_ID'=>['required'],
+            'ParcDest'=>['required'],
+            'Status'=>['required'],
+         
+            
+        ]);
+        $demande=Demande::create([
+            
+            'CDP_ID'=>$demandeValidation['CDP_ID'],
+            'CDC_ID'=>$demandeValidation['CDC_ID'],
+            'DateDemande'=>$demandeValidation['DateDemande'],
+            'HeureDemande'=>$demandeValidation['HeureDemande'],
+            'Cont_ID'=>$demandeValidation['Cont_ID'],
+            'ParcDest'=>$demandeValidation['ParcDest'],
+            'Status'=>$demandeValidation['Status'],
+             
+            ]);
     }
 
     /**
@@ -29,6 +51,13 @@ class DemandeController extends Controller
     public function show(demande $demande)
     {
         //
+    }
+
+    public function function1($cdpId)
+    {
+        $demandes = Demande::where('CDP_ID', $cdpId)->get();
+    
+        return response()->json($demandes);
     }
 
     /**

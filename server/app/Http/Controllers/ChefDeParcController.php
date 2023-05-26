@@ -12,7 +12,8 @@ class ChefDeParcController extends Controller
      */
     public function index()
     {
-        //
+        $chefDeParc=chef_de_parc::all();
+        return response($chefDeParc,200);
     }
 
     /**
@@ -26,9 +27,15 @@ class ChefDeParcController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(chef_de_parc $chef_de_parc)
+    public function show($id)
     {
-        //
+        $chefDeParc = chef_de_parc::where('CDP_ID', $id)->first();
+    
+        if (!$chefDeParc) {
+            return response()->json(['message' => 'Chef de parc not found.'], 404);
+        }
+    
+        return response()->json($chefDeParc, 200);
     }
 
     /**

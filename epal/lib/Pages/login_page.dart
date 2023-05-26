@@ -1,7 +1,14 @@
+import 'package:epal/chef_pages/home.dart';
 import 'package:epal/constants/style.dart';
+import 'package:epal/helpers/ipAddresses.dart';
 import 'package:epal/pages/home.dart';
+import 'package:epal/pointeur_pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   static const String routeName = '/login';
@@ -21,7 +28,20 @@ class _LoginPageState extends State<LoginPage> {
         password: PasswordController.text.trim(),
       );
 
-      Navigator.pushNamed(context, AdminHome.routeName);
+      String url;
+
+      url = Platform.isAndroid ? usedIPAddress : 'http://0.0.0.0:8000';
+
+      var response = await http.get(
+          Uri.parse(url + '/api/utilisateur/' + emailController.text.trim()));
+      var user = json.decode(response.body);
+      if (user['Role'] == 'pointeur')
+        Navigator.pushNamed(context, PointeurHome.routeName);
+      else if (user['Role'] == 'chef_de_parc')
+        Navigator.pushNamed(context, ChefHome.routeName);
+      else
+        Navigator.pushNamed(context, AdminHome.routeName);
+      print('Login successfull');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -79,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: Icon(Icons.email, color: dark),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        PasswordController.clear();
+                        emailController.clear();
                       },
                       icon: Icon(Icons.clear, color: Colors.red),
                     ),

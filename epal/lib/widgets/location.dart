@@ -13,7 +13,7 @@ class location extends StatefulWidget {
   @override
   _locationState createState() => _locationState();
 
-  final String ModNum;
+  final int ModNum;
   final double PositionX;
   final double PositionY;
   final double PositionH;
@@ -28,7 +28,7 @@ class location extends StatefulWidget {
 }
 
 class _locationState extends State<location> {
-  late String _ModNum;
+  late int _ModNum;
   late double _PositionX;
   late double _PositionY;
   late double _PositionH;
@@ -235,7 +235,7 @@ class _locationState extends State<location> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: _ModNum,
+                                          text: _ModNum.toString(),
                                         ),
                                       ],
                                     ),
