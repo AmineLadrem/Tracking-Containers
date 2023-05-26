@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:epal/WebPages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,23 +14,46 @@ class WebLoginPage extends StatefulWidget {
 class _WebLoginPageState extends State<WebLoginPage> {
   final emailController = TextEditingController();
   final PasswordController = TextEditingController();
-
+  bool userNotFound = false;
+  bool wrongPassword = false;
+  bool role = false;
   Future<void> signIn() async {
-    try {
-      final UserCredential userCredential =
+    var response = await http.get(Uri.parse(
+        'http://127.0.0.1:8000/api/utilisateur/' +
+            emailController.text.trim()));
+    var user = json.decode(response.body);
+
+    if (user['E-mail'] == emailController.text.trim()) {
+      userNotFound = false;
+      if (user['MotPass'] == PasswordController.text.trim()) {
+        wrongPassword = false;
+        if (user['Role'] == 'admin') {
+          role = false;
           await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: PasswordController.text.trim(),
-      );
-      // If sign-in was successful, navigate to the home page
-      Navigator.pushNamed(context, Dashboard.routeName);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+            email: emailController.text.trim(),
+            password: PasswordController.text.trim(),
+          );
+
+          Navigator.pushNamed(context, Dashboard.routeName);
+        } else {
+          print('You don\'t have access');
+          role = true;
+        }
+      } else {
+        print('Wrong password');
+        wrongPassword = true;
       }
+    } else {
+      print('User not found');
+      userNotFound = true;
     }
+
+    // Update the UI to display the error messages
+    setState(() {
+      this.userNotFound = userNotFound;
+      this.wrongPassword = wrongPassword;
+      this.role = role;
+    });
   }
 
   @override
@@ -181,7 +206,88 @@ class _WebLoginPageState extends State<WebLoginPage> {
                                 ),
                               ),
                               SizedBox(
-                                height: 35.0,
+                                height: 15.0,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Visibility(
+                                    visible: userNotFound,
+                                    child: Container(
+                                      margin: EdgeInsets.only(top: 10.0),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.0, vertical: 8.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                      ),
+                                      child: Text(
+                                        'L\'utilisateur n\'existe pas',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Visibility(
+                                    visible: role,
+                                    child: Container(
+                                      margin: EdgeInsets.only(top: 10.0),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.0, vertical: 8.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                      ),
+                                      child: Text(
+                                        'Vous n\'avez pas le droit d\'accès',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Visibility(
+                                    visible: wrongPassword,
+                                    child: Container(
+                                      margin: EdgeInsets.only(top: 10.0),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.0, vertical: 8.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                      ),
+                                      child: Text(
+                                        'Mot de passe incorrect',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10.0,
                               ),
                               Center(
                                 child: ElevatedButton(
@@ -215,7 +321,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                             height: 120.0,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],

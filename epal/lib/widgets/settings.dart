@@ -1,9 +1,11 @@
 import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 final _auth = FirebaseAuth.instance;
-
+String userEmail = FirebaseAuth.instance.currentUser?.email ?? "";
 //controllers
 TextEditingController _oldPasswordController = TextEditingController();
 TextEditingController _newPasswordController = TextEditingController();
@@ -16,18 +18,17 @@ class settings extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<void> changePassword(String newPassword) async {
       bool success = true;
-      try {
+      var response = await http.put(Uri.parse(
+          'http://127.0.0.1:8000/api/utilisateur/' +
+              userEmail +
+              '/' +
+              newPassword));
+      var user = json.decode(response.body);
+      if (user['success'] == true) {
         await _auth.currentUser!.updatePassword(newPassword);
         print('Password updated successfully!');
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'requires-recent-login') {
-          print('Please reauthenticate to change your password.');
-          success = false;
-          // You can prompt the user to reauthenticate here
-        } else {
-          print('Error changing password: $e');
-          success = false;
-        }
+      } else {
+        success = false;
       }
 
       if (success) {
@@ -37,8 +38,10 @@ class settings extends StatelessWidget {
             backgroundColor: Colors.green,
           ),
         );
-        await FirebaseAuth.instance.signOut();
-        Navigator.of(context).popUntil((route) => route.isFirst);
+        Future.delayed(Duration(seconds: 3), () async {
+          await FirebaseAuth.instance.signOut();
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -193,7 +196,42 @@ class settings extends StatelessWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () async {
-                    // Show the alert dialog
+                    var response = await http.get(Uri.parse(
+                        'http://127.0.0.1:8000/api/utilisateur/' + userEmail));
+                    var user = json.decode(response.body);
+                    if (_oldPasswordController.text.isEmpty ||
+                        _newPasswordController.text.isEmpty ||
+                        _confirmPasswordController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Veuillez remplir tous les champs !'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+                    if (_oldPasswordController.text != user['MotPass']) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Veuillez confirmer bien l\'ancien mot de passe !'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+                    if (_newPasswordController.text !=
+                        _confirmPasswordController.text) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Veuillez confirmer bien le nouveau mot de passe !'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+
                     bool confirmed = await showDialog(
                       context: context,
                       builder: (BuildContext context) {

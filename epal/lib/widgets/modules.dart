@@ -327,31 +327,37 @@ class _modulesState extends State<GererModule> {
                                       ),
                                       SizedBox(width: 20),
                                       Expanded(
-                                        child: Container(
-                                          child: Row(
-                                            children: [
-                                              TextButton(
-                                                onPressed: () {
-                                                  getPosition(
-                                                      _foundModules[index]
-                                                          ['ModNum']);
-                                                },
-                                                onHover: (event) {},
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      'Localiser',
-                                                      style: TextStyle(
-                                                        color: dark,
+                                        child: Visibility(
+                                          visible: (_foundModules[index]
+                                                      ['ModStatus']
+                                                  .toString() ==
+                                              'Active'),
+                                          child: Container(
+                                            child: Row(
+                                              children: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    getPosition(
+                                                        _foundModules[index]
+                                                            ['ModNum']);
+                                                  },
+                                                  onHover: (event) {},
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                        'Localiser',
+                                                        style: TextStyle(
+                                                          color: dark,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(width: 10),
-                                                    Icon(Icons.gps_fixed,
-                                                        color: dark)
-                                                  ],
-                                                ),
-                                              )
-                                            ],
+                                                      SizedBox(width: 10),
+                                                      Icon(Icons.gps_fixed,
+                                                          color: dark)
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       )
