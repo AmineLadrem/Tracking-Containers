@@ -73,6 +73,17 @@ class _modulesState extends State<GererModule> {
 
       final response = await http.post(Uri.parse(apiUrl));
 
+      String data = "{\"latitude\":0,\"longitude\":0}";
+
+      String url =
+          'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/' +
+              ModuleIDController.text +
+              '.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH';
+
+      http.Response response2 = await http.patch(Uri.parse(url), body: data);
+
+      print('Response status: ${response2.statusCode}');
+
       //pop notification
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(

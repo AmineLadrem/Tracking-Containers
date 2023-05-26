@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:tracker/ipAddresses.dart';
 
 void main() {
   runApp(MyApp());
@@ -76,6 +77,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String url =
         'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/2.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH';
+    var response2 = await http.post(
+      Uri.parse(usedIPAddress +
+          '/api/modulesuivis/2/' +
+          position.latitude.toString() +
+          "/" +
+          position.longitude.toString() +
+          "/0"),
+    );
 
     http.Response response = await http.patch(Uri.parse(url), body: data);
 

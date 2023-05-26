@@ -42,6 +42,7 @@ Route::put('/utilisateur/{email}/{pw}', [UtilisateurController::class, 'UpdatePW
 
 Route::get('/modulesuivis',[ModulesuiviController::class, 'index']);
 Route::post('/modulesuivis',[ModulesuiviController::class, 'store']);
+Route::put('/modulesuivis/{id}/{x}/{y}/{h}',[ModulesuiviController::class, 'update']);
 Route::get('/modulesuivis/{id}',[ModulesuiviController::class, 'show']);
 
 Route::get('/cdp',[ChefDeParcController::class, 'index']);

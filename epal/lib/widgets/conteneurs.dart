@@ -27,9 +27,15 @@ class _containersState extends State<containers> {
       conteneurList.add(conteneur);
     }
     if (_searchController.text.isNotEmpty) {
-      conteneurList.retainWhere((conteneur) => conteneur['Cont_ID']
-          .toLowerCase()
-          .contains(_searchController.text.toLowerCase()));
+      conteneurList.retainWhere((conteneur) {
+        final contIDMatches = conteneur['Cont_ID']
+            .toLowerCase()
+            .contains(_searchController.text.toLowerCase());
+        final contTypeMatches = conteneur['Cont_Type']
+            .toLowerCase()
+            .contains(_searchController.text.toLowerCase());
+        return contIDMatches || contTypeMatches;
+      });
     }
     return conteneurList;
   }
@@ -59,6 +65,7 @@ class _containersState extends State<containers> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _textFieldController = TextEditingController();
     TextEditingController contIDController = TextEditingController();
     TextEditingController contTypeController = TextEditingController();
     TextEditingController contPoidsController = TextEditingController();
@@ -113,6 +120,18 @@ class _containersState extends State<containers> {
       }
     }
 
+    void fillTextField() {
+      setState(() {
+        _searchController.text = '20p'; // Set the desired value here
+      });
+    }
+
+    void fillTextField2() {
+      setState(() {
+        _searchController.text = '40p'; // Set the desired value here
+      });
+    }
+
     return Container(
         height: 1000,
         width: 300,
@@ -131,9 +150,17 @@ class _containersState extends State<containers> {
                       setState(() {});
                     },
                     decoration: InputDecoration(
+                      hintText: 'Rechercher par l\'ID du conteneur',
                       labelText: 'Search',
                       labelStyle: TextStyle(color: dark),
                       prefixIcon: Icon(Icons.search, color: light),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          _searchController.clear();
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.clear, color: dark),
+                      ),
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
@@ -147,39 +174,58 @@ class _containersState extends State<containers> {
                     ),
                   ),
                 ),
-                Container(
-                  width: 250, // Adjust the width as needed
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: back,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: ButtonTheme(
-                      alignedDropdown: true,
-                      child: DropdownButton<String>(
-                        value: selectedItem,
-                        items: ['20p', '40p'].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedItem = newValue!;
-                          });
-                        },
-                        dropdownColor: back,
-                        icon: Icon(Icons.arrow_drop_down, color: dark),
-                        style: TextStyle(
-                          color: dark,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: 45,
+                      width: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ElevatedButton(
+                        onPressed: fillTextField,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF80CFCC),
                         ),
+                        child: Text('20p',
+                            style: TextStyle(
+                              fontFamily: 'Urbanist',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
                       ),
                     ),
-                  ),
+                    Text(
+                      'Ou par la categorie',
+                      style: TextStyle(
+                        fontFamily: 'Urbanist',
+                        color: dark,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      height: 45,
+                      width: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ElevatedButton(
+                        onPressed: fillTextField2,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF80CFCC),
+                        ),
+                        child: Text('40p',
+                            style: TextStyle(
+                              fontFamily: 'Urbanist',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    ),
+                  ],
                 ),
                 Expanded(
                   child: FutureBuilder<List<dynamic>>(
