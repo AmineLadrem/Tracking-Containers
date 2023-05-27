@@ -709,9 +709,9 @@ class _containersState extends State<containers> {
                                                   'In-Board'),
                                               child: TextButton(
                                                 onPressed: () {
-                                                  getPosition(int.parse(
+                                                  getPosition(
                                                       _foundConteneurs[index]
-                                                          ['ModNum']));
+                                                          ['ModNum']);
                                                 },
                                                 onHover: (event) {},
                                                 child: Row(

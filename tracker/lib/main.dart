@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String url =
         'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/2.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH';
-    var response2 = await http.post(
+    var response2 = await http.put(
       Uri.parse(usedIPAddress +
           '/api/modulesuivis/2/' +
           position.latitude.toString() +
@@ -89,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     http.Response response = await http.patch(Uri.parse(url), body: data);
 
     print('Response status: ${response.statusCode}');
+    print('Response status: ${response2.statusCode}');
   }
 
   @override

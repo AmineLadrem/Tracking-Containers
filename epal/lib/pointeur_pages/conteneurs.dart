@@ -463,8 +463,8 @@ class _ConteneursState extends State<Conteneurs> {
                                           color: Colors.black)),
                                   TextButton(
                                       onPressed: () {
-                                        getPosition(int.parse(
-                                            _foundConteneurs[index]['ModNum']));
+                                        getPosition(
+                                            _foundConteneurs[index]['ModNum']);
                                       },
                                       onHover: (event) {},
                                       child: Icon(Icons.location_on,
