@@ -21,7 +21,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 290,
+      width: 305,
       child: Row(
         children: [
           FutureBuilder<http.Response>(
@@ -251,7 +251,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 5.0),
+                                    padding: const EdgeInsets.only(left: 25.0),
                                     child: ElevatedButton(
                                       onPressed: () {},
                                       style: ButtonStyle(
@@ -286,7 +286,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 37.0),
+                                    padding: const EdgeInsets.only(left: 58.0),
                                     child: ElevatedButton(
                                       onPressed: () {
                                         FirebaseAuth.instance.signOut();

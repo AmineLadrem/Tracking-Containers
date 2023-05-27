@@ -1,5 +1,6 @@
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/chef_pages/home.dart';
+import 'package:epal/conducteur_pages/home.dart';
 
 import 'package:epal/pages/home.dart';
 
@@ -14,5 +15,6 @@ class Routes {
     Profile.routeName: (BuildContext context) => Profile(),
     PointeurHome.routeName: (BuildContext context) => PointeurHome(),
     ChefHome.routeName: (BuildContext context) => ChefHome(),
+    ConducteurHome.routeName: (BuildContext context) => ConducteurHome(),
   };
 }

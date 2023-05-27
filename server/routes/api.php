@@ -62,7 +62,9 @@ Route::post('/conteneur',[ConteneurController::class, 'store']);
 
 Route::post('/demande',[DemandeController::class, 'store']);
 Route::get('/demandes',[DemandeController::class, 'index']);
-Route::get('/demandes/{cdp}',[DemandeController::class, 'function1']);
+Route::get('/demandes/0',[DemandeController::class, 'function3']);
+Route::get('/demandes/chef/{cdp}',[DemandeController::class, 'function1']);
+Route::get('/demandes/conducteur/{cdc}',[DemandeController::class, 'function2']);
 
 
 

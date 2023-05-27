@@ -60,6 +60,19 @@ class DemandeController extends Controller
         return response()->json($demandes);
     }
 
+    public function function2($cdcId)
+    {
+        $demandes = Demande::where('CDC_ID', $cdcId)->get();
+    
+        return response()->json($demandes);
+    }
+    
+    public function function3()
+    {
+        $demandes = Demande::where('CDC_ID', 0)->get();
+    
+        return response()->json($demandes);
+    }
     /**
      * Update the specified resource in storage.
      */

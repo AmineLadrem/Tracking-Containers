@@ -1,4 +1,5 @@
 import 'package:epal/chef_pages/home.dart';
+import 'package:epal/conducteur_pages/home.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
 import 'package:epal/pages/home.dart';
@@ -40,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
       else if (user['Role'] == 'chef_de_parc')
         Navigator.pushNamed(context, ChefHome.routeName);
       else
-        Navigator.pushNamed(context, AdminHome.routeName);
+        Navigator.pushNamed(context, ConducteurHome.routeName);
       print('Login successfull');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

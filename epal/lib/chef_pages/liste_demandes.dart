@@ -25,7 +25,7 @@ final user = FirebaseAuth.instance.currentUser!;
 Future<List<dynamic>> fetchdemandes() async {
   final chef = await fetchUser(user.email!);
   print(chef);
-  final apiUrl = usedIPAddress + '/api/demandes/' + chef.toString();
+  final apiUrl = usedIPAddress + '/api/demandes/chef/' + chef.toString();
   final response = await http.get(Uri.parse(apiUrl));
   print(response.body);
   final demandeList = <dynamic>[];

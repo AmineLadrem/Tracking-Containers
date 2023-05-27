@@ -6,4 +6,4 @@
    -we remove module input f add container admin ( doneeee)
    -if the module is inactive , we can't track it (Doneee)
    -container in board = can't track him 
-   -
+   -details admin home page --> stats embarquement details ( 2021-2022)

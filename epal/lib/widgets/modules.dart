@@ -308,30 +308,6 @@ class _modulesState extends State<GererModule> {
                                                   ],
                                                 ),
                                               ),
-                                              RichText(
-                                                text: TextSpan(
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    fontSize: 18.0,
-                                                    color: dark,
-                                                  ),
-                                                  children: [
-                                                    TextSpan(
-                                                      text: 'PosistionH:  ',
-                                                      style: TextStyle(
-                                                        fontFamily: 'Poppins',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text: _foundModules[index]
-                                                              ['PositionH']
-                                                          .toString(),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
                                             ],
                                           ),
                                         ),

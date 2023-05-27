@@ -87,7 +87,7 @@ class _containersState extends State<containers> {
           contTypeController.text +
           '&Cont_Poids=' +
           contPoidsController.text +
-          '&Cont_Status=In-Board' +
+          '&Cont_Status=À bord' +
           '&ModNum=0' +
           '&NumLivraison=' +
           numLivraisonController.text +
@@ -97,8 +97,7 @@ class _containersState extends State<containers> {
           numDebarquementController.text +
           '&NumVisite=' +
           numVisiteController.text +
-          '&NumParc=' +
-          parc.toString() +
+          '&NumParc=0' +
           '&Admin_ID=' +
           1.toString();
       print(apiUrl);
