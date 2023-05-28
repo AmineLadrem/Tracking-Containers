@@ -756,6 +756,7 @@ class _containersState extends State<containers> {
                 padding: const EdgeInsets.all(9.0),
                 child: Column(
                   children: [
+                    SizedBox(height: 127),
                     Container(
                       decoration: BoxDecoration(
                         color: Color(0xFF80CFCC),

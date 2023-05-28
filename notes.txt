@@ -18,3 +18,4 @@
    -chef parc ajout(decrement nbr dispo parc)+ cancel demande
    -lien ( attacher => active status , detacher=> inactive)
    -ki ykhlas deplacement nbdlo container status
+   -refresh for every widget
