@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:epal/conducteur_pages/cond_demandes.dart';
@@ -8,6 +9,7 @@ import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
 
 class ListeDemandesCond extends StatefulWidget {
+  static const String routeName = '/liste_demandes_cond';
   const ListeDemandesCond({super.key});
 
   @override
@@ -31,6 +33,8 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
   }
 
   Future<List<dynamic>> fetchdemandes() async {
+    //timer with seconds
+
     final apiUrl = usedIPAddress + '/api/demandes/0';
     final response = await http.get(Uri.parse(apiUrl));
     final demandeList = <dynamic>[];
@@ -42,11 +46,6 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
     }
 
     return demandeList;
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
@@ -261,6 +260,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                               onPressed: () {
                                                 acceptDem(_foundDemandes[index]
                                                     ['DemNum']);
+                                                setState(() {});
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(

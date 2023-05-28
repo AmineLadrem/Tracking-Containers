@@ -9,6 +9,7 @@ import '../Pages/profile.dart';
 
 class ConducteurHome extends StatefulWidget {
   static const String routeName = '/ConducteurHome';
+
   final user = FirebaseAuth.instance.currentUser;
 
   @override

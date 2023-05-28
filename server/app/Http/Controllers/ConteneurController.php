@@ -75,7 +75,7 @@ class ConteneurController extends Controller
     public function function3(string $cont_id,$mod_num)
     {
         $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>$mod_num]);
-
+        modulesuivi::where('ModNum',$mod_num)->update(['ModStatus' =>'Active']);
         if ($affectedRows > 0) {
             return response()->json([
                 'success' => true,
@@ -91,11 +91,14 @@ class ConteneurController extends Controller
 
     public function function4(string $cont_id)
     {
+        $container=Conteneur::where('Cont_ID',$cont_id)->first();
+        $modnum=$container->ModNum;
         $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0]);
-
+        modulesuivi::where('ModNum',$modnum)->update(['ModStatus' =>'Inactive']);
         if ($affectedRows > 0) {
             return response()->json([
                 'success' => true,
+          
                 'message' => 'ModNum updated successfully'
             ]);
         } else {

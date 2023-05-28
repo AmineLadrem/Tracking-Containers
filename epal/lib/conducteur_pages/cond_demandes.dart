@@ -1,12 +1,16 @@
+import 'package:epal/conducteur_pages/parcs_locations.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
-import 'package:epal/icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
+import '../Pages/realtime_location.dart';
 
 class DemCond extends StatefulWidget {
+  static const String routeName = '/demCond';
   const DemCond({super.key});
 
   @override
@@ -36,8 +40,66 @@ Future<List<dynamic>> fetchdemandes() async {
   return demandeList;
 }
 
+Future<void> startDemande(int id) async {
+  final apiUrl =
+      usedIPAddress + '/api/demandes/conducteur/cours/' + id.toString();
+  await http.put(Uri.parse(apiUrl));
+}
+
+Future<void> finishDemande(int id) async {
+  final apiUrl =
+      usedIPAddress + '/api/demandes/conducteur/termine/' + id.toString();
+  await http.put(Uri.parse(apiUrl));
+}
+
+Future<void> cancelDemande(int id) async {
+  final apiUrl =
+      usedIPAddress + '/api/demandes/conducteur/cancel/' + id.toString();
+  await http.put(Uri.parse(apiUrl));
+}
+
 class _DemCondState extends State<DemCond> {
   final user = FirebaseAuth.instance.currentUser;
+  bool start = false;
+  Future<void> getPosition(int id) async {
+    var response = await http
+        .get(Uri.parse(usedIPAddress + '/api/modulesuivis/' + id.toString()));
+    var container = await http.get(Uri.parse(
+        usedIPAddress + '/api/conteneur/modulesuivi/' + id.toString()));
+
+    // Parse the JSON response
+    var data = json.decode(response.body);
+    var data2 = json.decode(container.body);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RealTime(
+          Cont_ID: data2['Cont_ID'],
+          ModNum: data['ModNum'],
+        ),
+      ),
+    );
+    // Use the position values as needed in your code
+  }
+
+  void openGoogleMaps(int pointName) async {
+    final selectedPoint = points.firstWhere((point) => point.name == pointName);
+
+    if (selectedPoint != null) {
+      final latLng = selectedPoint.points.first;
+      final url = Uri.parse(
+          'https://www.google.com/maps/search/?api=1&query=${latLng.latitude},${latLng.longitude}');
+
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } else {
+      throw Exception('Invalid point name');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,14 +274,164 @@ class _DemCondState extends State<DemCond> {
                                 ],
                               ),
                               Visibility(
-                                visible: (_foundDemandes[index]['Status']
+                                visible: ((_foundDemandes[index]['Status']
                                         .toString() ==
-                                    'Acceptée'),
+                                    'Terminée')),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 95.0, left: 95.0),
+                                      right: 150, left: 150),
                                   child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text('Demande'),
+                                                content: Container(
+                                                  height: 95,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                              'Numéro de la demande:',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 13.0,
+                                                              )),
+                                                          Text(
+                                                            _foundDemandes[
+                                                                        index]
+                                                                    ['DemNum']
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              fontSize: 13.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text('Conteneur:',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 13.0,
+                                                              )),
+                                                          Text(
+                                                            _foundDemandes[
+                                                                        index]
+                                                                    ['Cont_ID']
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              fontSize: 13.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text('Module:',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 13.0,
+                                                              )),
+                                                          Text(
+                                                            _foundDemandes[
+                                                                        index]
+                                                                    ['ModNum']
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              fontSize: 13.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                              'Parc Destination:',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 13.0,
+                                                              )),
+                                                          Text(
+                                                            _foundDemandes[
+                                                                        index]
+                                                                    ['ParcDest']
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              fontSize: 13.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text('Parc Départ:',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 13.0,
+                                                              )),
+                                                          Text(
+                                                            _foundDemandes[
+                                                                        index][
+                                                                    'ParcDepart']
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              fontSize: 13.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      // Add any desired functionality here
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text('OK'),
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                      },
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
@@ -239,48 +451,407 @@ class _DemCondState extends State<DemCond> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Icon(
-                                            Icons.check,
+                                            Icons.menu,
                                             color: Colors.white,
                                           ),
-                                          Text('Commencer le déplacement'),
+                                          Text('Details'),
                                         ],
                                       )),
                                 ),
                               ),
                               Visibility(
-                                visible: (_foundDemandes[index]['Status']
+                                visible: ((_foundDemandes[index]['Status']
                                         .toString() ==
-                                    'En Cours'),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 154.0, left: 154.0),
-                                  child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Color(0xFF80CFCC)),
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
+                                    'Acceptée')),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          startDemande(
+                                              _foundDemandes[index]['DemNum']);
+                                          setState(() {});
+                                        },
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Color(0xFF80CFCC)),
+                                          shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.play_arrow,
-                                            color: Colors.white,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Icon(
+                                              Icons.check,
+                                              color: Colors.white,
+                                            ),
+                                            Text('Commencer le déplacement'),
+                                          ],
+                                        )),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          cancelDemande(
+                                              _foundDemandes[index]['DemNum']);
+                                          setState(() {});
+                                        },
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Color(0xFF80CFCC)),
+                                          shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
                                           ),
-                                          Text('Continuer'),
-                                        ],
-                                      )),
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Icon(
+                                              Icons.cancel,
+                                              color: Colors.white,
+                                            ),
+                                            Text('Annuler'),
+                                          ],
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: ((_foundDemandes[index]['Status']
+                                        .toString() ==
+                                    'En Cours')),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text('Demande'),
+                                                    content: Container(
+                                                      height: 95,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                  'Numéro de la demande:',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        13.0,
+                                                                  )),
+                                                              Text(
+                                                                _foundDemandes[
+                                                                            index]
+                                                                        [
+                                                                        'DemNum']
+                                                                    .toString(),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize:
+                                                                      13.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text('Conteneur:',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        13.0,
+                                                                  )),
+                                                              Text(
+                                                                _foundDemandes[
+                                                                            index]
+                                                                        [
+                                                                        'Cont_ID']
+                                                                    .toString(),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize:
+                                                                      13.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text('Module:',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        13.0,
+                                                                  )),
+                                                              Text(
+                                                                _foundDemandes[
+                                                                            index]
+                                                                        [
+                                                                        'ModNum']
+                                                                    .toString(),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize:
+                                                                      13.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                  'Parc Destination:',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        13.0,
+                                                                  )),
+                                                              Text(
+                                                                _foundDemandes[
+                                                                            index]
+                                                                        [
+                                                                        'ParcDest']
+                                                                    .toString(),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize:
+                                                                      13.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                  'Parc Départ:',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        13.0,
+                                                                  )),
+                                                              Text(
+                                                                _foundDemandes[
+                                                                            index]
+                                                                        [
+                                                                        'ParcDepart']
+                                                                    .toString(),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize:
+                                                                      13.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          // Add any desired functionality here
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text('OK'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Color(0xFF80CFCC)),
+                                            shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.menu,
+                                                color: Colors.white,
+                                              ),
+                                              Text('Details'),
+                                            ],
+                                          )),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            getPosition(_foundDemandes[index]
+                                                ['ModNum']);
+                                          },
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Color(0xFF80CFCC)),
+                                            shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.location_pin,
+                                                color: Colors.white,
+                                              ),
+                                              Text('Conteneur'),
+                                            ],
+                                          )),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            openGoogleMaps(_foundDemandes[index]
+                                                ['ParcDest']);
+                                          },
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Color(0xFF80CFCC)),
+                                            shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.location_on,
+                                                color: Colors.white,
+                                              ),
+                                              Text('Parc Destination'),
+                                            ],
+                                          )),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            finishDemande(_foundDemandes[index]
+                                                ['DemNum']);
+                                            setState(() {});
+                                          },
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Color(0xFF80CFCC)),
+                                            shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.check,
+                                                color: Colors.white,
+                                              ),
+                                              Text('Terminer'),
+                                            ],
+                                          )),
+                                      SizedBox(
+                                        width: 5,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -320,7 +891,8 @@ class _DemCondState extends State<DemCond> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.popUntil(
+                      context, ModalRoute.withName('/ConducteurHome'));
                 },
                 child: Container(
                   height: 43,
