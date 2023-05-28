@@ -24,6 +24,12 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
   }
 
   final user = FirebaseAuth.instance.currentUser!;
+  Future<dynamic> acceptDem(int id) async {
+    var conducteur = await fetchUser(user.email!);
+    var response = await http.put(Uri.parse(
+        usedIPAddress + '/api/demandes/conducteur/accepte/$id/$conducteur'));
+  }
+
   Future<List<dynamic>> fetchdemandes() async {
     final apiUrl = usedIPAddress + '/api/demandes/0';
     final response = await http.get(Uri.parse(apiUrl));
@@ -31,6 +37,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
     final demandeData = json.decode(response.body);
 
     for (var demande in demandeData) {
+      print(demande);
       demandeList.add(demande);
     }
 
@@ -46,7 +53,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          const EdgeInsets.only(top: 80, left: 2.0, right: 2.0, bottom: 10.0),
+          const EdgeInsets.only(top: 80, left: 10.0, right: 10.0, bottom: 10.0),
       child: Column(
         children: [
           ClipRRect(
@@ -189,6 +196,27 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                                       ),
                                                     ],
                                                   ),
+                                                  Row(
+                                                    children: [
+                                                      Text('Parc Départ:',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 13.0,
+                                                          )),
+                                                      Text(
+                                                        _foundDemandes[index]
+                                                                ['ParcDepart']
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 13.0,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -228,9 +256,17 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              right: 154.0, left: 154.0),
+                                              right: 146.0, left: 146.0),
                                           child: ElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                acceptDem(_foundDemandes[index]
+                                                    ['DemNum']);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DemCond()));
+                                              },
                                               style: ButtonStyle(
                                                 backgroundColor:
                                                     MaterialStateProperty.all<
@@ -265,11 +301,26 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                   ),
                                 ),
                               );
-                            } else if (snapshot.hasError) {
-                              return Text('Error: ${snapshot.error}');
                             } else {
-                              return Center(
-                                child: CircularProgressIndicator(),
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 70.0),
+                                child: Column(
+                                  children: [
+                                    CircularProgressIndicator(
+                                      color: Color(0xFF80CFCC),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Pas de demandes pour le moment',
+                                      style: TextStyle(
+                                        fontFamily: 'Urbanist',
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               );
                             }
                           },

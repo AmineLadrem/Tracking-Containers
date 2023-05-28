@@ -58,6 +58,7 @@ Route::get('/conteneur/modulesuivi/{id}',[ConteneurController::class, 'function1
 Route::get('/conteneur/numparc/{id}',[ConteneurController::class, 'function2']);
 Route::put('conteneurs/{conteneur}/{modNum}', [ConteneurController::class, 'function3']);
 Route::put('conteneurs/{conteneur}', [ConteneurController::class, 'function4']);
+Route::get('conteneurs/{cont_id}', [ConteneurController::class, 'function5']);
 Route::post('/conteneur',[ConteneurController::class, 'store']);
 
 Route::post('/demande',[DemandeController::class, 'store']);
@@ -65,6 +66,7 @@ Route::get('/demandes',[DemandeController::class, 'index']);
 Route::get('/demandes/0',[DemandeController::class, 'function3']);
 Route::get('/demandes/chef/{cdp}',[DemandeController::class, 'function1']);
 Route::get('/demandes/conducteur/{cdc}',[DemandeController::class, 'function2']);
+Route::put('/demandes/conducteur/accepte/{demande}/{cdc}',[DemandeController::class, 'function4']);
 
 
 

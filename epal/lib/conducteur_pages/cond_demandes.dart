@@ -158,6 +158,25 @@ class _DemCondState extends State<DemCond> {
                                             ),
                                           ],
                                         ),
+                                        Row(
+                                          children: [
+                                            Text('Parc Départ:',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13.0,
+                                                )),
+                                            Text(
+                                              _foundDemandes[index]
+                                                      ['ParcDepart']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 13.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -192,36 +211,77 @@ class _DemCondState extends State<DemCond> {
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 95.0, left: 95.0),
-                                child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Color(0xFF80CFCC)),
-                                      shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                              Visibility(
+                                visible: (_foundDemandes[index]['Status']
+                                        .toString() ==
+                                    'Acceptée'),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 95.0, left: 95.0),
+                                  child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Color(0xFF80CFCC)),
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.check,
-                                          color: Colors.white,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                          ),
+                                          Text('Commencer le déplacement'),
+                                        ],
+                                      )),
+                                ),
+                              ),
+                              Visibility(
+                                visible: (_foundDemandes[index]['Status']
+                                        .toString() ==
+                                    'En Cours'),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 154.0, left: 154.0),
+                                  child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Color(0xFF80CFCC)),
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
                                         ),
-                                        Text('Commencer le déplacement'),
-                                      ],
-                                    )),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.play_arrow,
+                                            color: Colors.white,
+                                          ),
+                                          Text('Continuer'),
+                                        ],
+                                      )),
+                                ),
                               ),
                             ],
                           ),
@@ -232,7 +292,9 @@ class _DemCondState extends State<DemCond> {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: Color(0xFF80CFCC),
+                      ),
                     );
                   }
                 },

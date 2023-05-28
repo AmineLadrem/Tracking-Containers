@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\demande;
+use App\Models\conteneur;
+use App\Models\conducteur;
+use App\Models\modulesuivi;
 use Illuminate\Http\Request;
 
 class DemandeController extends Controller
@@ -63,16 +66,39 @@ class DemandeController extends Controller
     public function function2($cdcId)
     {
         $demandes = Demande::where('CDC_ID', $cdcId)->get();
+        foreach ($demandes as $demande) {
+            $conteneur = Conteneur::where('Cont_ID', $demande['Cont_ID'])->first();
+    
+            $demande['ModNum'] = $conteneur['ModNum'];
+            $demande['ParcDepart'] = $conteneur['NumParc'];
+        }
     
         return response()->json($demandes);
     }
     
     public function function3()
     {
-        $demandes = Demande::where('CDC_ID', 0)->get();
+        $demandes = Demande::where('CDC_ID', 0)->where('Status', 'En Attente')->get();
+        if ($demandes->isEmpty()) {
+            return null;
+        }
+        foreach ($demandes as $demande) {
+            $conteneur = Conteneur::where('Cont_ID', $demande['Cont_ID'])->first();
+    
+            $demande['ModNum'] = $conteneur['ModNum'];
+            $demande['ParcDepart'] = $conteneur['NumParc'];
+        }
     
         return response()->json($demandes);
     }
+
+    public function function4($demande, $conducteur)
+    {
+        $demandes = Demande::where('DemNum', $demande)->update(['CDC_ID' => $conducteur,'Status' => 'Acceptée']) ;
+        Conducteur::where('CDC_ID', $conducteur)->increment('NbrDemandesAcc');
+        return response()->json($demandes);
+    }
+    
     /**
      * Update the specified resource in storage.
      */

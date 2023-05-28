@@ -70,6 +70,7 @@ class ConteneurController extends Controller
         return response()->json($conteneurs);
     }
 
+
     
     public function function3(string $cont_id,$mod_num)
     {
@@ -103,6 +104,13 @@ class ConteneurController extends Controller
                 'message' => 'Failed to update ModNum'
             ]);
         }
+    }
+
+    public function function5($cont_id)
+    {
+        $conteneurs = Conteneur::where('Cont_ID', $cont_id)->first();
+
+        return response()->json($conteneurs);
     }
 
 
