@@ -24,10 +24,10 @@ Future<dynamic> fetchUser(String email) async {
 final user = FirebaseAuth.instance.currentUser!;
 Future<List<dynamic>> fetchdemandes() async {
   final chef = await fetchUser(user.email!);
-  print(chef);
+
   final apiUrl = usedIPAddress + '/api/demandes/chef/' + chef.toString();
   final response = await http.get(Uri.parse(apiUrl));
-  print(response.body);
+
   final demandeList = <dynamic>[];
   final demandeData = json.decode(response.body);
 
@@ -69,138 +69,156 @@ class _listedemandeState extends State<listedemande> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors
-                                  .black, // Set your desired border color here.
-                              width: 1.0, // Set the border width as desired.
+                              color: Color(
+                                  0xFF80CFCC), // Set your desired border color here.
+                              width: 2.0, // Set the border width as desired.
                             ),
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                child: Image.asset("assets/arrow.png",
-                                    width: 50, height: 50, color: light),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    child: Image.asset("assets/arrow.png",
+                                        width: 50, height: 50, color: light),
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text('Date:',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13.0,
+                                                )),
+                                            Text(
+                                              _foundDemandes[index]
+                                                      ['DateDemande']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 13.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text('Heure:',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13.0,
+                                                )),
+                                            Text(
+                                              _foundDemandes[index]
+                                                      ['HeureDemande']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 13.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 7.0,
+                                  ),
+                                  Container(
+                                    width: 165,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text('Conteneur :',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13.0,
+                                                )),
+                                            Text(
+                                              _foundDemandes[index]['Cont_ID']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 13.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text('Parc Destination:',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13.0,
+                                                )),
+                                            Text(
+                                              _foundDemandes[index]['ParcDest']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 13.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Container(
+                                    width: 70,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text('Status:',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13.0,
+                                                )),
+                                            Text(
+                                              _foundDemandes[index]['Status']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 13.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
-                                width: 17,
-                              ),
-                              Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text('Date:',
-                                            style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13.0,
-                                            )),
-                                        Text(
-                                          _foundDemandes[index]['DateDemande']
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13.0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text('Heure:',
-                                            style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13.0,
-                                            )),
-                                        Text(
-                                          _foundDemandes[index]['HeureDemande']
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13.0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 17,
-                              ),
-                              Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text('Conducteur',
-                                            style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13.0,
-                                            )),
-                                        Text(
-                                          _foundDemandes[index]['CDC_ID']
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13.0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text('Parc Destination:',
-                                            style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13.0,
-                                            )),
-                                        Text(
-                                          _foundDemandes[index]['ParcDest']
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13.0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 17,
-                              ),
-                              Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text('Status:',
-                                            style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13.0,
-                                            )),
-                                        Text(
-                                          _foundDemandes[index]['Status']
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 13.0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                height: 5.0,
                               ),
                             ],
                           ),

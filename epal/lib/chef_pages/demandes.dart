@@ -70,101 +70,114 @@ class _DemandesState extends State<Demandes> {
                       height: 30,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 285.0),
-                      child: Text(
-                        'Conteneur-ID:',
-                        style: TextStyle(
-                          color: dark,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0, right: 180.0),
-                      child: TextField(
-                        controller: contIDController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: back,
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 20),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                          prefixIcon:
-                              Icon(Icons.confirmation_number, color: dark),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              contIDController.clear();
-                            },
-                            icon: Icon(Icons.clear, color: Colors.red),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 185.0),
-                      child: Text(
-                        'Déplacer ce conteneur vers:',
-                        style: TextStyle(
-                          color: dark,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Container(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, right: 15.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: back,
-                          ),
-                          child: DropdownButton(
-                            underline: SizedBox(), // Remove the underline
-                            hint: Text('Sélectionner un parc'),
-                            value: selectedParcItem,
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedParcItem = newValue;
-                              });
-                            },
-                            items: parcItems.map<DropdownMenuItem>((item) {
-                              return DropdownMenuItem(
-                                value: item['NumParc'],
-                                child: Text(
-                                    '${item['NomParc']} - Zone ${item['Zone_ID']}'),
-                              );
-                            }).toList(),
-                            style: TextStyle(
-                              color: dark,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
+                      padding: const EdgeInsets.only(left: 55.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(right: 51.0, bottom: 5),
+                            child: Text(
+                              'Conteneur-ID',
+                              style: TextStyle(
+                                color: dark,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
                             ),
-                            icon: Icon(Icons.arrow_drop_down, color: dark),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 15.0, right: 70.0),
+                            child: TextField(
+                              controller: contIDController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: back,
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 20),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                prefixIcon: Icon(Icons.confirmation_number,
+                                    color: dark),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    contIDController.clear();
+                                  },
+                                  icon: Icon(Icons.clear, color: Colors.red),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 65.0),
+                            child: Text(
+                              'Déplacer ce conteneur vers:',
+                              style: TextStyle(
+                                color: dark,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Container(
+                                width: 264,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: back,
+                                ),
+                                child: DropdownButton(
+                                  underline: SizedBox(), // Remove the underline
+                                  hint: Padding(
+                                    padding: const EdgeInsets.only(left: 50.0),
+                                    child: Text('Sélectionner un parc'),
+                                  ),
+                                  value: selectedParcItem,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedParcItem = newValue;
+                                    });
+                                  },
+                                  items:
+                                      parcItems.map<DropdownMenuItem>((item) {
+                                    return DropdownMenuItem(
+                                      value: item['NumParc'],
+                                      child: Text(
+                                          '${item['NomParc']} - Zone ${item['Zone_ID']}'),
+                                    );
+                                  }).toList(),
+                                  style: TextStyle(
+                                    color: dark,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  ),
+                                  icon:
+                                      Icon(Icons.arrow_drop_down, color: dark),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 12,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -202,7 +215,7 @@ class _DemandesState extends State<Demandes> {
                       ],
                     ),
                     SizedBox(
-                      height: 26,
+                      height: 23,
                     ),
                   ],
                 ),

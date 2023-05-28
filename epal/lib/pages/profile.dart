@@ -1,3 +1,4 @@
+import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
 import 'package:epal/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +22,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 305,
+      width: 390,
       child: Row(
         children: [
           FutureBuilder<http.Response>(
@@ -30,7 +31,7 @@ class _ProfileState extends State<Profile> {
               if (snapshot.hasData) {
                 final utilisateur = jsonDecode(snapshot.data!.body);
                 return Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
+                  padding: const EdgeInsets.only(top: 65.0),
                   child: Column(children: <Widget>[
                     Container(
                       child: Stack(
@@ -55,203 +56,223 @@ class _ProfileState extends State<Profile> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Center(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 100.0),
-                                        child: Text(
-                                          'Profile',
-                                          style: TextStyle(
-                                            fontSize: 24.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                   SizedBox(
-                                    height: 0.0,
+                                    width: 380,
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(7.0),
-                                    child: RichText(
-                                      text: TextSpan(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 150.0),
+                                      child: Text(
+                                        'Profile',
                                         style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
+                                          fontSize: 27.0,
+                                          fontFamily: 'Urbanist',
+                                          color: dark,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Employee ID: ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: utilisateur['ID'].toString(),
-                                          ),
-                                        ],
                                       ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(7.0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Nom: ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                    padding: const EdgeInsets.only(left: 75.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(7.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Urbanist',
+                                                color: dark,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Employee ID: ',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: utilisateur['ID']
+                                                      .toString(),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          TextSpan(
-                                            text: utilisateur['Nom'],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(7.0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Prenom: ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: EdgeInsets.all(7.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Urbanist',
+                                                color: dark,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Nom: ',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: utilisateur['Nom'],
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          TextSpan(
-                                            text: utilisateur['Prenom'],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(7.0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Role: ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: EdgeInsets.all(7.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Urbanist',
+                                                color: dark,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Prenom: ',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: utilisateur['Prenom'],
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          TextSpan(
-                                            text: utilisateur['Role'],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(7.0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Adresse: ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: EdgeInsets.all(7.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Urbanist',
+                                                color: dark,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Role: ',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: utilisateur['Role'],
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          TextSpan(
-                                            text: utilisateur['Adresse'],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(7.0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'E-Mail: ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: EdgeInsets.all(7.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Urbanist',
+                                                color: dark,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Adresse: ',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: utilisateur['Adresse'],
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          TextSpan(
-                                            text: user.email!,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(7.0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Tel: ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: EdgeInsets.all(7.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Urbanist',
+                                                color: dark,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'E-Mail: ',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: user.email!,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          TextSpan(
-                                            text: utilisateur['tel'].toString(),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(7.0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Shift-Current: ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: EdgeInsets.all(7.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Urbanist',
+                                                color: dark,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Tel: ',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: utilisateur['tel']
+                                                      .toString(),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          TextSpan(
-                                            text: utilisateur['Shift'],
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(7.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Urbanist',
+                                                color: dark,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Shift-Current: ',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: utilisateur['Shift'],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
+                                  SizedBox(height: 20.0),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 25.0),
+                                    padding: const EdgeInsets.only(left: 67.0),
                                     child: ElevatedButton(
                                       onPressed: () {},
                                       style: ButtonStyle(
@@ -286,7 +307,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 58.0),
+                                    padding: const EdgeInsets.only(left: 100.0),
                                     child: ElevatedButton(
                                       onPressed: () {
                                         FirebaseAuth.instance.signOut();
@@ -327,6 +348,9 @@ class _ProfileState extends State<Profile> {
                                         ],
                                       ),
                                     ),
+                                  ),
+                                  SizedBox(
+                                    height: 23,
                                   ),
                                 ],
                               ),

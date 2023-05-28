@@ -78,6 +78,13 @@ class _ConteneursChefState extends State<ConteneursChef> {
       child: Column(
         children: [
           Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Color(0xFF80CFCC), // Set your desired border color here.
+                width: 2.0, // Set the border width as desired.
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             child: TextField(
               controller: _searchController,
               onChanged: (value) {
@@ -94,7 +101,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                   color: dark,
                 ),
                 filled: true,
-                fillColor: Colors.grey[300],
+                fillColor: Colors.white,
               ),
             ),
           ),
@@ -107,13 +114,14 @@ class _ConteneursChefState extends State<ConteneursChef> {
                   return ListView.builder(
                     itemCount: _foundConteneurs.length,
                     itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(2.0),
+                      padding: const EdgeInsets.only(
+                          right: 2.0, left: 2.0, top: 2.0, bottom: 15.0),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors
-                                .black, // Set your desired border color here.
-                            width: 1.0, // Set the border width as desired.
+                            color: Color(
+                                0xFF80CFCC), // Set your desired border color here.
+                            width: 2.0, // Set the border width as desired.
                           ),
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10.0),
@@ -135,6 +143,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                     children: [
                                       Text('Conteneur-ID:',
                                           style: TextStyle(
+                                            color: dark,
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13.0,
@@ -142,6 +151,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                       Text(
                                         _foundConteneurs[index]['Cont_ID'],
                                         style: TextStyle(
+                                          color: dark,
                                           fontFamily: 'Poppins',
                                           fontSize: 13.0,
                                         ),
@@ -152,6 +162,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                     children: [
                                       Text('Status:',
                                           style: TextStyle(
+                                            color: dark,
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13.0,
@@ -159,6 +170,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                       Text(
                                         _foundConteneurs[index]['Cont_Status'],
                                         style: TextStyle(
+                                          color: dark,
                                           fontFamily: 'Poppins',
                                           fontSize: 13.0,
                                         ),
@@ -169,6 +181,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                     children: [
                                       Text('Parc:',
                                           style: TextStyle(
+                                            color: dark,
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13.0,
@@ -177,6 +190,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                         _foundConteneurs[index]['NumParc']
                                             .toString(),
                                         style: TextStyle(
+                                          color: dark,
                                           fontFamily: 'Poppins',
                                           fontSize: 13.0,
                                         ),
@@ -476,7 +490,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                       },
                                       onHover: (event) {},
                                       child: Icon(Icons.menu,
-                                          color: Colors.black)),
+                                          color: Color(0xFF80CFCC))),
                                   TextButton(
                                       onPressed: () {
                                         getPosition(
@@ -484,7 +498,7 @@ class _ConteneursChefState extends State<ConteneursChef> {
                                       },
                                       onHover: (event) {},
                                       child: Icon(Icons.location_on,
-                                          color: Colors.black))
+                                          color: Color(0xFF80CFCC)))
                                 ],
                               ),
                             ),

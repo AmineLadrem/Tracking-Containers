@@ -1,5 +1,6 @@
 import 'package:epal/chef_pages/notifications.dart';
 import 'package:epal/conducteur_pages/liste_demandes.dart';
+import 'package:epal/constants/style.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ class ConducteurHome extends StatefulWidget {
 class _ConducteurHomeState extends State<ConducteurHome> {
   final user = FirebaseAuth.instance.currentUser;
   int _selectedIndex = 0;
+  Color _buttonColor0 = Color(0xFF80CFCC);
+  Color _buttonColor1 = Color(0xFF80CFCC);
+  Color _buttonColor2 = Color(0xFF80CFCC);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +60,7 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                 SizedBox(width: 60),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF80CFCC),
+                    backgroundColor: _buttonColor0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -64,6 +68,11 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                   onPressed: () {
                     setState(() {
                       _selectedIndex = 0;
+                      _buttonColor0 =
+                          dark; // Set the desired color for the clicked button
+                      _buttonColor1 =
+                          Color(0xFF80CFCC); // Reset other buttons' colors
+                      _buttonColor2 = Color(0xFF80CFCC);
                     });
                   },
                   child: Container(
@@ -89,7 +98,7 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                 SizedBox(width: 35),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF80CFCC),
+                    backgroundColor: _buttonColor1,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -97,6 +106,11 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                   onPressed: () {
                     setState(() {
                       _selectedIndex = 1;
+                      _buttonColor0 =
+                          Color(0xFF80CFCC); // Reset other buttons' colors
+                      _buttonColor1 =
+                          dark; // Set the desired color for the clicked button
+                      _buttonColor2 = Color(0xFF80CFCC);
                     });
                   },
                   child: Container(
@@ -122,7 +136,7 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                 SizedBox(width: 35),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF80CFCC),
+                    backgroundColor: _buttonColor2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -130,6 +144,10 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                   onPressed: () {
                     setState(() {
                       _selectedIndex = 3;
+                      _buttonColor0 =
+                          Color(0xFF80CFCC); // Reset other buttons' colors
+                      _buttonColor1 = Color(0xFF80CFCC);
+                      _buttonColor2 = dark; // Set
                     });
                   },
                   child: Container(

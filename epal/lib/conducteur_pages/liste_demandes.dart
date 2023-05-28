@@ -41,7 +41,6 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
     final demandeData = json.decode(response.body);
 
     for (var demande in demandeData) {
-      print(demande);
       demandeList.add(demande);
     }
 
@@ -58,6 +57,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
           ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Container(
+              height: 360,
               color: Colors.white,
               child: Container(
                 child: Column(
@@ -77,7 +77,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                       ],
                     ),
                     Container(
-                      height: 250,
+                      height: 265,
                       child: Container(
                         child: Expanded(
                             child: FutureBuilder(
@@ -333,7 +333,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 33.0),
+            padding: const EdgeInsets.only(top: 55.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

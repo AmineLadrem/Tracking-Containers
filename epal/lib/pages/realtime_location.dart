@@ -204,7 +204,8 @@ class _RealTimeState extends State<RealTime> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.only(
+                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: Container(
@@ -230,122 +231,34 @@ class _RealTimeState extends State<RealTime> {
               ),
             ),
           ),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Color(0xFF80CFCC)),
-            ),
-            child: Container(
-              width: 160,
-              height: 20,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.sync_alt_outlined, color: Colors.white),
-                  Text(_isMapTypeNormal
-                      ? 'Switch to Hybrid'
-                      : 'Switch to Normal'),
-                  Icon(Icons.sync_alt_outlined, color: Colors.white),
-                ],
+          Padding(
+            padding: const EdgeInsets.only(left: 27.0, top: 25),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Color(0xFF80CFCC)),
               ),
-            ),
-            onPressed: () {
-              setState(() {
-                _isMapTypeNormal = !_isMapTypeNormal;
-              });
-            },
-          ),
-          Container(
-            height: 57,
-            width: 400,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 0.5,
-              ),
-              color: Colors.white,
-            ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(children: [
-                SizedBox(width: 30.0),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              child: Container(
+                width: 200,
+                height: 20,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 10.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Zone:',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
-                                fontFamily: 'Urbanist')),
-                        SizedBox(height: 5.0),
-                        Text(zone, style: TextStyle(fontFamily: 'Urbanist')),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('Parc:',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
-                                fontFamily: 'Urbanist')),
-                        SizedBox(height: 5.0),
-                        Text(parc, style: TextStyle(fontFamily: 'Urbanist')),
-                      ],
-                    ),
+                    Icon(Icons.sync_alt_outlined, color: Colors.white),
+                    SizedBox(width: 10.0),
+                    Text(_isMapTypeNormal
+                        ? 'Basculer au mode Hybrid'
+                        : 'Basculer au mode Normal'),
                   ],
                 ),
-                SizedBox(width: 30.0),
-                Icon(Icons.my_location),
-                SizedBox(width: 30.0),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 10.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('PositionX:',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
-                                fontFamily: 'Urbanist')),
-                        SizedBox(height: 5.0),
-                        Text(
-                            _currentLocation != null
-                                ? _currentLocation!.latitude.toString()
-                                : '',
-                            style: TextStyle(fontFamily: 'Urbanist')),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('PositionY:',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
-                                fontFamily: 'Urbanist')),
-                        SizedBox(height: 5.0),
-                        Text(
-                            _currentLocation != null
-                                ? _currentLocation!.longitude.toString()
-                                : '',
-                            style: TextStyle(fontFamily: 'Urbanist')),
-                      ],
-                    ),
-                  ],
-                )
-              ]),
+              ),
+              onPressed: () {
+                setState(() {
+                  _isMapTypeNormal = !_isMapTypeNormal;
+                });
+              },
             ),
-          )
+          ),
         ]),
       ),
     );

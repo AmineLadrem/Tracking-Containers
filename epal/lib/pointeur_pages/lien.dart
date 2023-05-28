@@ -105,26 +105,31 @@ class _LienState extends State<Lien> {
           child: Container(
               child: Column(
             children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: 55,
-                  ),
-                  Image.asset("assets/container.png", width: 100, height: 100),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Image.asset(
-                    "assets/swap.png",
-                    width: 100,
-                    height: 100,
-                    color: Color(0xFF80CFCC),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Image.asset("assets/gpsModule.png", width: 100, height: 100),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(top: 25.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 55,
+                    ),
+                    Image.asset("assets/container.png",
+                        width: 100, height: 100),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Image.asset(
+                      "assets/swap.png",
+                      width: 100,
+                      height: 100,
+                      color: Color(0xFF80CFCC),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Image.asset("assets/gpsModule.png",
+                        width: 100, height: 100),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 50,
@@ -204,7 +209,7 @@ class _LienState extends State<Lien> {
                 ),
               ),
               SizedBox(
-                height: 35,
+                height: 20,
               ),
               Row(
                 children: [
