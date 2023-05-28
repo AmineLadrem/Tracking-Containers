@@ -40,7 +40,7 @@ class _LargeScreenState extends State<LargeScreen> {
               Card(
                 child: Container(
                   width: 220,
-                  height: 681.5,
+                  height: 790.5,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
@@ -372,6 +372,8 @@ class _LargeScreenState extends State<LargeScreen> {
                       ),
                       SizedBox(height: 20),*/
                       SizedBox(height: 40),
+                      Image.asset("assets/employee.png", width: 70, height: 70),
+                      SizedBox(height: 25),
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                         child: Container(
@@ -383,143 +385,161 @@ class _LargeScreenState extends State<LargeScreen> {
                               width: 1.0,
                             ),
                           ),
-                          child: Row(
-                            children: [
-                              Image.asset("assets/employee.png",
-                                  width: 50, height: 50),
-                              SizedBox(width: 20),
-                              FutureBuilder<http.Response>(
-                                future: fetchAdmin(1),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    final admin =
-                                        jsonDecode(snapshot.data!.body);
-                                    return Center(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                          child: FutureBuilder<http.Response>(
+                            future: fetchAdmin(1),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final admin = jsonDecode(snapshot.data!.body);
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 7.0),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 10),
+                                      Row(
                                         children: [
-                                          RichText(
-                                            text: TextSpan(
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: dark,
-                                              ),
-                                              children: [
-                                                TextSpan(
-                                                  text: 'Nom/Prenom:\n',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      '${admin['Nom']}\n${admin['Prenom']}',
-                                                ),
-                                              ],
+                                          Text(
+                                            'Nom:',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0,
+                                              color: dark,
                                             ),
                                           ),
-                                          SizedBox(height: 10),
-                                          RichText(
-                                            text: TextSpan(
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: dark,
-                                              ),
-                                              children: [
-                                                TextSpan(
-                                                  text: 'Role:\n',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: '${admin['Role']}',
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          RichText(
-                                            text: TextSpan(
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: dark,
-                                              ),
-                                              children: [
-                                                TextSpan(
-                                                  text: 'Adresse:\n',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: '${admin['Adresse']}',
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          RichText(
-                                            text: TextSpan(
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: dark,
-                                              ),
-                                              children: [
-                                                TextSpan(
-                                                  text: 'Telephone:\n',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: '${admin['tel']}',
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          RichText(
-                                            text: TextSpan(
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: dark,
-                                              ),
-                                              children: [
-                                                TextSpan(
-                                                  text: 'Shift:\n',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: '${admin['Shift']}',
-                                                ),
-                                              ],
+                                          SizedBox(width: 5),
+                                          Text(
+                                            '${admin['Nom']}',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: dark,
                                             ),
                                           ),
                                         ],
                                       ),
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return Text('Error: ${snapshot.error}');
-                                  } else {
-                                    return Center(
-                                      child: Container(
-                                        width: 30,
-                                        height: 30,
-                                        child: CircularProgressIndicator(),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Prenom:',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            '${admin['Prenom']}',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    );
-                                  }
-                                },
-                              )
-                            ],
+                                      SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Role:',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            '${admin['Role']}',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Adresse:',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            '${admin['Adresse']}',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Telephone:',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            '${admin['tel']}',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Shift:',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            '${admin['Shift']}',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
+                                  ),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return Center(
+                                  child: Container(
+                                    width: 30,
+                                    height: 30,
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                              }
+                            },
                           ),
                         ),
                       ),
-                      SizedBox(height: 90),
+                      SizedBox(height: 190),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF80CFCC),
