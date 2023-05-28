@@ -371,9 +371,9 @@ class _LargeScreenState extends State<LargeScreen> {
                         ),
                       ),
                       SizedBox(height: 20),*/
-                      SizedBox(height: 40),
+                      SizedBox(height: 225),
                       Image.asset("assets/employee.png", width: 70, height: 70),
-                      SizedBox(height: 25),
+                      SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                         child: Container(
@@ -539,7 +539,7 @@ class _LargeScreenState extends State<LargeScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 190),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF80CFCC),
