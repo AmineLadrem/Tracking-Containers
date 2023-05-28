@@ -1,6 +1,6 @@
 import 'package:epal/constants/style.dart';
 import 'package:epal/icons.dart';
-import 'package:epal/widgets/location.dart';
+
 import 'package:epal/widgets/realtime_location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -65,7 +65,6 @@ class _containersState extends State<containers> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _textFieldController = TextEditingController();
     TextEditingController contIDController = TextEditingController();
     TextEditingController contTypeController = TextEditingController();
     TextEditingController contPoidsController = TextEditingController();
@@ -73,7 +72,7 @@ class _containersState extends State<containers> {
     TextEditingController numEmbarquementController = TextEditingController();
     TextEditingController numDebarquementController = TextEditingController();
     TextEditingController numVisiteController = TextEditingController();
-    String selectedItem = '20p';
+
     addContainer() async {
       var response2 =
           await http.get(Uri.parse('http://127.0.0.1:8000/api/parc'));

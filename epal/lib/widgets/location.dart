@@ -32,7 +32,7 @@ class _locationState extends State<location> {
   late double _PositionX;
   late double _PositionY;
   late double _PositionH;
-  BitmapDescriptor? _markerIcon;
+
   @override
   void initState() {
     super.initState();
@@ -43,9 +43,7 @@ class _locationState extends State<location> {
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration(size: Size(30, 30)),
       'assets/gpsModule.png',
-    ).then((value) => setState(() {
-          _markerIcon = value;
-        }));
+    ).then((value) => setState(() {}));
   }
 
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();

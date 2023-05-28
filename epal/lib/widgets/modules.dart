@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:epal/widgets/location.dart';
+
 import 'package:epal/widgets/realtime_location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
-import 'package:epal/pages/location.dart';
+
 import 'package:epal/pages/realtime_location.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

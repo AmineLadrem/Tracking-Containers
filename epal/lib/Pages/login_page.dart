@@ -2,7 +2,7 @@ import 'package:epal/chef_pages/home.dart';
 import 'package:epal/conducteur_pages/home.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
-import 'package:epal/pages/home.dart';
+
 import 'package:epal/pointeur_pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,8 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> signIn() async {
     try {
-      final UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: PasswordController.text.trim(),
       );

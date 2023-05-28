@@ -40,8 +40,6 @@ class _AdminHomeState extends State<AdminHome> {
 
   @override
   Widget build(BuildContext context) {
-    List<bool> _visible = [true, true, true, true, true];
-
     // Define the getUser function as async
     Future<String> getUser(String email) async {
       final String url =

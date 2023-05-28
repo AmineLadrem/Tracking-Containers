@@ -142,12 +142,7 @@ class _LocationState extends State<Location> {
         parc = 'Parc 6';
       }
     }
-    String getMarkerText(String zone, String parc) {
-      String text = 'Zone : $zone\nParc : $parc\nHauteur : $_PositionH ';
-      return text;
-    }
 
-    String markerText = getMarkerText(zone, parc);
     Set<Marker> _markers = {
       Marker(
         markerId: MarkerId('myLocation'),

@@ -1,6 +1,6 @@
 import 'package:epal/WebPages/LoginPage.dart';
 import 'package:epal/WebPages/dashboard.dart';
-import 'package:epal/widgets/location.dart';
+
 import 'package:flutter/material.dart';
 
 const OverViewPage = 'Overview';

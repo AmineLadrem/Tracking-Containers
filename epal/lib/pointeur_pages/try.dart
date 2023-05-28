@@ -209,7 +209,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                               ),
                               TextSpan(
-                                text: user!.email!,
+                                text: user.email!,
                               ),
                             ],
                           ),

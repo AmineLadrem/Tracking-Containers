@@ -28,7 +28,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
   final user = FirebaseAuth.instance.currentUser!;
   Future<dynamic> acceptDem(int id) async {
     var conducteur = await fetchUser(user.email!);
-    var response = await http.put(Uri.parse(
+    await http.put(Uri.parse(
         usedIPAddress + '/api/demandes/conducteur/accepte/$id/$conducteur'));
   }
 

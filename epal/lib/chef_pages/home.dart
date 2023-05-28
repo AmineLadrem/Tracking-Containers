@@ -2,7 +2,7 @@ import 'package:epal/chef_pages/conteneurs.dart';
 import 'package:epal/chef_pages/demandes.dart';
 import 'package:epal/chef_pages/notifications.dart';
 import 'package:epal/icons.dart';
-import 'package:epal/pointeur_pages/conteneurs.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
