@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\demande;
+
+use App\Models\parc;
 use App\Models\conteneur;
 use App\Models\conducteur;
 use App\Models\modulesuivi;
@@ -35,6 +37,7 @@ class DemandeController extends Controller
          
             
         ]);
+        
         $demande=Demande::create([
             
             'CDP_ID'=>$demandeValidation['CDP_ID'],
@@ -65,15 +68,18 @@ class DemandeController extends Controller
 
     public function function2($cdcId)
     {
-        $demandes = Demande::where('CDC_ID', $cdcId)->get();
-        foreach ($demandes as $demande) {
-            $conteneur = Conteneur::where('Cont_ID', $demande['Cont_ID'])->first();
-    
-            $demande['ModNum'] = $conteneur['ModNum'];
-            $demande['ParcDepart'] = $conteneur['NumParc'];
-        }
-    
-        return response()->json($demandes);
+        $demandes = Demande::where('CDC_ID', $cdcId)
+        ->orderByRaw("FIELD(Status, 'Acceptée', 'En cours', 'Terminée')")
+        ->get();
+
+    foreach ($demandes as $demande) {
+        $conteneur = Conteneur::where('Cont_ID', $demande['Cont_ID'])->first();
+        $demande['ModNum'] = $conteneur['ModNum'];
+        $demande['ParcDepart'] = $conteneur['NumParc'];
+    }
+
+    return response()->json($demandes);
+
     }
     
     public function function3()
@@ -99,6 +105,43 @@ class DemandeController extends Controller
         return response()->json($demandes);
     }
     
+    
+    public function function5($demande)
+    {
+        $demandes = Demande::where('DemNum', $demande)->update(['Status' => 'En Cours']) ;
+ 
+        return response()->json($demandes);
+    }
+
+    public function function6($demande)
+    {
+        $demandes = Demande::where('DemNum', $demande)->update(['Status' => 'Terminée']) ;
+       
+        return response()->json($demandes);
+    }
+    public function function7($demande)
+    {
+        $demandes = Demande::where('DemNum', $demande)->update(['Status' => 'En Attente', 'CDC_ID' => 0]) ;
+ 
+        return response()->json($demandes);
+    }
+
+    public function function8($cdp,$cdc,$date,$heure,$cont )
+    {
+        $parc = Parc::where('nbrdispo', '>', 0)->where('Zone_ID', 1)->first();
+        Demande::create([
+            
+            'CDP_ID'=>$cdp,
+            'CDC_ID'=>$cdc,
+            'DateDemande'=>$date,
+            'HeureDemande'=>$heure,
+            'Cont_ID'=>$cont,
+            'ParcDest'=>$parc['NumParc'],
+            'Status'=>'En Attente',
+             
+            ]);
+            Parc::where('NumParc', $parc['NumParc'])->decrement('NbrDispo');
+    }
     /**
      * Update the specified resource in storage.
      */

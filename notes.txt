@@ -1,9 +1,20 @@
 ---------------------------------TO DO--------------------
    -Check old nd new with confirm pw (Doooonee)
    -Web login page : check if the user is an admin or not ( les autres ne sont pas autorisee) (DOOONEEEE )
-   -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)
+  
    -ki nzido conteneur , we have to check numero ta3 parc so we can know ama zone rana + his status(donee)
    -we remove module input f add container admin ( doneeee)
    -if the module is inactive , we can't track it (Doneee)
+
+
+
+
+
+
+
+   -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)
    -container in board = can't track him 
    -details admin home page --> stats embarquement details ( 2021-2022)
+   -chef parc ajout(decrement nbr dispo parc)+ cancel demande
+   -lien ( attacher => active status , detacher=> inactive)
+   -ki ykhlas deplacement nbdlo container status

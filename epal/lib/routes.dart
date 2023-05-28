@@ -1,6 +1,8 @@
 import 'package:epal/Pages/profile.dart';
 import 'package:epal/chef_pages/home.dart';
+import 'package:epal/conducteur_pages/cond_demandes.dart';
 import 'package:epal/conducteur_pages/home.dart';
+import 'package:epal/conducteur_pages/liste_demandes.dart';
 
 import 'package:epal/pages/home.dart';
 
@@ -16,5 +18,7 @@ class Routes {
     PointeurHome.routeName: (BuildContext context) => PointeurHome(),
     ChefHome.routeName: (BuildContext context) => ChefHome(),
     ConducteurHome.routeName: (BuildContext context) => ConducteurHome(),
+    DemCond.routeName: (BuildContext context) => DemCond(),
+    ListeDemandesCond.routeName: (BuildContext context) => ListeDemandesCond(),
   };
 }

@@ -30,11 +30,7 @@ Route::get('/',function(){
 Route::post('/user/register', [UserController::class, 'register']);
 Route::post('/user/login', [UserController::class, 'login']);
 
-Route::get('/cars',[CarsController::class, 'index']);
-Route::post('/cars',[CarsController::class, 'store']);
-Route::get('/cars/{id}',[CarsController::class, 'show']);
-Route::put('/cars/{id}',[CarsController::class, 'update']);
-Route::delete('/cars/{id}',[CarsController::class, 'destroy']);
+ 
 
 Route::get('/utilisateur',[UtilisateurController::class, 'index']);
 Route::get('/utilisateur/{email}', [UtilisateurController::class, 'getUserRoleByEmail']);
@@ -56,8 +52,8 @@ Route::get('/admin/{id}',[AdminController::class, 'show']);
 Route::get('/conteneur',[ConteneurController::class, 'index']);
 Route::get('/conteneur/modulesuivi/{id}',[ConteneurController::class, 'function1']);
 Route::get('/conteneur/numparc/{id}',[ConteneurController::class, 'function2']);
-Route::put('conteneurs/{conteneur}/{modNum}', [ConteneurController::class, 'function3']);
-Route::put('conteneurs/{conteneur}', [ConteneurController::class, 'function4']);
+Route::put('conteneurs/attache/{conteneur}/{modNum}', [ConteneurController::class, 'function3']);
+Route::put('conteneurs/detache/{conteneur}', [ConteneurController::class, 'function4']);
 Route::get('conteneurs/{cont_id}', [ConteneurController::class, 'function5']);
 Route::post('/conteneur',[ConteneurController::class, 'store']);
 
@@ -67,7 +63,10 @@ Route::get('/demandes/0',[DemandeController::class, 'function3']);
 Route::get('/demandes/chef/{cdp}',[DemandeController::class, 'function1']);
 Route::get('/demandes/conducteur/{cdc}',[DemandeController::class, 'function2']);
 Route::put('/demandes/conducteur/accepte/{demande}/{cdc}',[DemandeController::class, 'function4']);
-
+Route::put('/demandes/conducteur/cours/{demande}',[DemandeController::class, 'function5']);
+Route::put('/demandes/conducteur/termine/{demande}',[DemandeController::class, 'function6']);
+Route::put('/demandes/conducteur/cancel/{demande}',[DemandeController::class, 'function7']);
+Route::put('/demandes/conducteur/add/{cdp}/{cdc}/{date}/{heure}/{cont}',[DemandeController::class, 'function8']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

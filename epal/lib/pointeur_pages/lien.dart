@@ -1,9 +1,13 @@
 import 'dart:convert';
-
+import 'package:intl/intl.dart';
 import 'package:epal/helpers/ipAddresses.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../constants/style.dart';
+
+DateTime now = DateTime.now();
+String formattedTime = DateFormat('HH:mm:ss').format(now);
+String formattedDate = DateFormat('yyyy-MM-dd').format(now);
 
 class Lien extends StatefulWidget {
   const Lien({super.key});
@@ -14,30 +18,57 @@ class Lien extends StatefulWidget {
 
 class _LienState extends State<Lien> {
   Future<void> attacherConteneur(String Cont_ID, String ModNum) async {
-    final apiUrl = usedIPAddress + '/api/conteneurs/' + Cont_ID + '/' + ModNum;
-    final response = await http.put(Uri.parse(apiUrl));
-    print(response.body);
-    final decodedResponse = json.decode(response.body);
+    final apiUrl2 = usedIPAddress + '/api/conteneurs/' + Cont_ID;
+    final response2 = await http.get(Uri.parse(apiUrl2));
+    final decodedResponse2 = json.decode(response2.body);
+    if (decodedResponse2['Cont_Status'] == 'À bord') {
+      final apiUrl =
+          usedIPAddress + '/api/conteneurs/attache/' + Cont_ID + '/' + ModNum;
+      await http.put(Uri.parse(apiUrl));
 
-    if (response.statusCode == 200 && decodedResponse['success']) {
+      final apiUrl3 = usedIPAddress +
+          '/api/demandes/conducteur/add/0/0/$formattedDate/$formattedTime/$Cont_ID';
+      await http.put(Uri.parse(apiUrl3));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(' Conteneur attaché avec succès !'),
+          content: Text(
+              ' Conteneur attaché avec succès + une demande de deplacement a ete envoye !'),
           backgroundColor: Colors.green,
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(' Erreur lors de l\'attachement du conteneur !'),
-          backgroundColor: Colors.green,
-        ),
-      );
+      final apiUrl =
+          usedIPAddress + '/api/conteneurs/attache/' + Cont_ID + '/' + ModNum;
+      final response = await http.put(Uri.parse(apiUrl));
+
+      print(response.body);
+      final decodedResponse = json.decode(response.body);
+
+      if (response.statusCode == 200 && decodedResponse['success']) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(' Conteneur attaché avec succès !'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(' Erreur lors de l\'attachement du conteneur !'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
   Future<void> dettacherConteneur(String Cont_ID) async {
-    final apiUrl = usedIPAddress + '/api/conteneurs/' + Cont_ID;
+    final apiUrl2 = usedIPAddress + '/api/conteneurs/' + Cont_ID;
+    final response2 = await http.get(Uri.parse(apiUrl2));
+    final decodedResponse2 = json.decode(response2.body);
+    print(decodedResponse2);
+    final apiUrl = usedIPAddress + '/api/conteneurs/detache/' + Cont_ID;
+
     final response = await http.put(Uri.parse(apiUrl));
     print(response.body);
     final decodedResponse = json.decode(response.body);

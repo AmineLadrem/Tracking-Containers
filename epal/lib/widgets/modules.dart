@@ -139,6 +139,7 @@ class _modulesState extends State<GererModule> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20),
                   Expanded(
                     child: FutureBuilder<List<dynamic>>(
                       future: fetchModules(),
@@ -371,7 +372,7 @@ class _modulesState extends State<GererModule> {
           Container(
             width: 450,
             child: Padding(
-              padding: const EdgeInsets.only(top: 250.0, left: 5),
+              padding: const EdgeInsets.only(top: 98.0, left: 5),
               child: Column(
                 children: [
                   Container(
