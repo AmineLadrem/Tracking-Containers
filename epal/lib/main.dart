@@ -13,6 +13,8 @@ import 'package:get/get.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print(fcmToken);
   FirebaseMessaging.onBackgroundMessage(_firebasePushHandler);
   if (kIsWeb) {
     Get.put(MenuController());

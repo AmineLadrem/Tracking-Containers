@@ -40,7 +40,7 @@ class _ChefHomeState extends State<ChefHome> {
               Container(
                 height: 558,
                 child: _selectedIndex == 0
-                    ? notifications()
+                    ? Notifications()
                     : _selectedIndex == 1
                         ? Demandes()
                         : _selectedIndex == 2
