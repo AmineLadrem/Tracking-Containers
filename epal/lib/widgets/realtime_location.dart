@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 import 'package:epal/constants/polygon.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/widgets/top_nav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_utils/google_maps_utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -41,6 +43,7 @@ class _RealTimeState extends State<RealTime> {
   @override
   void initState() {
     super.initState();
+
     _getLocationData();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       _getLocationData();
@@ -69,8 +72,28 @@ class _RealTimeState extends State<RealTime> {
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
   final user = FirebaseAuth.instance.currentUser;
   bool _isMapTypeNormal = false;
+
+  BitmapDescriptor? customIcon;
+  final defaultIcon = BitmapDescriptor.defaultMarker;
+
+  createMarker(context) {
+    if (customIcon == null) {
+      ImageConfiguration configuration = createLocalImageConfiguration(context);
+      configuration = configuration.copyWith(
+          size: Size(48, 48)); // Set the desired width and height
+
+      BitmapDescriptor.fromAssetImage(configuration, 'assets/container.png')
+          .then((icon) {
+        setState(() {
+          customIcon = icon;
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    createMarker(context);
     num lat, lon;
     if (_currentLocation != null) {
       lat = _currentLocation!.latitude;
@@ -352,6 +375,7 @@ class _RealTimeState extends State<RealTime> {
                   markers: _currentLocation != null
                       ? {
                           Marker(
+                            // icon: customIcon ?? defaultIcon,
                             markerId: MarkerId('current_location'),
                             position: _currentLocation ?? LatLng(0, 0),
                             infoWindow: InfoWindow(title: _Cont_ID),

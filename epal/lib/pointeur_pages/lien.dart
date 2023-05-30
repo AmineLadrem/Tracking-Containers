@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:epal/helpers/ipAddresses.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import '../constants/style.dart';
 
@@ -18,6 +19,28 @@ class Lien extends StatefulWidget {
 
 class _LienState extends State<Lien> {
   Future<void> attacherConteneur(String Cont_ID, String ModNum) async {
+    //----------------------------check if module is already attached to a container--------------------------
+    final moduleUrl = usedIPAddress + '/api/modulesuivis/' + ModNum;
+    final responseModule = await http.get(Uri.parse(moduleUrl));
+    final decodedResponseModule = json.decode(responseModule.body);
+
+    if (decodedResponseModule['ModStatus'] == 'Active') {
+      Fluttertoast.showToast(
+          msg: "Ce module de suivi est déjà lié à un conteneur !",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return null;
+    } else {
+      final apiUrl4 = usedIPAddress + '/api/modulesuivis/status/$ModNum';
+      await http.put(Uri.parse(apiUrl4));
+    }
+    //---------------------------------------------------------------------------------------------------------
+
+    //-----------------------------check if container rah a board--------------------------------------
     final apiUrl2 = usedIPAddress + '/api/conteneurs/' + Cont_ID;
     final response2 = await http.get(Uri.parse(apiUrl2));
     final decodedResponse2 = json.decode(response2.body);
@@ -29,35 +52,41 @@ class _LienState extends State<Lien> {
       final apiUrl3 = usedIPAddress +
           '/api/demandes/conducteur/add/0/0/$formattedDate/$formattedTime/$Cont_ID';
       await http.put(Uri.parse(apiUrl3));
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              ' Conteneur attaché avec succès + une demande de deplacement a ete envoye !'),
+
+      Fluttertoast.showToast(
+          msg:
+              "Module de suivi est lié au conteneur avec succès ! et une demande de déplacement est envoyée  ",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
           backgroundColor: Colors.green,
-        ),
-      );
+          textColor: Colors.white,
+          fontSize: 16.0);
     } else {
+      //----------------------------------------------------------ida marahsh a board-------------------------------------
       final apiUrl =
           usedIPAddress + '/api/conteneurs/attache/' + Cont_ID + '/' + ModNum;
       final response = await http.put(Uri.parse(apiUrl));
 
-      print(response.body);
       final decodedResponse = json.decode(response.body);
-
       if (response.statusCode == 200 && decodedResponse['success']) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(' Conteneur attaché avec succès !'),
+        Fluttertoast.showToast(
+            msg: "Module de suivi est lié au conteneur avec succès !",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
             backgroundColor: Colors.green,
-          ),
-        );
+            textColor: Colors.white,
+            fontSize: 16.0);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(' Erreur lors de l\'attachement du conteneur !'),
+        Fluttertoast.showToast(
+            msg: "Erreur lors de l\'attachement du conteneur !",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
-          ),
-        );
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     }
   }
@@ -66,27 +95,33 @@ class _LienState extends State<Lien> {
     final apiUrl2 = usedIPAddress + '/api/conteneurs/' + Cont_ID;
     final response2 = await http.get(Uri.parse(apiUrl2));
     final decodedResponse2 = json.decode(response2.body);
-    print(decodedResponse2);
+    if (decodedResponse2['ModNum'] == 0) return null;
+    final apiUrl4 = usedIPAddress +
+        '/api/modulesuivis/status/' +
+        decodedResponse2['ModNum'].toString();
+    await http.put(Uri.parse(apiUrl4));
     final apiUrl = usedIPAddress + '/api/conteneurs/detache/' + Cont_ID;
-
     final response = await http.put(Uri.parse(apiUrl));
-    print(response.body);
     final decodedResponse = json.decode(response.body);
 
     if (response.statusCode == 200 && decodedResponse['success']) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(' Conteneur dettaché avec succès !'),
+      Fluttertoast.showToast(
+          msg: "Module de suivi est détaché avec succès !",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
           backgroundColor: Colors.green,
-        ),
-      );
+          textColor: Colors.white,
+          fontSize: 16.0);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(' Erreur lors de l\'attachement du conteneur !'),
-          backgroundColor: Colors.green,
-        ),
-      );
+      Fluttertoast.showToast(
+          msg: " Erreur lors du détachement du module !",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 

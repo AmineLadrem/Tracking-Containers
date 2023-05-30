@@ -376,7 +376,7 @@ class _ProfileState extends State<Profile> {
                 return Text('Error: ${snapshot.error}');
               } else {
                 return Padding(
-                  padding: const EdgeInsets.only(left: 120.0),
+                  padding: const EdgeInsets.only(left: 180.0),
                   child: Container(
                     width: 30,
                     height: 30,

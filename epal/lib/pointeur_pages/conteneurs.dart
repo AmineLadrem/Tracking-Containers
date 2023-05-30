@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:epal/pages/realtime_location.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -484,8 +484,20 @@ class _ConteneursState extends State<Conteneurs> {
                                           color: Color(0xFF80CFCC))),
                                   TextButton(
                                       onPressed: () {
-                                        getPosition(
-                                            _foundConteneurs[index]['ModNum']);
+                                        if (_foundConteneurs[index]['ModNum'] ==
+                                            0) {
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  "Vous ne pouvez pas tracker ce contenur car il n'est pas lié à un module de suivi",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0);
+                                        } else
+                                          getPosition(_foundConteneurs[index]
+                                              ['ModNum']);
                                       },
                                       onHover: (event) {},
                                       child: Icon(Icons.location_on,

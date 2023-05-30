@@ -21,6 +21,10 @@ Future<dynamic> fetchUser(String email) async {
   return chef['ID'];
 }
 
+Future<dynamic> annulerDemande(int num) async {
+  await http.delete(Uri.parse(usedIPAddress + '/api/demande/annuler/$num'));
+}
+
 final user = FirebaseAuth.instance.currentUser!;
 Future<List<dynamic>> fetchdemandes() async {
   final chef = await fetchUser(user.email!);
@@ -219,6 +223,48 @@ class _listedemandeState extends State<listedemande> {
                               ),
                               SizedBox(
                                 height: 5.0,
+                              ),
+                              Visibility(
+                                visible: (_foundDemandes[index]['Status'] ==
+                                    'En Attente'),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 157.0, right: 157.0),
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        annulerDemande(
+                                            _foundDemandes[index]['DemNum']);
+                                        setState(() {});
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Color(0xFF80CFCC)),
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.cancel_schedule_send_outlined,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 5.0,
+                                          ),
+                                          Text('Annuler'),
+                                        ],
+                                      )),
+                                ),
                               ),
                             ],
                           ),

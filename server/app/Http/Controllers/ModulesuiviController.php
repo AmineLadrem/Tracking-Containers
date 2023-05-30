@@ -49,9 +49,9 @@ class ModulesuiviController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($id,$x,$y,$h)
+    public function update($id,$x,$y)
     {
-        $affectedRows =modulesuivi::where('ModNum',$id)->update(['PositionX' =>$x,'PositionY' =>$y,'PositionH' =>$h]);
+        $affectedRows =modulesuivi::where('ModNum',$id)->update(['PositionX' =>$x,'PositionY' =>$y]);
         if ($affectedRows > 0) {
             return response()->json([
                 'success' => true,
@@ -63,6 +63,20 @@ class ModulesuiviController extends Controller
                 'message' => 'Location not updated'
             ]);
         }
+    }
+
+    public function updateStatus($id)
+    {
+   
+        $affectedRows =modulesuivi::where('ModNum',$id)->first();
+    
+        if ($affectedRows['ModStatus'] == 'Inactive' && $affectedRows['ModNum'] !=0) {
+            $affectedRows =modulesuivi::where('ModNum',$id)->update(['ModStatus' =>'Active']);
+        } else if ($affectedRows['ModStatus'] == 'Active' && $affectedRows['ModNum'] !=0) {
+            $affectedRows =modulesuivi::where('ModNum',$id)->update(['ModStatus' =>'Inactive','PositionX' =>0,'PositionY' =>0]);
+        }
+       
+           
     }
   
 

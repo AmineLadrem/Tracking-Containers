@@ -1,9 +1,17 @@
 import 'dart:convert';
 import 'package:epal/chef_pages/liste_demandes.dart';
 import 'package:epal/helpers/ipAddresses.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+DateTime now = DateTime.now();
+String formattedTime = DateFormat('HH:mm:ss').format(now);
+String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+final user = FirebaseAuth.instance.currentUser!;
 
 class Demandes extends StatefulWidget {
   const Demandes({super.key});
@@ -25,6 +33,70 @@ class _DemandesState extends State<Demandes> {
       });
     } else {
       throw Exception('Failed to fetch data');
+    }
+  }
+
+  Future<void> createDemande(
+      String date, String time, String contID, int parcDest) async {
+    var response = await http
+        .get(Uri.parse(usedIPAddress + '/api/utilisateur/' + user.email!));
+    var chef = jsonDecode(response.body);
+
+    var response2 =
+        await http.get(Uri.parse(usedIPAddress + '/api/demande/$contID'));
+    var dem = jsonDecode(response2.body);
+    //----------------------------check ida kyn deja une demande-------------------------
+    if (dem == 200) {
+      Fluttertoast.showToast(
+          msg: "Ce conteneur a déjà une demande de déplacement !",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return null;
+    }
+    //--------------------------------------------------------------------------------------
+
+    //--------------------------------create demande--------------------------------------
+
+    var requestBody = jsonEncode({
+      'CDP_ID': chef['ID'],
+      'CDC_ID': 0,
+      'DateDemande': formattedDate,
+      'HeureDemande': formattedTime,
+      'Cont_ID': contID,
+      'ParcDest': parcDest,
+      'Status': 'En Attente'
+    });
+    print(requestBody);
+    var response3 = await http.post(
+      Uri.parse('$usedIPAddress/api/demande'),
+      headers: {'Content-Type': 'application/json'},
+      body: requestBody,
+    );
+
+    print(response3.statusCode);
+    if (response3.statusCode == 200) {
+      Fluttertoast.showToast(
+          msg: "La demande a été créé ",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      // Request failed
+      Fluttertoast.showToast(
+          msg: "Une erreur a été survenue lors de création d \'une demande",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 
@@ -159,7 +231,7 @@ class _DemandesState extends State<Demandes> {
                                     return DropdownMenuItem(
                                       value: item['NumParc'],
                                       child: Text(
-                                          '${item['NomParc']} - Zone ${item['Zone_ID']}'),
+                                          '                 ${item['NomParc']} - Zone ${item['Zone_ID']}'),
                                     );
                                   }).toList(),
                                   style: TextStyle(
@@ -183,7 +255,10 @@ class _DemandesState extends State<Demandes> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            createDemande(formattedDate, formattedTime,
+                                contIDController.text, selectedParcItem);
+                          },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Color(0xFF80CFCC)),

@@ -12,10 +12,12 @@
 
 
 
-   -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)
-   -container in board = can't track him 
+   -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)(doooneee)
+ 
    -details admin home page --> stats embarquement details ( 2021-2022)
-   -chef parc ajout(decrement nbr dispo parc)+ cancel demande
-   -lien ( attacher => active status , detacher=> inactive)
+   -chef parc ajout(decrement nbr dispo parc)+ cancel demande (dooneee)
+   -lien ( attacher => active status , detacher=> inactive) (doooonee)
    -ki ykhlas deplacement nbdlo container status
-   -refresh for every widget
+   - we cant have 2 demandes on a container in same time ( en cours wla en attente) ( done)
+   -conducteur 3ndo limites ta3 les demandes
+   -flutter toast ( alert for every action) web + app

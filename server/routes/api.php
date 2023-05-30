@@ -39,6 +39,7 @@ Route::put('/utilisateur/{email}/{pw}', [UtilisateurController::class, 'UpdatePW
 Route::get('/modulesuivis',[ModulesuiviController::class, 'index']);
 Route::post('/modulesuivis',[ModulesuiviController::class, 'store']);
 Route::put('/modulesuivis/{id}/{x}/{y}/{h}',[ModulesuiviController::class, 'update']);
+Route::put('/modulesuivis/status/{id}',[ModulesuiviController::class, 'updateStatus']);
 Route::get('/modulesuivis/{id}',[ModulesuiviController::class, 'show']);
 
 Route::get('/cdp',[ChefDeParcController::class, 'index']);
@@ -58,7 +59,9 @@ Route::get('conteneurs/{cont_id}', [ConteneurController::class, 'function5']);
 Route::post('/conteneur',[ConteneurController::class, 'store']);
 
 Route::post('/demande',[DemandeController::class, 'store']);
+Route::delete('/demande/annuler/{demande}',[DemandeController::class, 'destroy']);
 Route::get('/demandes',[DemandeController::class, 'index']);
+Route::get('/demande/{id}',[DemandeController::class, 'show']);
 Route::get('/demandes/0',[DemandeController::class, 'function3']);
 Route::get('/demandes/chef/{cdp}',[DemandeController::class, 'function1']);
 Route::get('/demandes/conducteur/{cdc}',[DemandeController::class, 'function2']);

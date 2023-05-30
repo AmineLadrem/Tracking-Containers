@@ -49,14 +49,34 @@ class DemandeController extends Controller
             'Status'=>$demandeValidation['Status'],
              
             ]);
+
+            if ($demande) {
+                return response()->json(['status' => 'success'], 200);
+            } else {
+                return response()->json(['status' => 'error'], 500);
+            }
+
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(demande $demande)
+    public function show($id)
     {
-        //
+        $demande = Demande::where('Cont_ID', $id)
+        ->where(function ($query) {
+            $query->where('Status', 'En Attente')
+                ->orWhere('Status', 'En Cours')
+                ->orWhere('Status', 'Acceptée');
+        })
+        ->first();
+       if($demande){
+        return response()->json(200);
+       }
+         else{
+            return response()->json(500);
+         }
     }
 
     public function function1($cdpId)
@@ -153,8 +173,8 @@ class DemandeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(demande $demande)
+    public function destroy( $demande)
     {
-        //
+        $demandes = Demande::where('DemNum', $demande)->delete( ) ;
     }
 }
