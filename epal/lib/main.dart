@@ -10,12 +10,44 @@ import 'package:epal/firebase_options.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get/get.dart';
 
+Future<void> backgroundHandler(RemoteMessage message) async {
+  String? title = message.notification!.title;
+  String? body = message.notification!.body;
+  AwesomeNotifications().createNotification(
+      content: NotificationContent(
+          id: 10,
+          channelKey: 'basic_channel',
+          title: title,
+          body: body,
+          category: NotificationCategory.Event,
+          notificationLayout: NotificationLayout.BigPicture,
+          bigPicture: 'assets/images/epal_logo.png'),
+      actionButtons: [
+        NotificationActionButton(
+          key: 'READ',
+          label: 'Read',
+          buttonType: ActionButtonType.Default,
+          enabled: true,
+          icon: 'assets/images/epal_logo.png',
+        ),
+      ]);
+}
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print(fcmToken);
-  FirebaseMessaging.onBackgroundMessage(_firebasePushHandler);
+  AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+      channelKey: 'basic_channel',
+      channelName: 'Basic notifications',
+      channelDescription: 'Notification channel for basic tests',
+      defaultColor: Color(0xFF9D50DD),
+      ledColor: Colors.white,
+      importance: NotificationImportance.High,
+      channelShowBadge: true,
+      playSound: true,
+    ),
+  ]);
   if (kIsWeb) {
     Get.put(MenuController());
     runApp(MyWebApp());
