@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -18,34 +19,22 @@ class _NotificationsState extends State<Notifications> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      String? title = message.notification!.title;
-      String? body = message.notification!.body;
-      AwesomeNotifications().createNotification(
-          content: NotificationContent(
-              id: 10,
-              channelKey: 'basic_channel',
-              title: title,
-              body: body,
-              category: NotificationCategory.Event,
-              notificationLayout: NotificationLayout.BigPicture,
-              bigPicture: 'assets/images/epal_logo.png'),
-          actionButtons: [
-            NotificationActionButton(
-              key: 'READ',
-              label: 'Read',
-              buttonType: ActionButtonType.Default,
-              enabled: true,
-              icon: 'assets/images/epal_logo.png',
-            )
-          ]);
-      AwesomeNotifications().actionStream.listen((receivedNotification) {
-        if (receivedNotification.buttonKeyPressed == 'READ') {
-          Fluttertoast.showToast(msg: "Read Notification");
-        }
-      });
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      showNotificationToast(
+          event.notification?.title ?? event.notification?.body ?? '');
     });
-    // Initialize awesome_notifications
+  }
+
+  void showNotificationToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 
   @override
@@ -75,7 +64,7 @@ class _NotificationsState extends State<Notifications> {
                   decoration: BoxDecoration(
                     color: Colors.blue,
                   ),
-                  child: Text("get token "),
+                  child: Text("get token"),
                 ),
               ),
               InkWell(
@@ -88,6 +77,16 @@ class _NotificationsState extends State<Notifications> {
                     color: Colors.blue,
                   ),
                   child: Text("Notification 2"),
+                ),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  height: 20,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Text("Notification 3"),
                 ),
               )
             ],
@@ -110,8 +109,8 @@ Future<void> sendAndroidNotification() async {
       body: jsonEncode(
         <String, dynamic>{
           'notification': <String, dynamic>{
-            'body': 'Amine',
-            'title': 'Alerte',
+            'body': 'Alerte',
+            'title': 'Deplacement d\'un conteneur a ete detecte',
           },
           'priority': 'high',
           'data': <String, dynamic>{
@@ -120,7 +119,7 @@ Future<void> sendAndroidNotification() async {
             'status': 'done'
           },
           'to':
-              'fwiajmIAS-mGNi9EvMgB4I:APA91bFzCtv_Z_1jdZPG366giI_X5Dy6KHVyJVtf48_PZQ4HiDQUfBWZ0KnbxSFirY8qepRLkemZKRW74p7od6tVQx0AiUl6wGOa07cJRd8JHy2rkY0c_NvWybfKl_VZ1QwlU5xZTOFQ',
+              'f0by3vd1TqqGCWMpByqNiy:APA91bGjlzlXLOwrk8j3X9ydsLvLsWDIbWle726SRAiw3Sb-i2mYvuz9oLRni-R3fME38tJ5W97jBRMsgsi9xXPXsN4GbrY5bO47ZniOW5qJsVcB0WjlvJ0_sjpGtmP0DFS71nbTpDPs',
         },
       ),
     );

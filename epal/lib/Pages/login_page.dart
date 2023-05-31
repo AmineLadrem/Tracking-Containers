@@ -4,8 +4,10 @@ import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
 
 import 'package:epal/pointeur_pages/home.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -49,6 +51,11 @@ class _LoginPageState extends State<LoginPage> {
         print('Wrong password provided for that user.');
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

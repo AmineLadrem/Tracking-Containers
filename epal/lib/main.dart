@@ -8,46 +8,46 @@ import 'package:epal/pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:epal/firebase_options.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-Future<void> backgroundHandler(RemoteMessage message) async {
-  String? title = message.notification!.title;
-  String? body = message.notification!.body;
-  AwesomeNotifications().createNotification(
-      content: NotificationContent(
-          id: 10,
-          channelKey: 'basic_channel',
-          title: title,
-          body: body,
-          category: NotificationCategory.Event,
-          notificationLayout: NotificationLayout.BigPicture,
-          bigPicture: 'assets/images/epal_logo.png'),
-      actionButtons: [
-        NotificationActionButton(
-          key: 'READ',
-          label: 'Read',
-          buttonType: ActionButtonType.Default,
-          enabled: true,
-          icon: 'assets/images/epal_logo.png',
-        ),
-      ]);
+FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+void showNotificationToast(String message) {
+  Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: Colors.red,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
 }
 
-Future main() async {
+@override
+void initState() {
+  FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+    showNotificationToast(
+        event.notification?.title ?? event.notification?.body ?? '');
+  });
+}
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  AwesomeNotifications().initialize(null, [
-    NotificationChannel(
-      channelKey: 'basic_channel',
-      channelName: 'Basic notifications',
-      channelDescription: 'Notification channel for basic tests',
-      defaultColor: Color(0xFF9D50DD),
-      ledColor: Colors.white,
-      importance: NotificationImportance.High,
-      channelShowBadge: true,
-      playSound: true,
-    ),
-  ]);
+  await messaging.requestPermission(
+    alert: true,
+    announcement: true,
+    badge: true,
+    carPlay: true,
+    criticalAlert: true,
+    provisional: true,
+    sound: true,
+  );
+  final token = await messaging.getToken();
+  print(token);
+
   if (kIsWeb) {
     Get.put(MenuController());
     runApp(MyWebApp());
@@ -78,10 +78,4 @@ class MyWebApp extends StatelessWidget {
       routes: WebRoutes.routes,
     );
   }
-}
-
-Future<void> _firebasePushHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print('Handling a background message ${message.data}');
-  AwesomeNotifications().createNotificationFromJsonData(message.data);
 }
