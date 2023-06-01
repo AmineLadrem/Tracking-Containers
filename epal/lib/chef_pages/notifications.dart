@@ -1,11 +1,10 @@
-import 'dart:async';
 import 'dart:convert';
-
+import 'package:epal/helpers/devices_tokens.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
+
 import 'package:http/http.dart' as http;
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Notifications extends StatefulWidget {
@@ -19,10 +18,6 @@ class _NotificationsState extends State<Notifications> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-      showNotificationToast(
-          event.notification?.title ?? event.notification?.body ?? '');
-    });
   }
 
   void showNotificationToast(String message) {
@@ -97,34 +92,44 @@ class _NotificationsState extends State<Notifications> {
   }
 }
 
-Future<void> sendAndroidNotification() async {
-  try {
-    http.Response response = await http.post(
-      Uri.parse('https://fcm.googleapis.com/fcm/send'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':
-            'key=AAAAN-J_R3k:APA91bEzx_24yCRNQau9alc5v4Y7mhmO9lxQOn7G143Rvfd-rC4LoDdfDBpR9HkCfgjd53IadcrMaWPjQHCo-GrPG5hZEQKiebcoO4BfkFDqV3_Thzp-PfSBYZFuyVNzAiD3rcb2r8tB',
-      },
-      body: jsonEncode(
-        <String, dynamic>{
-          'notification': <String, dynamic>{
-            'body': 'Alerte',
-            'title': 'Deplacement d\'un conteneur a ete detecte',
-          },
-          'priority': 'high',
-          'data': <String, dynamic>{
-            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-            'id': '1',
-            'status': 'done'
-          },
-          'to':
-              'f0by3vd1TqqGCWMpByqNiy:APA91bGjlzlXLOwrk8j3X9ydsLvLsWDIbWle726SRAiw3Sb-i2mYvuz9oLRni-R3fME38tJ5W97jBRMsgsi9xXPXsN4GbrY5bO47ZniOW5qJsVcB0WjlvJ0_sjpGtmP0DFS71nbTpDPs',
-        },
-      ),
-    );
-    response;
-  } catch (e) {
-    e;
+void sendAndroidNotification() async {
+  Map<String, dynamic> jsonBody = {
+    "registration_ids": registrationIds,
+    "notification": {
+      "title": "Alerte",
+      "body": "Déplacement du conteneur CMAU 44588 a été détecté",
+      "content_available": true,
+      "android": {
+        "style": "bigtext",
+        "priority": "high",
+        "bigTextStyle": {
+          "contentTitle": "Déplacement d'un conteneur a été détecté",
+          "summaryText": "Alerte",
+          "bigText": "Detailed description of the alert goes here."
+        }
+      }
+    },
+  };
+
+  String serverKey =
+      "AAAAN-J_R3k:APA91bEzx_24yCRNQau9alc5v4Y7mhmO9lxQOn7G143Rvfd-rC4LoDdfDBpR9HkCfgjd53IadcrMaWPjQHCo-GrPG5hZEQKiebcoO4BfkFDqV3_Thzp-PfSBYZFuyVNzAiD3rcb2r8tB";
+  String fcmUrl = "https://fcm.googleapis.com/fcm/send";
+
+  http.Response response = await http.post(
+    Uri.parse(fcmUrl),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'key=$serverKey',
+    },
+    body: jsonEncode(jsonBody),
+  );
+
+  // Handle the response
+  if (response.statusCode == 200) {
+    // Notification sent successfully
+    print("Notification sent successfully");
+  } else {
+    // Error sending notification
+    print("Error sending notification. Status code: ${response.statusCode}");
   }
 }

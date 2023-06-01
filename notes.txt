@@ -21,3 +21,5 @@
    - we cant have 2 demandes on a container in same time ( en cours wla en attente) ( done)
    -conducteur 3ndo limites ta3 les demandes
    -flutter toast ( alert for every action) web + app
+   -notification ki ykon conteneur a bord w ls9nalo module de suivi
+   home pages ( nwrilhom for every one wsh 3ndo f l app)

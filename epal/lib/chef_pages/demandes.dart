@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:epal/constants/style.dart';
+import 'package:epal/helpers/devices_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -79,6 +80,7 @@ class _DemandesState extends State<Demandes> {
 
     print(response3.statusCode);
     if (response3.statusCode == 200) {
+      sendAndroidNotification(selectedParcItem);
       Fluttertoast.showToast(
           msg: "La demande a été créé ",
           toastLength: Toast.LENGTH_SHORT,
@@ -342,5 +344,49 @@ class _DemandesState extends State<Demandes> {
         ],
       ),
     );
+  }
+}
+
+void sendAndroidNotification(dynamic selectedParcItem) async {
+  Map<String, dynamic> jsonBody = {
+    "registration_ids": [
+      "dPv-nHbJRfmazzhEGa9Z51:APA91bHbUftyBjIxE3jcP2nBxYTJu0ujDMo2_ApJEisICTSKbLueHiBzUGiyJJJzaU2iJkaaEFe7_N3kH3iayAS4O5jAM-6bxWV42leZGCZQED1of_DOozjjEj2Ps-g1aWdo5XPoUZ22"
+    ],
+    "notification": {
+      "title": "Nouvelle demande de déplacement",
+      "body": "Nouvelle demande de déplacement vers le parc $selectedParcItem",
+      "content_available": true,
+      "android": {
+        "style": "bigtext",
+        "priority": "high",
+        "bigTextStyle": {
+          "contentTitle": "Déplacement d'un conteneur a été détecté",
+          "summaryText": "Alerte",
+          "bigText": "Detailed description of the alert goes here."
+        }
+      }
+    },
+  };
+
+  String serverKey =
+      "AAAAN-J_R3k:APA91bEzx_24yCRNQau9alc5v4Y7mhmO9lxQOn7G143Rvfd-rC4LoDdfDBpR9HkCfgjd53IadcrMaWPjQHCo-GrPG5hZEQKiebcoO4BfkFDqV3_Thzp-PfSBYZFuyVNzAiD3rcb2r8tB";
+  String fcmUrl = "https://fcm.googleapis.com/fcm/send";
+
+  http.Response response = await http.post(
+    Uri.parse(fcmUrl),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'key=$serverKey',
+    },
+    body: jsonEncode(jsonBody),
+  );
+
+  // Handle the response
+  if (response.statusCode == 200) {
+    // Notification sent successfully
+    print("Notification sent successfully");
+  } else {
+    // Error sending notification
+    print("Error sending notification. Status code: ${response.statusCode}");
   }
 }

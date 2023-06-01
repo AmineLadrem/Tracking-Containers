@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:epal/chef_pages/home.dart';
 import 'package:epal/conducteur_pages/home.dart';
 import 'package:epal/constants/style.dart';
@@ -53,9 +54,48 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void showNotificationToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      String? title = message.notification?.title;
+      String? body = message.notification?.body;
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 123,
+              channelKey: 'basic_channel',
+              title: title,
+              body: body,
+              category: NotificationCategory.Call,
+              largeIcon: 'https://i.postimg.cc/xTnb0c7V/container.png',
+              displayOnForeground: true,
+              displayOnBackground: true,
+              showWhen: true,
+              wakeUpScreen: true,
+              autoDismissible: false,
+              backgroundColor: Colors.blueGrey,
+              notificationLayout: NotificationLayout.Default),
+          actionButtons: [
+            NotificationActionButton(
+              key: 'REJECT',
+              label: 'OK',
+              buttonType: ActionButtonType.DisabledAction,
+            ),
+          ]);
+      AwesomeNotifications().actionStream.listen((receivedNotification) {});
+    });
   }
 
   @override

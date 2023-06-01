@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "SM N976N",
+            "name": "ChefParc",
             "cwd": "epal",
             "request": "launch",
             "type": "dart",
@@ -13,19 +13,27 @@
             "deviceId": "emulator-5554"
         },
         {
-            "name": "SM S901N",
+            "name": "Conducteur",
             "cwd": "epal",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
             "deviceId": "emulator-5556"
+        },
+        {
+            "name": "Pointeur",
+            "cwd": "epal",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "emulator-5558"
         }
         
     ],
     "compounds": [
         {
             "name": "All Devices",
-            "configurations": ["SM N976N", "SM S901N"]
+            "configurations": ["ChefParc", "Conducteur", "Pointeur"]
         }
     ]
 }
