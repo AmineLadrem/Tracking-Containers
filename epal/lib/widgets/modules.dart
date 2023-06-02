@@ -24,7 +24,7 @@ class _modulesState extends State<GererModule> {
     for (var module in moduleData) {
       moduleList.add(module);
     }
-    print(moduleList);
+
     if (_searchController.text.isNotEmpty) {
       int searchNumber =
           int.parse(_searchController.text); // Convert search text to integer
@@ -65,13 +65,21 @@ class _modulesState extends State<GererModule> {
     final ModuleIDController = TextEditingController();
     final ModuleBatterieController = TextEditingController();
     makeApiCall() async {
-      final String apiUrl = 'http://127.0.0.1:8000/api/modulesuivis?ModNum=' +
-          ModuleIDController.text +
-          '&ModBatterie=' +
-          ModuleBatterieController.text;
-      print(apiUrl);
+      final String apiUrl = 'http://127.0.0.1:8000/api/modulesuivis';
 
-      final response = await http.post(Uri.parse(apiUrl));
+      final moduleValidation = {
+        'ModNum': int.parse(ModuleIDController.text),
+        'ModBatterie': int.parse(ModuleBatterieController.text)
+      };
+
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(moduleValidation));
+
+      print(response.statusCode);
+      print(response.body);
 
       String data = "{\"latitude\":0,\"longitude\":0}";
 
@@ -82,8 +90,6 @@ class _modulesState extends State<GererModule> {
 
       http.Response response2 = await http.patch(Uri.parse(url), body: data);
 
-      print('Response status: ${response2.statusCode}');
-
       //pop notification
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -92,6 +98,7 @@ class _modulesState extends State<GererModule> {
             backgroundColor: Colors.green,
           ),
         );
+        setState(() {});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

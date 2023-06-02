@@ -74,11 +74,31 @@ class _containersState extends State<containers> {
     TextEditingController numVisiteController = TextEditingController();
 
     addContainer() async {
-      var response2 =
-          await http.get(Uri.parse('http://127.0.0.1:8000/api/parc'));
-      var res = jsonDecode(response2.body);
-      var parc = res['NumParc'];
-      print(parc);
+      if (contIDController.text.isEmpty ||
+          contTypeController.text.isEmpty ||
+          contPoidsController.text.isEmpty ||
+          numLivraisonController.text.isEmpty ||
+          numEmbarquementController.text.isEmpty ||
+          numDebarquementController.text.isEmpty ||
+          numVisiteController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Veuillez remplir tous les champs'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return null;
+      }
+      if (contTypeController.text != '20p' ||
+          contTypeController.text != '40p') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Type de conteneur invalide'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return null;
+      }
 
       final String apiUrl = 'http://127.0.0.1:8000/api/conteneur?Cont_ID=' +
           contIDController.text +
@@ -108,6 +128,7 @@ class _containersState extends State<containers> {
             backgroundColor: Colors.green,
           ),
         );
+        setState(() {});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

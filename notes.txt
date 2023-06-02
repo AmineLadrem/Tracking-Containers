@@ -17,9 +17,11 @@
    -details admin home page --> stats embarquement details ( 2021-2022)
    -chef parc ajout(decrement nbr dispo parc)+ cancel demande (dooneee)
    -lien ( attacher => active status , detacher=> inactive) (doooonee)
-   -ki ykhlas deplacement nbdlo container status
+   -ki ykhlas deplacement nbdlo container status + numparc
    - we cant have 2 demandes on a container in same time ( en cours wla en attente) ( done)
    -conducteur 3ndo limites ta3 les demandes
    -flutter toast ( alert for every action) web + app
    -notification ki ykon conteneur a bord w ls9nalo module de suivi
    -home pages ( nwrilhom for every one wsh 3ndo f l app)
+   -fix error admin login (user doesn't exist et il n a pas le droit d acces)
+   -recherche conteneur par categorie (chefparc et pointeur)

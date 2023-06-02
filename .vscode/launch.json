@@ -27,13 +27,22 @@
             "type": "dart",
             "program": "lib/main.dart",
             "deviceId": "emulator-5558"
+        },
+        {
+            "name": "Admin",
+            "cwd": "epal",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "chrome"
         }
+
         
     ],
     "compounds": [
         {
             "name": "All Devices",
-            "configurations": ["ChefParc", "Conducteur", "Pointeur"]
+            "configurations": ["ChefParc", "Conducteur", "Pointeur", "Admin"]
         }
     ]
 }

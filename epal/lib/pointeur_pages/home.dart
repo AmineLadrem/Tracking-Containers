@@ -4,7 +4,7 @@ import 'package:epal/pointeur_pages/conteneurs.dart';
 import 'package:epal/pointeur_pages/lien.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:epal/chef_pages/notifications.dart';
 import '../Pages/profile.dart';
 
 class PointeurHome extends StatefulWidget {
@@ -38,9 +38,7 @@ class _PointeurHomeState extends State<PointeurHome> {
           Container(
             height: 558,
             child: _selectedIndex == 0
-                ? Container(
-                    color: Colors.red,
-                  )
+                ? Notifications()
                 : _selectedIndex == 1
                     ? Conteneurs()
                     : _selectedIndex == 2

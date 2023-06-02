@@ -32,7 +32,7 @@ class ModulesuiviController extends Controller
             'ModBatterie'=> $moduleValidation['ModBatterie'], 
             'PositionX'=> 0, 
             'PositionY'=> 0, 
-            'PositionH'=>0, 
+            
             ]);
     }
 

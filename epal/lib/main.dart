@@ -41,38 +41,36 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
-  AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-        channelKey: 'basic_channel',
-        channelName: 'Basic notifications',
-        channelDescription: 'Notification channel for basic tests',
-        defaultColor: Color(0xFF9D50DD),
-        ledColor: Colors.white,
-        playSound: true,
-        enableVibration: true,
-        channelShowBadge: true,
-        locked: true,
-        defaultRingtoneType: DefaultRingtoneType.Alarm,
-        importance: NotificationImportance.High,
-      )
-    ],
-  );
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  final token = await messaging.getToken();
-  print(token);
+  if (!kIsWeb) {
+    AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+          channelKey: 'basic_channel',
+          channelName: 'Basic notifications',
+          channelDescription: 'Notification channel for basic tests',
+          defaultColor: Color(0xFF9D50DD),
+          ledColor: Colors.white,
+          playSound: true,
+          enableVibration: true,
+          channelShowBadge: true,
+          locked: true,
+          defaultRingtoneType: DefaultRingtoneType.Alarm,
+          importance: NotificationImportance.High,
+        )
+      ],
+    );
 
-  if (kIsWeb) {
-    Get.put(MenuController());
-    runApp(MyWebApp());
-  } else {
-    runApp(MyApp());
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    final token = await messaging.getToken();
+    print(token);
   }
+
+  runApp(kIsWeb ? MyWebApp() : MyApp());
 }
 
 class MyApp extends StatelessWidget {
