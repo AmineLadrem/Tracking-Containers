@@ -82,13 +82,6 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.home_outlined),
-                          SizedBox(width: 2),
-                          Text(' Home',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontWeight: FontWeight.bold,
-                              )),
-                          SizedBox(width: 6),
                         ],
                       ),
                     ),
@@ -120,13 +113,6 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.directions),
-                          SizedBox(width: 2),
-                          Text(' Demandes',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontWeight: FontWeight.bold,
-                              )),
-                          SizedBox(width: 6),
                         ],
                       ),
                     ),
@@ -157,12 +143,6 @@ class _ConducteurHomeState extends State<ConducteurHome> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.person),
-                          SizedBox(width: 2),
-                          Text(' Profile',
-                              style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontWeight: FontWeight.bold)),
-                          SizedBox(width: 6),
                         ],
                       ),
                     ),

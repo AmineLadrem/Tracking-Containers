@@ -78,10 +78,6 @@ class _PointeurHomePageState extends State<PointeurHomePage> {
                       ),
                       Column(
                         children: [
-                          Icon(
-                            Icons.motion_photos_paused_sharp,
-                            color: Colors.red,
-                          ),
                           SizedBox(width: 5),
                           Text(
                             " Nombre de conteneurs qui sont À bord",

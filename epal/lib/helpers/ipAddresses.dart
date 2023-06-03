@@ -1,13 +1,13 @@
 final List<String> ipAddresses = [
   'http://192.168.0.7:8000',
-  'http://192.168.1.103:8000',
+  'http://192.168.1.101:8000',
   'http://192.168.248.16:8000',
   'http://192.168.184.189:8000',
 
   // add more IP addresses here as needed
 ];
 
-final String usedIPAddress = ipAddresses[2];
+final String usedIPAddress = ipAddresses[1];
 
 final List<String> LydiaIPAddresses = [
   'http://197.204.60.137:8000',

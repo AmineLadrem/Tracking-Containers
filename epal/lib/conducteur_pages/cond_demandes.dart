@@ -182,6 +182,9 @@ class _DemCondState extends State<DemCond> {
                                             ),
                                           ],
                                         ),
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
                                         Row(
                                           children: [
                                             Text('Heure:',
@@ -229,6 +232,9 @@ class _DemCondState extends State<DemCond> {
                                               ),
                                             ),
                                           ],
+                                        ),
+                                        SizedBox(
+                                          height: 5.0,
                                         ),
                                         Row(
                                           children: [
@@ -464,7 +470,7 @@ class _DemCondState extends State<DemCond> {
                                             Icons.menu,
                                             color: Colors.white,
                                           ),
-                                          Text('Details'),
+                                          Text('Détails'),
                                         ],
                                       )),
                                 ),

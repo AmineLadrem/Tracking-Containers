@@ -87,13 +87,6 @@ class _PointeurHomeState extends State<PointeurHome> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.home_outlined),
-                          SizedBox(width: 2),
-                          Text(' Home',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontWeight: FontWeight.bold,
-                              )),
-                          SizedBox(width: 6),
                         ],
                       ),
                     ),
@@ -126,15 +119,12 @@ class _PointeurHomeState extends State<PointeurHome> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Icon(MyFlutterApp.container),
+                            padding: const EdgeInsets.only(left: 11, top: 5),
+                            child: Icon(
+                              MyFlutterApp.container,
+                              size: 29,
+                            ),
                           ),
-                          SizedBox(width: 2),
-                          Text(' Conteneurs',
-                              style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontWeight: FontWeight.bold)),
-                          SizedBox(width: 6),
                         ],
                       ),
                     ),
@@ -167,13 +157,6 @@ class _PointeurHomeState extends State<PointeurHome> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.swap_horiz_outlined),
-                          SizedBox(width: 2),
-                          Text(' Dé/Attacher',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontWeight: FontWeight.bold,
-                              )),
-                          SizedBox(width: 6),
                         ],
                       ),
                     ),
@@ -205,12 +188,6 @@ class _PointeurHomeState extends State<PointeurHome> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.person),
-                          SizedBox(width: 2),
-                          Text(' Profile',
-                              style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontWeight: FontWeight.bold)),
-                          SizedBox(width: 6),
                         ],
                       ),
                     ),

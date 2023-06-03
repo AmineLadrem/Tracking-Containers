@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: emailController,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: light,
+                    fillColor: Color(0xFFcae4ed),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                     border: OutlineInputBorder(
@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextField(
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: light,
+                    fillColor: Color(0xFFcae4ed),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                     border: OutlineInputBorder(
@@ -193,17 +193,17 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(
-                height: 5.0,
+                height: 15.0,
               ),
               //Login button
               Container(
-                width: 350,
                 child: ElevatedButton.icon(
                   onPressed: signIn,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                  ),
+                      backgroundColor: light,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
                   icon: Icon(Icons.login_rounded, color: dark),
                   label: Text(
                     'Se connecter',
@@ -222,20 +222,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    print('object');
-                  },
-                  child: Text(
-                    'Mot de passe oublié?',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ), //Forget password
-              )
             ],
           ),
         )),

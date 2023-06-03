@@ -135,7 +135,7 @@ class _LienState extends State<Lien> {
 
     return Padding(
       padding: const EdgeInsets.only(
-          top: 80, left: 10.0, right: 10.0, bottom: 100.0),
+          top: 80, left: 20.0, right: 20.0, bottom: 100.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
         child: Container(
@@ -272,14 +272,10 @@ class _LienState extends State<Lien> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.link),
-                            SizedBox(width: 2),
-                            Text(' Attacher',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            SizedBox(width: 6),
+                            Icon(
+                              Icons.link,
+                              size: 30,
+                            ),
                           ],
                         ),
                       ),
@@ -305,14 +301,10 @@ class _LienState extends State<Lien> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.link_off),
-                            SizedBox(width: 2),
-                            Text(' Détacher',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            SizedBox(width: 6),
+                            Icon(
+                              Icons.link_off,
+                              size: 30,
+                            ),
                           ],
                         ),
                       ),

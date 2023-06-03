@@ -1,28 +1,30 @@
 ---------------------------------TO DO--------------------
    -Check old nd new with confirm pw (Doooonee)
    -Web login page : check if the user is an admin or not ( les autres ne sont pas autorisee) (DOOONEEEE )
-  
    -ki nzido conteneur , we have to check numero ta3 parc so we can know ama zone rana + his status(donee)
    -we remove module input f add container admin ( doneeee)
    -if the module is inactive , we can't track it (Doneee)
-
-
-
-
-
-
-
-   -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)(doooneee)
- 
-   -details admin home page --> stats embarquement details ( 2021-2022)
    -chef parc ajout(decrement nbr dispo parc)+ cancel demande (dooneee)
    -lien ( attacher => active status , detacher=> inactive) (doooonee)
-   -ki ykhlas deplacement nbdlo container status + numparc
+   -Module de suivi est unique dans la table de conteneur ( we can't use same tracking module in same container)(doooneee)
+   -recherche conteneur par categorie (chefparc et pointeur) (done)
    - we cant have 2 demandes on a container in same time ( en cours wla en attente) ( done)
-   -conducteur 3ndo limites ta3 les demandes
-   -flutter toast ( alert for every action) app
    -notification ki ykon conteneur a bord w ls9nalo module de suivi(done)
+   -remove text from icons (done)
+   -liste des demandes ( nkbrhom) (done)
+   -liaison padding for white box ( left and right)(done)
+
+
+
+
+
+
+
+   -details admin home page --> stats embarquement details ( 2021-2022)
+   -ki ykhlas deplacement nbdlo container status + numparc
+   -flutter toast ( alert for every action) app
    -home pages ( nwrilhom for every one wsh 3ndo f l app)
    -fix error admin login (user doesn't exist et il n a pas le droit d acces)
-   -recherche conteneur par categorie (chefparc et pointeur) (done)
    -tracker ndiro option win n9dro nbdlo ID ta3 module de suivi ( setState)
+   -admin add container nba3do / title ta3 ajout
+   -app login pag se conncter button ( nbiynoh)

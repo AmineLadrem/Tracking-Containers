@@ -69,7 +69,8 @@ class _listedemandeState extends State<listedemande> {
                     return ListView.builder(
                       itemCount: _foundDemandes.length,
                       itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.only(
+                            top: 10.0, bottom: 10.0, left: 15.0, right: 15.0),
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -93,7 +94,7 @@ class _listedemandeState extends State<listedemande> {
                                         width: 50, height: 50, color: light),
                                   ),
                                   SizedBox(
-                                    width: 5.0,
+                                    width: 3.0,
                                   ),
                                   Container(
                                     child: Column(
@@ -119,6 +120,9 @@ class _listedemandeState extends State<listedemande> {
                                             ),
                                           ],
                                         ),
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
                                         Row(
                                           children: [
                                             Text('Heure:',
@@ -142,7 +146,7 @@ class _listedemandeState extends State<listedemande> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 7.0,
+                                    width: 5.0,
                                   ),
                                   Container(
                                     width: 165,
@@ -168,6 +172,9 @@ class _listedemandeState extends State<listedemande> {
                                             ),
                                           ],
                                         ),
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
                                         Row(
                                           children: [
                                             Text('Parc Destination:',
@@ -190,7 +197,7 @@ class _listedemandeState extends State<listedemande> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 10.0,
+                                    width: 8.0,
                                   ),
                                   Container(
                                     width: 70,
@@ -229,7 +236,7 @@ class _listedemandeState extends State<listedemande> {
                                     'En Attente'),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 157.0, right: 157.0),
+                                      left: 157.0, right: 157.0, bottom: 7.0),
                                   child: ElevatedButton(
                                       onPressed: () {
                                         annulerDemande(
@@ -254,13 +261,6 @@ class _listedemandeState extends State<listedemande> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.cancel_schedule_send_outlined,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(
-                                            width: 5.0,
-                                          ),
                                           Text('Annuler'),
                                         ],
                                       )),
@@ -307,16 +307,9 @@ class _listedemandeState extends State<listedemande> {
                   height: 43,
                   width: 65,
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      SizedBox(height: 10),
                       Icon(Icons.arrow_back),
-                      SizedBox(width: 2),
-                      Text(' Retourner',
-                          style: TextStyle(
-                            fontFamily: 'Urbanist',
-                            fontWeight: FontWeight.bold,
-                          )),
-                      SizedBox(width: 6),
                     ],
                   ),
                 ),

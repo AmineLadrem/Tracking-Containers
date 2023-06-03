@@ -51,7 +51,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          const EdgeInsets.only(top: 80, left: 10.0, right: 10.0, bottom: 10.0),
+          const EdgeInsets.only(top: 80, left: 13.0, right: 13.0, bottom: 10.0),
       child: Column(
         children: [
           ClipRRect(
@@ -142,6 +142,9 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                                       ),
                                                     ],
                                                   ),
+                                                  SizedBox(
+                                                    height: 5.0,
+                                                  ),
                                                   Row(
                                                     children: [
                                                       Text('Heure:',
@@ -195,6 +198,9 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                                         ),
                                                       ),
                                                     ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5.0,
                                                   ),
                                                   Row(
                                                     children: [
@@ -256,7 +262,9 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              right: 146.0, left: 146.0),
+                                              right: 143.0,
+                                              left: 143.0,
+                                              bottom: 5),
                                           child: ElevatedButton(
                                               onPressed: () {
                                                 acceptDem(_foundDemandes[index]
