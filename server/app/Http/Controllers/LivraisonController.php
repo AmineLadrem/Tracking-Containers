@@ -26,9 +26,10 @@ class LivraisonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(livraison $livraison)
+    public function show($id)
     {
-        //
+        $livraison = livraison::where('NumLivraison',$id)->first();
+        return $livraison;
     }
 
     /**

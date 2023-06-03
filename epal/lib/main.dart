@@ -8,7 +8,6 @@ import 'package:epal/pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:epal/firebase_options.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:get/get.dart';
 
 FirebaseMessaging messaging = FirebaseMessaging.instance;
 

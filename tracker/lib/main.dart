@@ -72,17 +72,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _sendDataToFirebase(Position position) async {
-    String data =
-        "{\"latitude\":${position.latitude},\"longitude\":${position.longitude}}";
+    String latitude = position.latitude.toStringAsFixed(6);
+    String longitude = position.longitude.toStringAsFixed(6);
+    String data = "{\"latitude\":$latitude,\"longitude\":$longitude}";
 
     String url =
         'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/2.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH';
     var response2 = await http.put(
       Uri.parse(usedIPAddress +
           '/api/modulesuivis/2/' +
-          position.latitude.toString() +
+          latitude +
           "/" +
-          position.longitude.toString() +
+          longitude +
           "/0"),
     );
 

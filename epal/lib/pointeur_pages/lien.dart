@@ -41,9 +41,9 @@ class _LienState extends State<Lien> {
     //---------------------------------------------------------------------------------------------------------
 
     //-----------------------------check if container rah a board--------------------------------------
-    final apiUrl2 = usedIPAddress + '/api/conteneurs/' + Cont_ID;
-    final response2 = await http.get(Uri.parse(apiUrl2));
-    final decodedResponse2 = json.decode(response2.body);
+    var apiUrl2 = usedIPAddress + '/api/conteneurs/' + Cont_ID;
+    var response2 = await http.get(Uri.parse(apiUrl2));
+    var decodedResponse2 = json.decode(response2.body);
     if (decodedResponse2['Cont_Status'] == 'À bord') {
       final apiUrl =
           usedIPAddress + '/api/conteneurs/attache/' + Cont_ID + '/' + ModNum;
@@ -52,7 +52,10 @@ class _LienState extends State<Lien> {
       final apiUrl3 = usedIPAddress +
           '/api/demandes/conducteur/add/0/0/$formattedDate/$formattedTime/$Cont_ID';
       await http.put(Uri.parse(apiUrl3));
-
+      apiUrl2 = usedIPAddress + '/api/conteneurs/' + Cont_ID;
+      response2 = await http.get(Uri.parse(apiUrl2));
+      decodedResponse2 = json.decode(response2.body);
+      sendAndroidNotification(decodedResponse2['NumParc']);
       Fluttertoast.showToast(
           msg:
               "Module de suivi est lié au conteneur avec succès ! et une demande de déplacement est envoyée  ",
@@ -322,5 +325,50 @@ class _LienState extends State<Lien> {
         ),
       ),
     );
+  }
+}
+
+void sendAndroidNotification(dynamic selectedParcItem) async {
+  Map<String, dynamic> jsonBody = {
+    "registration_ids": [
+      "dPv-nHbJRfmazzhEGa9Z51:APA91bHbUftyBjIxE3jcP2nBxYTJu0ujDMo2_ApJEisICTSKbLueHiBzUGiyJJJzaU2iJkaaEFe7_N3kH3iayAS4O5jAM-6bxWV42leZGCZQED1of_DOozjjEj2Ps-g1aWdo5XPoUZ22",
+      "dCsgc3qmR5mOQ5xt2_kjif:APA91bEQH3g4Vk3WIJctkG2zFpoc26-M-ePkPj8tc4eCEbpJBNRw_5SvbJKiVX5UMOkGZvG7_1-TLT5GSn37644rr5Mp1hJCcPhcrDTNhomLZuXYot6H_BH-pA1B9_WjXEZvhWOixsZJ"
+    ],
+    "notification": {
+      "title": "Nouvelle demande de déplacement",
+      "body": "Nouvelle demande de déplacement vers le parc $selectedParcItem",
+      "content_available": true,
+      "android": {
+        "style": "bigtext",
+        "priority": "high",
+        "bigTextStyle": {
+          "contentTitle": "Déplacement d'un conteneur a été détecté",
+          "summaryText": "Alerte",
+          "bigText": "Detailed description of the alert goes here."
+        }
+      }
+    },
+  };
+
+  String serverKey =
+      "AAAAN-J_R3k:APA91bEzx_24yCRNQau9alc5v4Y7mhmO9lxQOn7G143Rvfd-rC4LoDdfDBpR9HkCfgjd53IadcrMaWPjQHCo-GrPG5hZEQKiebcoO4BfkFDqV3_Thzp-PfSBYZFuyVNzAiD3rcb2r8tB";
+  String fcmUrl = "https://fcm.googleapis.com/fcm/send";
+
+  http.Response response = await http.post(
+    Uri.parse(fcmUrl),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'key=$serverKey',
+    },
+    body: jsonEncode(jsonBody),
+  );
+
+  // Handle the response
+  if (response.statusCode == 200) {
+    // Notification sent successfully
+    print("Notification sent successfully");
+  } else {
+    // Error sending notification
+    print("Error sending notification. Status code: ${response.statusCode}");
   }
 }

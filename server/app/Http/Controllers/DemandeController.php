@@ -98,8 +98,41 @@ class DemandeController extends Controller
         $demande['ParcDepart'] = $conteneur['NumParc'];
     }
 
+    
+
     return response()->json($demandes);
 
+    }
+
+    public function function10($cdcId)
+    {
+        $demandes = Demande::where('CDC_ID', $cdcId)->get();
+    
+        $accepteCount = 0;
+        $enCoursCount = 0;
+        $termineeCount = 0;
+    
+        foreach ($demandes as $demande) {
+            switch ($demande->Status) {
+                case 'Acceptée':
+                    $accepteCount++;
+                    break;
+                case 'En Cours':
+                    $enCoursCount++;
+                    break;
+                case 'Terminée':
+                    $termineeCount++;
+                    break;
+            }
+        }
+    
+        $counts = [
+            'accepteCount' => $accepteCount,
+            'enCoursCount' => $enCoursCount,
+            'termineeCount' => $termineeCount,
+        ];
+    
+        return response()->json($counts);
     }
     
     public function function3()
@@ -161,6 +194,17 @@ class DemandeController extends Controller
              
             ]);
             Parc::where('NumParc', $parc['NumParc'])->decrement('NbrDispo');
+    }
+
+    public function function9($id)
+    {
+        $demande = Demande::where('DemNum', $id)->first();
+       if($demande){
+        return response()->json( $demande);
+       }
+         else{
+            return response()->json(500);
+         }
     }
     /**
      * Update the specified resource in storage.

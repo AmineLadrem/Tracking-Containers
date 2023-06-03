@@ -1,6 +1,7 @@
 import 'package:epal/constants/style.dart';
 import 'package:epal/icons.dart';
 import 'package:epal/pointeur_pages/conteneurs.dart';
+import 'package:epal/pointeur_pages/home_page.dart';
 import 'package:epal/pointeur_pages/lien.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _PointeurHomeState extends State<PointeurHome> {
           Container(
             height: 558,
             child: _selectedIndex == 0
-                ? Notifications()
+                ? PointeurHomePage()
                 : _selectedIndex == 1
                     ? Conteneurs()
                     : _selectedIndex == 2
@@ -124,7 +125,10 @@ class _PointeurHomeState extends State<PointeurHome> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(MyFlutterApp.container),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Icon(MyFlutterApp.container),
+                          ),
                           SizedBox(width: 2),
                           Text(' Conteneurs',
                               style: TextStyle(

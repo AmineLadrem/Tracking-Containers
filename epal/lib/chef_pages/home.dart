@@ -170,7 +170,10 @@ class _ChefHomeState extends State<ChefHome> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(MyFlutterApp.container),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Icon(MyFlutterApp.container),
+                                ),
                                 SizedBox(width: 2),
                                 Text(
                                   ' Conteneurs',

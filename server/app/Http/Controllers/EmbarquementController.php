@@ -26,9 +26,10 @@ class EmbarquementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(embarquement $embarquement)
+    public function show($id)
     {
-        //
+        $embarquement = embarquement::where('NumEmbarquement',$id)->first();
+        return $embarquement;
     }
 
     /**

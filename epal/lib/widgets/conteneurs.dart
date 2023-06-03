@@ -6,6 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+TextEditingController contIDController = TextEditingController();
+TextEditingController contTypeController = TextEditingController();
+TextEditingController contPoidsController = TextEditingController();
+TextEditingController numLivraisonController = TextEditingController();
+TextEditingController numEmbarquementController = TextEditingController();
+TextEditingController numDebarquementController = TextEditingController();
+TextEditingController numVisiteController = TextEditingController();
+
+bool isVisible1 = false;
+String dateAndTime1 = '';
+bool isVisible2 = false;
+String dateAndTime2 = '';
+bool isVisible3 = false;
+String dateAndTime3 = '';
+bool isVisible4 = false;
+String dateAndTime4 = '';
+
+bool isVisible5 = false;
+String typeCont = '';
+
 class containers extends StatefulWidget {
   const containers({super.key});
 
@@ -14,6 +34,83 @@ class containers extends StatefulWidget {
 }
 
 class _containersState extends State<containers> {
+  void contType(String value) {
+    setState(() {
+      if (contTypeController.text != '20p' ||
+          contTypeController.text != '40p') {
+        isVisible5 = true;
+
+        typeCont = 'Veuillez entrez un type valide (20p-40p)';
+      } else {
+        isVisible5 = false;
+      }
+    });
+  }
+
+  Future<void> _getEmbarquement(String value) async {
+    var apiUrl = 'http://127.0.0.1:8000/api/embarquement/$value';
+    var response = await http.get(Uri.parse(apiUrl));
+    var deb = json.decode(response.body);
+    setState(() {
+      if (numEmbarquementController.text.isNotEmpty) {
+        isVisible4 = true;
+
+        dateAndTime4 =
+            'Date: ${deb['DateEmbarquement']} Heure: ${deb['HeureEmbarquement']}';
+      } else {
+        isVisible4 = false;
+      }
+    });
+  }
+
+  Future<void> _getDebarquement(String value) async {
+    var apiUrl = 'http://127.0.0.1:8000/api/debarquement/$value';
+    var response = await http.get(Uri.parse(apiUrl));
+    var deb = json.decode(response.body);
+    setState(() {
+      if (numDebarquementController.text.isNotEmpty) {
+        isVisible1 = true;
+
+        dateAndTime1 =
+            'Date: ${deb['DateDebarquement']} Heure: ${deb['HeureDebarquement']}';
+      } else {
+        isVisible1 = false;
+      }
+    });
+  }
+
+  Future<void> _getVisite(String value) async {
+    var apiUrl = 'http://127.0.0.1:8000/api/visite/$value';
+    var response = await http.get(Uri.parse(apiUrl));
+    var deb = json.decode(response.body);
+    setState(() {
+      if (numVisiteController.text.isNotEmpty) {
+        isVisible2 = true;
+
+        dateAndTime2 =
+            'Date: ${deb['DateVisite']} Heure: ${deb['HeureVisite']}';
+      } else {
+        isVisible2 = false;
+      }
+    });
+  }
+
+  Future<void> _getLivraison(String value) async {
+    var apiUrl = 'http://127.0.0.1:8000/api/livraison/$value';
+    var response = await http.get(Uri.parse(apiUrl));
+    var deb = json.decode(response.body);
+    setState(() {
+      if (numLivraisonController.text.isNotEmpty) {
+        isVisible3 = true;
+
+        dateAndTime3 =
+            'Date: ${deb['DateLivraison']} Heure: ${deb['HeureLivraison']}';
+      } else {
+        isVisible3 = false;
+      }
+    });
+  }
+
   final _searchController = TextEditingController();
   dynamic selectedStatusItem;
   dynamic selectedTypeItem;
@@ -65,14 +162,6 @@ class _containersState extends State<containers> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController contIDController = TextEditingController();
-    TextEditingController contTypeController = TextEditingController();
-    TextEditingController contPoidsController = TextEditingController();
-    TextEditingController numLivraisonController = TextEditingController();
-    TextEditingController numEmbarquementController = TextEditingController();
-    TextEditingController numDebarquementController = TextEditingController();
-    TextEditingController numVisiteController = TextEditingController();
-
     addContainer() async {
       if (contIDController.text.isEmpty ||
           contTypeController.text.isEmpty ||
@@ -837,6 +926,16 @@ class _containersState extends State<containers> {
                     ),
                     SizedBox(height: 10),
                     TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          if (contTypeController.text.isEmpty) {
+                            setState(() {
+                              isVisible5 = false;
+                            });
+                          }
+                          contType(value);
+                        });
+                      },
                       controller: contTypeController,
                       decoration: InputDecoration(
                         filled: true,
@@ -868,6 +967,28 @@ class _containersState extends State<containers> {
                           icon: Icon(Icons.clear, color: dark),
                         ),
                       ),
+                    ),
+                    Visibility(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Text(
+                                isVisible5 ? typeCont : '',
+                                style: TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  color: dark,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                        ],
+                      ),
+                      visible: isVisible4,
                     ),
                     SizedBox(height: 10),
                     TextField(
@@ -905,6 +1026,16 @@ class _containersState extends State<containers> {
                     ),
                     SizedBox(height: 10),
                     TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          if (numDebarquementController.text.isEmpty) {
+                            setState(() {
+                              isVisible1 = false;
+                            });
+                          }
+                          _getDebarquement(value);
+                        });
+                      },
                       controller: numDebarquementController,
                       decoration: InputDecoration(
                         filled: true,
@@ -932,13 +1063,48 @@ class _containersState extends State<containers> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             numDebarquementController.clear();
+                            setState(() {
+                              isVisible1 = false;
+                            });
                           },
                           icon: Icon(Icons.clear, color: dark),
                         ),
                       ),
                     ),
+                    Visibility(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Text(
+                                isVisible1 ? dateAndTime1 : '',
+                                style: TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  color: dark,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                        ],
+                      ),
+                      visible: isVisible1,
+                    ),
                     SizedBox(height: 10),
                     TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          if (numEmbarquementController.text.isEmpty) {
+                            setState(() {
+                              isVisible4 = false;
+                            });
+                          }
+                          _getEmbarquement(value);
+                        });
+                      },
                       controller: numEmbarquementController,
                       decoration: InputDecoration(
                         filled: true,
@@ -971,8 +1137,40 @@ class _containersState extends State<containers> {
                         ),
                       ),
                     ),
+                    Visibility(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Text(
+                                isVisible4 ? dateAndTime4 : '',
+                                style: TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  color: dark,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                        ],
+                      ),
+                      visible: isVisible4,
+                    ),
                     SizedBox(height: 10),
                     TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          if (numLivraisonController.text.isEmpty) {
+                            setState(() {
+                              isVisible3 = false;
+                            });
+                          }
+                          _getLivraison(value);
+                        });
+                      },
                       controller: numLivraisonController,
                       decoration: InputDecoration(
                         filled: true,
@@ -1005,8 +1203,40 @@ class _containersState extends State<containers> {
                         ),
                       ),
                     ),
+                    Visibility(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Text(
+                                isVisible3 ? dateAndTime3 : '',
+                                style: TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  color: dark,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                        ],
+                      ),
+                      visible: isVisible3,
+                    ),
                     SizedBox(height: 10),
                     TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          if (numVisiteController.text.isEmpty) {
+                            setState(() {
+                              isVisible2 = false;
+                            });
+                          }
+                          _getVisite(value);
+                        });
+                      },
                       controller: numVisiteController,
                       decoration: InputDecoration(
                         filled: true,
@@ -1037,6 +1267,28 @@ class _containersState extends State<containers> {
                           icon: Icon(Icons.clear, color: dark),
                         ),
                       ),
+                    ),
+                    Visibility(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Text(
+                                isVisible2 ? dateAndTime2 : '',
+                                style: TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  color: dark,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                        ],
+                      ),
+                      visible: isVisible2,
                     ),
                     SizedBox(height: 20),
                     Container(

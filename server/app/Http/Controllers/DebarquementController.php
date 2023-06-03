@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\debarquement;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DebarquementController extends Controller
 {
@@ -12,7 +13,9 @@ class DebarquementController extends Controller
      */
     public function index()
     {
-        //
+    $today = Carbon::now()->format('Y-m-d');
+    $debarquement = debarquement::where('DateDebarquement', $today)->first();
+    return response()->json($debarquement);
     }
 
     /**
@@ -26,9 +29,10 @@ class DebarquementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(debarquement $debarquement)
+    public function show($id)
     {
-        //
+        $debarquement = debarquement::where('NumDebarquement',$id)->first();
+        return $debarquement;
     }
 
     /**

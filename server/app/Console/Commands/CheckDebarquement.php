@@ -1,42 +1,30 @@
 <?php
 
-namespace App\Console;
+namespace App\Console\Commands;
 
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 use App\Models\debarquement;
-use App\Models\conteneur;
-class Kernel extends ConsoleKernel
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
+
+ 
+class CheckDebarquement extends Command
 {
+    protected $signature = 'debarquement:check';
 
-    
-    protected function schedule(Schedule $schedule): void
+    protected $description = 'Check Debarquement and send API notification if condition is met';
+
+    public function __construct()
     {
-        $schedule->call(function () {
-            DB::table('Modulesuivis')
-                ->where('ModNum', '<>', 0) // Exclude rows where ModNum = 0
-                ->decrement('ModBatterie', 0.53333);
-
-    
-                
-        })->everyMinute();
-      
-        $schedule->call(function () {
-            $debarquements = debarquement::whereDate('DateDebarquement', Carbon::now())->get();
-$cont_IDs = '';
-
-foreach ($debarquements as $debarquement) {
-    $cont_ID = $debarquement->NumDebarquement;
-    $conteneurs = conteneur::where('NumDebarquement', $cont_ID)->get();
-    foreach ($conteneurs as $conteneur) {
-        $cont_IDs =$cont_IDs. $conteneur->Cont_ID."-";
+        parent::__construct();
     }
-     
-}
+
+    public function handle()
+    {
+        $debarquements = debarquement::whereDate('DateDebarquement', Carbon::now())->get();
+
+        foreach ($debarquements as $debarquement) {
+            // Prepare the JSON body
             $jsonBody = [
                 "registration_ids" =>  [
                     "dvAfx1V4TZqW9tUIf7CaNv:APA91bFUozXUQhxK87uzHsRDOfkbD2u_F5tGNJkes_y1mO6znsJPTUMNhOEoo3ANfQ7mI9BVRL0TpSiKePsUr_7BJOxtakb0DhBA3gcCn-OdpOXfHC64nkqZXxwe3L_sLiiA7HsTl-wD",
@@ -44,7 +32,7 @@ foreach ($debarquements as $debarquement) {
                   ],
                 "notification" => [
                     "title" => "Alerte",
-                    "body" => "Deplacer Ces conteneurs".$cont_IDs." \n vers la zone du debarquement",
+                    "body" => "Déplacement du conteneur CMAU 44588 a été détecté",
                     "content_available" => true,
                     "android" => [
                         "style" => "bigtext",
@@ -65,20 +53,12 @@ foreach ($debarquements as $debarquement) {
                 'Content-Type' => 'application/json; charset=UTF-8',
                 'Authorization' => 'key=' . $serverKey,
             ])->post($fcmUrl, $jsonBody);
-    
-                
-        })->everyMinute();
-    }
-    
 
-    /**
-     * Register the commands for the application.
-     */
-    protected function commands(): void
-    {
-        $this->load(__DIR__.'/Commands');
-        
-
-        require base_path('routes/console.php');
+            if ($response->status() == 200) {
+                $this->info("Notification sent successfully");
+            } else {
+                $this->error("Error sending notification. Status code: " . $response->status());
+            }
+        }
     }
 }

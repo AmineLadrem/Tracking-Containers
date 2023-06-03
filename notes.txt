@@ -20,8 +20,9 @@
    -ki ykhlas deplacement nbdlo container status + numparc
    - we cant have 2 demandes on a container in same time ( en cours wla en attente) ( done)
    -conducteur 3ndo limites ta3 les demandes
-   -flutter toast ( alert for every action) web + app
-   -notification ki ykon conteneur a bord w ls9nalo module de suivi
+   -flutter toast ( alert for every action) app
+   -notification ki ykon conteneur a bord w ls9nalo module de suivi(done)
    -home pages ( nwrilhom for every one wsh 3ndo f l app)
    -fix error admin login (user doesn't exist et il n a pas le droit d acces)
-   -recherche conteneur par categorie (chefparc et pointeur)
+   -recherche conteneur par categorie (chefparc et pointeur) (done)
+   -tracker ndiro option win n9dro nbdlo ID ta3 module de suivi ( setState)

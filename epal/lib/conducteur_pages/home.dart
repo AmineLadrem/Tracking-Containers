@@ -1,7 +1,6 @@
-import 'package:epal/chef_pages/notifications.dart';
+import 'package:epal/conducteur_pages/home_page.dart';
 import 'package:epal/conducteur_pages/liste_demandes.dart';
 import 'package:epal/constants/style.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +37,7 @@ class _ConducteurHomeState extends State<ConducteurHome> {
           Container(
             height: 558,
             child: _selectedIndex == 0
-                ? Notifications()
+                ? ConducteurHomePage()
                 : _selectedIndex == 1
                     ? ListeDemandesCond()
                     : _selectedIndex == 3

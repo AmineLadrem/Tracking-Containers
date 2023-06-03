@@ -12,10 +12,9 @@ class ModulesuiviController extends Controller
      */
     public function index()
     {
-        $modulesuivis=Modulesuivi::all();
-        return response($modulesuivis,200);
+        $modulesuivis = Modulesuivi::orderByRaw("CASE WHEN ModStatus = 'Default' THEN 0 ELSE 1 END, ModStatus")->get();
+        return response($modulesuivis, 200);
     }
-
     /**
      * Store a newly created resource in storage.
      */

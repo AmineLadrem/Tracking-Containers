@@ -114,7 +114,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                                   color: light),
                                             ),
                                             SizedBox(
-                                              width: 17,
+                                              width: 15,
                                             ),
                                             Container(
                                               child: Column(
@@ -167,9 +167,10 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                               ),
                                             ),
                                             SizedBox(
-                                              width: 17,
+                                              width: 15,
                                             ),
                                             Container(
+                                              width: 131,
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -220,7 +221,7 @@ class _ListeDemandesCondState extends State<ListeDemandesCond> {
                                               ),
                                             ),
                                             SizedBox(
-                                              width: 17,
+                                              width: 5,
                                             ),
                                             Container(
                                               child: Column(

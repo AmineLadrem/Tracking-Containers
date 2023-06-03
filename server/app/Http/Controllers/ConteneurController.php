@@ -74,6 +74,11 @@ class ConteneurController extends Controller
     
     public function function3(string $cont_id,$mod_num)
     {
+        $container=Conteneur::where('Cont_ID',$cont_id)->first();
+        $status=$container->Cont_Status;
+        if($status=='livré'){
+            $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0,'Cont_Status'=>'En cours de visite']);
+        }
         $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>$mod_num]);
         modulesuivi::where('ModNum',$mod_num)->update(['ModStatus' =>'Active']);
         if ($affectedRows > 0) {
@@ -93,7 +98,14 @@ class ConteneurController extends Controller
     {
         $container=Conteneur::where('Cont_ID',$cont_id)->first();
         $modnum=$container->ModNum;
-        $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0]);
+        $status=$container->Cont_Status;
+        if($status=='En cours de livraison'){
+            $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0,'Cont_Status'=>'livré']);
+        }
+        elseif($status=='En cours d\'embarquement'){
+            $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0,'Cont_Status'=>'embarqué']);
+        }   
+        
         modulesuivi::where('ModNum',$modnum)->update(['ModStatus' =>'Inactive']);
         if ($affectedRows > 0) {
             return response()->json([
@@ -120,10 +132,47 @@ class ConteneurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, conteneur $conteneur)
+    public function update($cont_id,$parc)
     {
-        //
+    if($parc==1 &&$parc==2 ){
+       Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'débarqué','NumParc'=>$parc]);
     }
+    elseif($parc>=3 && $parc<=8){
+         Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours d\'embarquement','NumParc'=>$parc]);
+    }
+    elseif($parc>=9 && $parc<=13){
+         Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours de livraison','NumParc'=>$parc]);
+    }
+    elseif($parc>=14 && $parc<=18){
+        Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'stocké','NumParc'=>$parc]);
+    }
+    elseif($parc>=19 && $parc<=24){
+         Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours de visite','NumParc'=>$parc]);
+    }
+
+    
+
+}
+
+public function function6()
+{
+    $conteneurs = Conteneur::where('Cont_Status', 'À bord')
+                          ->where('ModNum', 0)
+                          ->get(['Cont_ID']);
+
+    $count = $conteneurs->count();
+    $conteneurIDs = $conteneurs->pluck('Cont_ID');
+
+    return response()->json([
+        'count' => $count,
+        'conteneurIDs' => $conteneurIDs,
+    ], 200);
+}
+ 
+
+
+ 
+
 
     /**
      * Remove the specified resource from storage.

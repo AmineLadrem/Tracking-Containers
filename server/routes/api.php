@@ -56,7 +56,10 @@ Route::get('/conteneur/numparc/{id}',[ConteneurController::class, 'function2']);
 Route::put('conteneurs/attache/{conteneur}/{modNum}', [ConteneurController::class, 'function3']);
 Route::put('conteneurs/detache/{conteneur}', [ConteneurController::class, 'function4']);
 Route::get('conteneurs/{cont_id}', [ConteneurController::class, 'function5']);
+Route::get('/conteneur/nbr',[ConteneurController::class, 'function6']);
 Route::post('/conteneur',[ConteneurController::class, 'store']);
+Route::put('/conteneur/{cont_id}/{parc}',[ConteneurController::class, 'update']);
+Route::put('/conteneur/pointeur/{cont_id}/{status}',[ConteneurController::class, 'update2']);
 
 Route::post('/demande',[DemandeController::class, 'store']);
 Route::delete('/demande/annuler/{demande}',[DemandeController::class, 'destroy']);
@@ -65,12 +68,20 @@ Route::get('/demande/{id}',[DemandeController::class, 'show']);
 Route::get('/demandes/0',[DemandeController::class, 'function3']);
 Route::get('/demandes/chef/{cdp}',[DemandeController::class, 'function1']);
 Route::get('/demandes/conducteur/{cdc}',[DemandeController::class, 'function2']);
+Route::get('/demandes/conducteur/nbr/{cdc}',[DemandeController::class, 'function10']);
 Route::put('/demandes/conducteur/accepte/{demande}/{cdc}',[DemandeController::class, 'function4']);
 Route::put('/demandes/conducteur/cours/{demande}',[DemandeController::class, 'function5']);
 Route::put('/demandes/conducteur/termine/{demande}',[DemandeController::class, 'function6']);
 Route::put('/demandes/conducteur/cancel/{demande}',[DemandeController::class, 'function7']);
 Route::put('/demandes/conducteur/add/{cdp}/{cdc}/{date}/{heure}/{cont}',[DemandeController::class, 'function8']);
+Route::get('/Demande/{id}',[DemandeController::class, 'function9']);
 
+Route::get('/debarquement/{id}',[DebarquementController::class, 'show']);
+Route::get('/embarquement/{id}',[EmbarquementController::class, 'show']);
+Route::get('/livraison/{id}',[LivraisonController::class, 'show']);
+Route::get('/visite/{id}',[VisiteController::class, 'show']);
+
+Route::get('/debarquement',[DebarquementController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

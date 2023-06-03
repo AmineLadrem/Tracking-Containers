@@ -26,9 +26,10 @@ class VisiteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(visite $visite)
+    public function show($id)
     {
-        //
+        $visite = visite::where('NumVisite',$id)->first();
+        return $visite;
     }
 
     /**

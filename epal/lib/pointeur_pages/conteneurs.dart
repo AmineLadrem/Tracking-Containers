@@ -15,6 +15,7 @@ class Conteneurs extends StatefulWidget {
 
 class _ConteneursState extends State<Conteneurs> {
   final _searchController = TextEditingController();
+  dynamic selectedTypeItem;
   Future<List<dynamic>> fetchConteneurs() async {
     final apiUrl = usedIPAddress + '/api/conteneur';
     final response = await http.get(Uri.parse(apiUrl));
@@ -25,9 +26,15 @@ class _ConteneursState extends State<Conteneurs> {
       conteneurList.add(conteneur);
     }
     if (_searchController.text.isNotEmpty) {
-      conteneurList.retainWhere((conteneur) => conteneur['Cont_ID']
-          .toLowerCase()
-          .contains(_searchController.text.toLowerCase()));
+      conteneurList.retainWhere((conteneur) {
+        final contIDMatches = conteneur['Cont_ID']
+            .toLowerCase()
+            .contains(_searchController.text.toLowerCase());
+        final contTypeMatches = conteneur['Cont_Type']
+            .toLowerCase()
+            .contains(_searchController.text.toLowerCase());
+        return contIDMatches || contTypeMatches;
+      });
     }
 
     return conteneurList;
@@ -57,6 +64,18 @@ class _ConteneursState extends State<Conteneurs> {
 
   @override
   Widget build(BuildContext context) {
+    void fillTextField() {
+      setState(() {
+        _searchController.text = '20p'; // Set the desired value here
+      });
+    }
+
+    void fillTextField2() {
+      setState(() {
+        _searchController.text = '40p'; // Set the desired value here
+      });
+    }
+
     return Container(
       width: 350,
       child: Column(
@@ -87,11 +106,70 @@ class _ConteneursState extends State<Conteneurs> {
                     Icons.search,
                     color: dark,
                   ),
+                  suffixIcon: IconButton(
+                    onPressed: () => _searchController.clear(),
+                    icon: Icon(Icons.clear, color: Colors.red),
+                  ),
                   filled: true,
                   fillColor: Colors.white,
                 ),
               ),
             ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                height: 45,
+                width: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ElevatedButton(
+                  onPressed: fillTextField,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF80CFCC),
+                  ),
+                  child: Text('20p',
+                      style: TextStyle(
+                        fontFamily: 'Urbanist',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+              ),
+              Text(
+                'Ou par la categorie',
+                style: TextStyle(
+                  fontFamily: 'Urbanist',
+                  color: dark,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                height: 45,
+                width: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ElevatedButton(
+                  onPressed: fillTextField2,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF80CFCC),
+                  ),
+                  child: Text('40p',
+                      style: TextStyle(
+                        fontFamily: 'Urbanist',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: FutureBuilder<List<dynamic>>(
@@ -103,7 +181,7 @@ class _ConteneursState extends State<Conteneurs> {
                     itemCount: _foundConteneurs.length,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.only(
-                          right: 2.0, left: 2.0, top: 2.0, bottom: 15.0),
+                          right: 2.0, left: 2.0, top: 2.0, bottom: 30.0),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
