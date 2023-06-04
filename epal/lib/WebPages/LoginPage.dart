@@ -147,7 +147,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 140),
                     child: Text(
-                      'Gestion des Contneurs de l\'EPAL',
+                      'Gestion des Conteneurs de l\'EPAL',
                       style: TextStyle(
                         color: Color(0xFF02558F),
                         fontFamily: 'Urbanist',
