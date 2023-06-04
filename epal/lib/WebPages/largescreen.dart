@@ -4,7 +4,7 @@ import 'package:epal/icons.dart';
 import 'package:epal/widgets/conteneurs.dart';
 
 import 'package:epal/widgets/home.dart';
-
+import 'package:epal/WebPages/ipAddress.dart';
 import 'package:epal/widgets/modules.dart';
 import 'package:epal/widgets/map.dart';
 import 'package:epal/widgets/profile.dart';
@@ -24,7 +24,8 @@ class LargeScreen extends StatefulWidget {
 
 class _LargeScreenState extends State<LargeScreen> {
   Future<http.Response> fetchAdmin(int id) {
-    return http.get(Uri.parse('http://127.0.0.1:8000/api/admin/$id'));
+    return http.get(Uri.parse(usedIPAddress + '/api/admin/$id'),
+        headers: headers);
   }
 
   int _selectedIndex = 4;

@@ -1,6 +1,6 @@
 import 'package:epal/constants/style.dart';
 import 'package:epal/helpers/ipAddresses.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +23,14 @@ Future<dynamic> fetchUser(String email) async {
 
 Future<dynamic> annulerDemande(int num) async {
   await http.delete(Uri.parse(usedIPAddress + '/api/demande/annuler/$num'));
+  Fluttertoast.showToast(
+      msg: "Demande annulée avec succès",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      fontSize: 16.0);
 }
 
 final user = FirebaseAuth.instance.currentUser!;

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:epal/WebPages/ipAddress.dart';
 import 'package:epal/constants/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,8 @@ class profile extends StatelessWidget {
   profile({super.key});
 
   Future<http.Response> fetchAdmin(int id) {
-    return http.get(Uri.parse('http://127.0.0.1:8000/api/admin/$id'));
+    return http.get(Uri.parse(usedIPAddress + '/api/admin/$id'),
+        headers: headers);
   }
 
   @override

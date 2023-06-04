@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:epal/WebPages/dashboard.dart';
+import 'package:epal/WebPages/ipAddress.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -18,11 +19,16 @@ class _WebLoginPageState extends State<WebLoginPage> {
   bool wrongPassword = false;
   bool role = false;
   Future<void> signIn() async {
-    var response = await http.get(Uri.parse(
-        'http://127.0.0.1:8000/api/utilisateur/' +
-            emailController.text.trim()));
-    var user = json.decode(response.body);
+    print(usedIPAddress + '/api/utilisateur/' + emailController.text.trim());
 
+    var response = await http.get(
+      Uri.parse(
+          usedIPAddress + '/api/utilisateur/' + emailController.text.trim()),
+      headers: headers,
+    );
+    print(response);
+    var user = json.decode(response.body);
+    print(user);
     if (user['E-mail'] == emailController.text.trim()) {
       userNotFound = false;
       if (user['MotPass'] == PasswordController.text.trim()) {

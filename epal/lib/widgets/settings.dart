@@ -1,3 +1,4 @@
+import 'package:epal/WebPages/ipAddress.dart';
 import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,11 +19,13 @@ class settings extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<void> changePassword(String newPassword) async {
       bool success = true;
-      var response = await http.put(Uri.parse(
-          'http://127.0.0.1:8000/api/utilisateur/' +
+      var response = await http.put(
+          Uri.parse(usedIPAddress +
+              '/api/utilisateur/' +
               userEmail +
               '/' +
-              newPassword));
+              newPassword),
+          headers: headers);
       var user = json.decode(response.body);
       if (user['success'] == true) {
         await _auth.currentUser!.updatePassword(newPassword);

@@ -13,8 +13,8 @@
    -remove text from icons (done)
    -liste des demandes ( nkbrhom) (done)
    -liaison padding for white box ( left and right)(done)
-
-
+   -flutter toast ( alert for every action) app ( done)
+   -admin add container nba3do / title ta3 ajout(done)
 
 
 
@@ -22,9 +22,8 @@
 
    -details admin home page --> stats embarquement details ( 2021-2022)
    -ki ykhlas deplacement nbdlo container status + numparc
-   -flutter toast ( alert for every action) app
+   -change pw (app)
    -home pages ( nwrilhom for every one wsh 3ndo f l app)
    -fix error admin login (user doesn't exist et il n a pas le droit d acces)
    -tracker ndiro option win n9dro nbdlo ID ta3 module de suivi ( setState)
-   -admin add container nba3do / title ta3 ajout
    -app login pag se conncter button ( nbiynoh)

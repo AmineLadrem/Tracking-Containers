@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:epal/WebPages/ipAddress.dart';
 import 'package:epal/widgets/realtime_location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,8 +17,8 @@ class GererModule extends StatefulWidget {
 class _modulesState extends State<GererModule> {
   final _searchController = TextEditingController();
   Future<List<dynamic>> fetchModules() async {
-    final apiUrl = 'http://127.0.0.1:8000/api/modulesuivis';
-    final response = await http.get(Uri.parse(apiUrl));
+    final apiUrl = usedIPAddress + '/api/modulesuivis';
+    final response = await http.get(Uri.parse(apiUrl), headers: headers);
     final moduleList = <dynamic>[];
     final moduleData = json.decode(response.body);
 
@@ -35,10 +36,11 @@ class _modulesState extends State<GererModule> {
 
   Future<void> getPosition(int id) async {
     var response = await http.get(
-        Uri.parse('http://127.0.0.1:8000/api/modulesuivis/' + id.toString()));
+        Uri.parse(usedIPAddress + '/api/modulesuivis/' + id.toString()),
+        headers: headers);
 
     var container = await http.get(Uri.parse(
-        'http://127.0.0.1:8000/api/conteneur/modulesuivi/' + id.toString()));
+        usedIPAddress + '/api/conteneur/modulesuivi/' + id.toString()));
 
     // Parse the JSON response
     var data = json.decode(response.body);
@@ -65,7 +67,7 @@ class _modulesState extends State<GererModule> {
     final ModuleIDController = TextEditingController();
     final ModuleBatterieController = TextEditingController();
     makeApiCall() async {
-      final String apiUrl = 'http://127.0.0.1:8000/api/modulesuivis';
+      final String apiUrl = usedIPAddress + '/api/modulesuivis';
 
       final moduleValidation = {
         'ModNum': int.parse(ModuleIDController.text),
@@ -115,54 +117,62 @@ class _modulesState extends State<GererModule> {
       child: Row(
         children: [
           Expanded(
-            child: Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 400,
-                    child: TextField(
-                      controller: _searchController,
-                      onChanged: (value) {
-                        // Call setState to rebuild the widget when the text changes
-                        setState(() {});
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Search',
-                        labelStyle: TextStyle(color: dark),
-                        prefixIcon: Icon(Icons.search, color: light),
-                        filled: true,
-                        fillColor: Colors.white,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: light),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: light),
-                          borderRadius: BorderRadius.circular(10.0),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 45.0,
+                right: 45.0,
+              ),
+              child: Container(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      width: 400,
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: (value) {
+                          // Call setState to rebuild the widget when the text changes
+                          setState(() {});
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Search',
+                          labelStyle: TextStyle(color: dark),
+                          prefixIcon: Icon(Icons.search, color: light),
+                          filled: true,
+                          fillColor: Colors.white,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: light),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: light),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Expanded(
-                    child: FutureBuilder<List<dynamic>>(
-                      future: fetchModules(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          final _foundModules = snapshot.data!;
-                          return ListView.builder(
-                            itemCount: _foundModules.length,
-                            itemBuilder: (context, index) => Card(
-                              key: ValueKey(_foundModules[index]['ModNum']),
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
+                    SizedBox(height: 20),
+                    Expanded(
+                      child: FutureBuilder<List<dynamic>>(
+                        future: fetchModules(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final _foundModules = snapshot.data!;
+                            return ListView.builder(
+                              itemCount: _foundModules.length,
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.only(bottom: 14.0),
                                 child: Container(
+                                  key: ValueKey(_foundModules[index]['ModNum']),
                                   decoration: BoxDecoration(
                                     color: back,
                                     borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: Color(0xFF80CFCC),
+                                      width: 2.0,
+                                    ),
                                   ),
                                   child: Row(
                                     children: [
@@ -173,7 +183,7 @@ class _modulesState extends State<GererModule> {
                                             height: 100),
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        width: 7,
                                       ),
                                       Container(
                                         child: Container(
@@ -207,7 +217,7 @@ class _modulesState extends State<GererModule> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 20),
+                                      SizedBox(width: 15),
                                       Expanded(
                                         child: Container(
                                           child: Column(
@@ -321,72 +331,92 @@ class _modulesState extends State<GererModule> {
                                         ),
                                       ),
                                       SizedBox(width: 20),
-                                      Expanded(
-                                        child: Visibility(
-                                          visible: (_foundModules[index]
-                                                      ['ModStatus']
-                                                  .toString() ==
-                                              'Active'),
-                                          child: Container(
-                                            child: Row(
-                                              children: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    getPosition(
-                                                        _foundModules[index]
-                                                            ['ModNum']);
-                                                  },
-                                                  onHover: (event) {},
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        'Localiser',
-                                                        style: TextStyle(
-                                                          color: dark,
-                                                        ),
+                                      Visibility(
+                                        visible: (_foundModules[index]
+                                                    ['ModStatus']
+                                                .toString() ==
+                                            'Active'),
+                                        child: Container(
+                                          child: Row(
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  getPosition(
+                                                      _foundModules[index]
+                                                          ['ModNum']);
+                                                },
+                                                onHover: (event) {},
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      'Localiser',
+                                                      style: TextStyle(
+                                                        color: dark,
                                                       ),
-                                                      SizedBox(width: 10),
-                                                      Icon(Icons.gps_fixed,
-                                                          color: dark)
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                    Icon(Icons.gps_fixed,
+                                                        color: dark)
+                                                  ],
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ),
-                                      )
+                                      ),
+                                      Visibility(
+                                        visible: (_foundModules[index]
+                                                    ['ModStatus']
+                                                .toString() !=
+                                            'Active'),
+                                        child: Container(
+                                          child: Row(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Localisation Indisponible',
+                                                    style: TextStyle(
+                                                      color: dark,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Icon(Icons.gps_off_outlined,
+                                                      color: dark)
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 15),
                                     ],
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
           Container(
-            width: 450,
+            width: 480,
             child: Padding(
-              padding: const EdgeInsets.only(top: 98.0, left: 5),
+              padding: const EdgeInsets.only(top: 79.0, right: 25.0),
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF80CFCC),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
                     child: Column(
                       children: [
                         SizedBox(height: 5),
@@ -395,7 +425,7 @@ class _modulesState extends State<GererModule> {
                             'Ajouter un Module',
                             style: TextStyle(
                               fontFamily: 'Urbanist',
-                              color: Colors.white,
+                              color: dark,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -475,7 +505,7 @@ class _modulesState extends State<GererModule> {
                   SizedBox(height: 30),
                   Container(
                     height: 45,
-                    width: 300,
+                    width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Color(0xFF8FABFE),

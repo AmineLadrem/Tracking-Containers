@@ -1,3 +1,4 @@
+import 'package:epal/WebPages/ipAddress.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/icons.dart';
 
@@ -48,8 +49,8 @@ class _containersState extends State<containers> {
   }
 
   Future<void> _getEmbarquement(String value) async {
-    var apiUrl = 'http://127.0.0.1:8000/api/embarquement/$value';
-    var response = await http.get(Uri.parse(apiUrl));
+    var apiUrl = usedIPAddress + '/api/embarquement/$value';
+    var response = await http.get(Uri.parse(apiUrl), headers: headers);
     var deb = json.decode(response.body);
     setState(() {
       if (numEmbarquementController.text.isNotEmpty) {
@@ -64,8 +65,8 @@ class _containersState extends State<containers> {
   }
 
   Future<void> _getDebarquement(String value) async {
-    var apiUrl = 'http://127.0.0.1:8000/api/debarquement/$value';
-    var response = await http.get(Uri.parse(apiUrl));
+    var apiUrl = usedIPAddress + '/api/debarquement/$value';
+    var response = await http.get(Uri.parse(apiUrl), headers: headers);
     var deb = json.decode(response.body);
     setState(() {
       if (numDebarquementController.text.isNotEmpty) {
@@ -80,8 +81,8 @@ class _containersState extends State<containers> {
   }
 
   Future<void> _getVisite(String value) async {
-    var apiUrl = 'http://127.0.0.1:8000/api/visite/$value';
-    var response = await http.get(Uri.parse(apiUrl));
+    var apiUrl = usedIPAddress + '/api/visite/$value';
+    var response = await http.get(Uri.parse(apiUrl), headers: headers);
     var deb = json.decode(response.body);
     setState(() {
       if (numVisiteController.text.isNotEmpty) {
@@ -96,8 +97,8 @@ class _containersState extends State<containers> {
   }
 
   Future<void> _getLivraison(String value) async {
-    var apiUrl = 'http://127.0.0.1:8000/api/livraison/$value';
-    var response = await http.get(Uri.parse(apiUrl));
+    var apiUrl = usedIPAddress + '/api/livraison/$value';
+    var response = await http.get(Uri.parse(apiUrl), headers: headers);
     var deb = json.decode(response.body);
     setState(() {
       if (numLivraisonController.text.isNotEmpty) {
@@ -115,8 +116,8 @@ class _containersState extends State<containers> {
   dynamic selectedStatusItem;
   dynamic selectedTypeItem;
   Future<List<dynamic>> fetchConteneurs() async {
-    final apiUrl = 'http://127.0.0.1:8000/api/conteneur';
-    final response = await http.get(Uri.parse(apiUrl));
+    final apiUrl = usedIPAddress + '/api/conteneur';
+    final response = await http.get(Uri.parse(apiUrl), headers: headers);
     final conteneurList = <dynamic>[];
     final conteneurData = json.decode(response.body);
 
@@ -139,10 +140,13 @@ class _containersState extends State<containers> {
 
   Future<void> getPosition(int id) async {
     var response = await http.get(
-        Uri.parse('http://127.0.0.1:8000/api/modulesuivis/' + id.toString()));
+        Uri.parse(usedIPAddress + '/api/modulesuivis/' + id.toString()),
+        headers: headers);
 
-    var container = await http.get(Uri.parse(
-        'http://127.0.0.1:8000/api/conteneur/modulesuivi/' + id.toString()));
+    var container = await http.get(
+        Uri.parse(
+            usedIPAddress + '/api/conteneur/modulesuivi/' + id.toString()),
+        headers: headers);
 
     // Parse the JSON response
     var data = json.decode(response.body);
@@ -189,7 +193,8 @@ class _containersState extends State<containers> {
         return null;
       }
 
-      final String apiUrl = 'http://127.0.0.1:8000/api/conteneur?Cont_ID=' +
+      final String apiUrl = usedIPAddress +
+          '/api/conteneur?Cont_ID=' +
           contIDController.text +
           '&Cont_Type=' +
           contTypeController.text +
@@ -209,7 +214,7 @@ class _containersState extends State<containers> {
           '&Admin_ID=' +
           1.toString();
       print(apiUrl);
-      final response = await http.post(Uri.parse(apiUrl));
+      final response = await http.post(Uri.parse(apiUrl), headers: headers);
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -245,112 +250,122 @@ class _containersState extends State<containers> {
         width: 300,
         child: Row(children: [
           Expanded(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  child: TextField(
-                    controller: _searchController,
-                    onChanged: (value) {
-                      // Call setState to rebuild the widget when the text changes
-                      setState(() {});
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Rechercher par l\'ID du conteneur',
-                      labelText: 'Search',
-                      labelStyle: TextStyle(color: dark),
-                      prefixIcon: Icon(Icons.search, color: light),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() {});
-                        },
-                        icon: Icon(Icons.clear, color: dark),
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: light),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: light),
-                        borderRadius: BorderRadius.circular(10.0),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 12.0,
+                right: 12.0,
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    child: TextField(
+                      controller: _searchController,
+                      onChanged: (value) {
+                        // Call setState to rebuild the widget when the text changes
+                        setState(() {});
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Rechercher par l\'ID du conteneur',
+                        labelText: 'Search',
+                        labelStyle: TextStyle(color: dark),
+                        prefixIcon: Icon(Icons.search, color: light),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() {});
+                          },
+                          icon: Icon(Icons.clear, color: dark),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: light),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: light),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: 45,
-                      width: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ElevatedButton(
-                        onPressed: fillTextField,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF80CFCC),
+                  SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 45,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Text('20p',
-                            style: TextStyle(
-                              fontFamily: 'Urbanist',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                    ),
-                    Text(
-                      'Ou par la categorie',
-                      style: TextStyle(
-                        fontFamily: 'Urbanist',
-                        color: dark,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Container(
-                      height: 45,
-                      width: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ElevatedButton(
-                        onPressed: fillTextField2,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF80CFCC),
+                        child: ElevatedButton(
+                          onPressed: fillTextField,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF80CFCC),
+                          ),
+                          child: Text('20p',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              )),
                         ),
-                        child: Text('40p',
-                            style: TextStyle(
-                              fontFamily: 'Urbanist',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            )),
                       ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: FutureBuilder<List<dynamic>>(
-                    future: fetchConteneurs(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final _foundConteneurs = snapshot.data!;
-                        return ListView.builder(
-                          itemCount: _foundConteneurs.length,
-                          itemBuilder: (context, index) => Card(
-                            key: ValueKey(_foundConteneurs[index]['Cont_ID']),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
+                      Text(
+                        'Ou par la categorie',
+                        style: TextStyle(
+                          fontFamily: 'Urbanist',
+                          color: dark,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        height: 45,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: fillTextField2,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF80CFCC),
+                          ),
+                          child: Text('40p',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: FutureBuilder<List<dynamic>>(
+                      future: fetchConteneurs(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final _foundConteneurs = snapshot.data!;
+                          return ListView.builder(
+                            itemCount: _foundConteneurs.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.only(bottom: 14.0),
                               child: Container(
+                                key: ValueKey(
+                                    _foundConteneurs[index]['Cont_ID']),
                                 decoration: BoxDecoration(
                                   color: back,
                                   borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    color: Color(0xFF80CFCC),
+                                    width: 2.0,
+                                  ),
                                 ),
                                 child: Row(
                                   children: [
@@ -845,33 +860,30 @@ class _containersState extends State<containers> {
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Expanded(
             child: Container(
               child: Padding(
-                padding: const EdgeInsets.all(9.0),
+                padding: const EdgeInsets.only(
+                    top: 9.0, left: 60.0, right: 60.0, bottom: 9.0),
                 child: Column(
                   children: [
                     SizedBox(height: 127),
                     Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF80CFCC),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
                       child: Column(
                         children: [
                           SizedBox(height: 5),
@@ -880,7 +892,7 @@ class _containersState extends State<containers> {
                               'Ajouter un Conteneur',
                               style: TextStyle(
                                 fontFamily: 'Urbanist',
-                                color: Colors.white,
+                                color: dark,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -1132,6 +1144,7 @@ class _containersState extends State<containers> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             numEmbarquementController.clear();
+                            isVisible4 = false;
                           },
                           icon: Icon(Icons.clear, color: dark),
                         ),
@@ -1198,6 +1211,7 @@ class _containersState extends State<containers> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             numLivraisonController.clear();
+                            isVisible3 = false;
                           },
                           icon: Icon(Icons.clear, color: dark),
                         ),
@@ -1263,6 +1277,7 @@ class _containersState extends State<containers> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             numVisiteController.clear();
+                            isVisible2 = false;
                           },
                           icon: Icon(Icons.clear, color: dark),
                         ),
@@ -1292,8 +1307,8 @@ class _containersState extends State<containers> {
                     ),
                     SizedBox(height: 20),
                     Container(
-                      height: 45,
-                      width: 300,
+                      height: 40,
+                      width: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),

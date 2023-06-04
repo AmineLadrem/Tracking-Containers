@@ -1,3 +1,4 @@
+import 'package:epal/WebPages/ipAddress.dart';
 import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -29,8 +30,8 @@ class _homeState extends State<home> {
   List<dynamic> containers = [];
   List<dynamic> modules = [];
   Future<List<dynamic>> fetchData() async {
-    final response =
-        await http.get(Uri.parse("http://127.0.0.1:8000/api/conteneur"));
+    final response = await http.get(Uri.parse(usedIPAddress + "/api/conteneur"),
+        headers: headers);
     containers = json.decode(response.body);
     List<dynamic> statusCount = [];
     for (var container in containers) {
@@ -57,8 +58,8 @@ class _homeState extends State<home> {
   }
 
   Future<List<dynamic>> fetchModules() async {
-    final response =
-        await http.get(Uri.parse("http://127.0.0.1:8000/api/modulesuivis"));
+    final response = await http
+        .get(Uri.parse(usedIPAddress + "/api/modulesuivis"), headers: headers);
     modules = json.decode(response.body);
     List<dynamic> statusCount = [];
     for (var module in modules) {

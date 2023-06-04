@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:epal/WebPages/ipAddress.dart';
 import 'package:http/http.dart' as http;
 import 'package:epal/constants/polygon.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +14,15 @@ class map extends StatefulWidget {
 
 class _mapState extends State<map> {
   Future<List<Marker>> fetchMarkers() async {
-    final conteneurApiUrl = 'http://127.0.0.1:8000/api/conteneur';
-    final suiviApiUrl = 'http://127.0.0.1:8000/api/modulesuivis/';
+    final conteneurApiUrl = usedIPAddress + '/api/conteneur';
+    final suiviApiUrl = usedIPAddress + '/api/modulesuivis/';
 
-    final conteneurResponse = await http.get(Uri.parse(conteneurApiUrl));
+    final conteneurResponse =
+        await http.get(Uri.parse(conteneurApiUrl), headers: headers);
     final conteneurData = json.decode(conteneurResponse.body);
 
-    final suiviResponse = await http.get(Uri.parse(suiviApiUrl));
+    final suiviResponse =
+        await http.get(Uri.parse(suiviApiUrl), headers: headers);
     final suiviData = json.decode(suiviResponse.body);
 
     final markers = <Marker>[];
