@@ -353,14 +353,13 @@ void sendAndroidNotification(dynamic selectedParcItem) async {
       "dPv-nHbJRfmazzhEGa9Z51:APA91bHbUftyBjIxE3jcP2nBxYTJu0ujDMo2_ApJEisICTSKbLueHiBzUGiyJJJzaU2iJkaaEFe7_N3kH3iayAS4O5jAM-6bxWV42leZGCZQED1of_DOozjjEj2Ps-g1aWdo5XPoUZ22"
     ],
     "notification": {
-      "title": "Nouvelle demande de déplacement",
+      "title": "[EPAL] Demande de déplacement",
       "body": "Nouvelle demande de déplacement vers le parc $selectedParcItem",
       "content_available": true,
       "android": {
         "style": "bigtext",
         "priority": "high",
         "bigTextStyle": {
-          "contentTitle": "Déplacement d'un conteneur a été détecté",
           "summaryText": "Alerte",
           "bigText": "Detailed description of the alert goes here."
         }
