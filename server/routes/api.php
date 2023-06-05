@@ -74,6 +74,7 @@ Route::put('/demandes/conducteur/cours/{demande}',[DemandeController::class, 'fu
 Route::put('/demandes/conducteur/termine/{demande}',[DemandeController::class, 'function6']);
 Route::put('/demandes/conducteur/cancel/{demande}',[DemandeController::class, 'function7']);
 Route::put('/demandes/conducteur/add/{cdp}/{cdc}/{date}/{heure}/{cont}',[DemandeController::class, 'function8']);
+Route::get('/demande/conteneur/{id}',[DemandeController::class, 'function11']);
 Route::get('/Demande/{id}',[DemandeController::class, 'function9']);
 
 Route::get('/debarquement/{id}',[DebarquementController::class, 'show']);

@@ -214,6 +214,7 @@ class _containersState extends State<containers> {
         );
         setState(() {});
       } else {
+        print(response.statusCode);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Erreur lors de l\'ajout du Conteneur'),

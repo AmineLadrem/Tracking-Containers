@@ -39,8 +39,10 @@ class _modulesState extends State<GererModule> {
         Uri.parse(usedIPAddress + '/api/modulesuivis/' + id.toString()),
         headers: headers);
 
-    var container = await http.get(Uri.parse(
-        usedIPAddress + '/api/conteneur/modulesuivi/' + id.toString()));
+    var container = await http.get(
+        Uri.parse(
+            usedIPAddress + '/api/conteneur/modulesuivi/' + id.toString()),
+        headers: headers);
 
     // Parse the JSON response
     var data = json.decode(response.body);

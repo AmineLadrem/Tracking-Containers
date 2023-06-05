@@ -206,6 +206,19 @@ class DemandeController extends Controller
             return response()->json(500);
          }
     }
+
+
+    public function function11($id)
+    {
+        $demandes = Demande::where('Cont_ID', $id)->first() ;
+ 
+        if($demandes){
+            return true;
+           }
+             else{
+                return 'HELLO';
+             }
+    }
     /**
      * Update the specified resource in storage.
      */
