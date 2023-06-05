@@ -15,7 +15,10 @@ final List<String> LydiaIPAddresses = [
   'http://41.220.148.201:8000'
 ];
 
- 
+var headers = {
+  "ngrok-skip-browser-warning": "69420",
+};
+
 
 //final String usedIPAddress = LydiaIPAddresses[0]; // works with real device
 //final String usedIPAddress = LydiaIPAddresses[1]; // works with real device

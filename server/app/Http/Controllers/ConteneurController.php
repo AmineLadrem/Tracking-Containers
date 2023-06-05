@@ -105,6 +105,9 @@ class ConteneurController extends Controller
         elseif($status=='En cours d\'embarquement'){
             $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0,'Cont_Status'=>'embarqué']);
         }   
+        else {
+            $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0]);
+        }
         
         modulesuivi::where('ModNum',$modnum)->update(['ModStatus' =>'Inactive']);
         if ($affectedRows > 0) {

@@ -182,16 +182,6 @@ class _containersState extends State<containers> {
         );
         return null;
       }
-      if (contTypeController.text != '20p' ||
-          contTypeController.text != '40p') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Type de conteneur invalide'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        return null;
-      }
 
       final String apiUrl = usedIPAddress +
           '/api/conteneur?Cont_ID=' +
@@ -269,7 +259,7 @@ class _containersState extends State<containers> {
                       },
                       decoration: InputDecoration(
                         hintText: 'Rechercher par l\'ID du conteneur',
-                        labelText: 'Search',
+                        labelText: 'Rechercher',
                         labelStyle: TextStyle(color: dark),
                         prefixIcon: Icon(Icons.search, color: light),
                         suffixIcon: IconButton(
@@ -828,8 +818,8 @@ class _containersState extends State<containers> {
                                             ),
                                             Visibility(
                                               visible: (_foundConteneurs[index]
-                                                      ['Cont_Status'] !=
-                                                  'In-Board'),
+                                                      ['ModNum'] !=
+                                                  '0'),
                                               child: TextButton(
                                                 onPressed: () {
                                                   getPosition(
@@ -1000,7 +990,7 @@ class _containersState extends State<containers> {
                           SizedBox(height: 5),
                         ],
                       ),
-                      visible: isVisible4,
+                      visible: isVisible5,
                     ),
                     SizedBox(height: 10),
                     TextField(

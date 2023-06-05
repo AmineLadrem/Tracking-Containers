@@ -31,7 +31,6 @@ class ModulesuiviController extends Controller
             'ModBatterie'=> $moduleValidation['ModBatterie'], 
             'PositionX'=> 0, 
             'PositionY'=> 0, 
-            
             ]);
     }
 
@@ -51,17 +50,7 @@ class ModulesuiviController extends Controller
     public function update($id,$x,$y)
     {
         $affectedRows =modulesuivi::where('ModNum',$id)->update(['PositionX' =>$x,'PositionY' =>$y]);
-        if ($affectedRows > 0) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Location updated successfully'
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Location not updated'
-            ]);
-        }
+       
     }
 
     public function updateStatus($id)

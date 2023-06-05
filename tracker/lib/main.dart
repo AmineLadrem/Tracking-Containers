@@ -27,6 +27,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Position? _currentPosition;
+  TextEditingController _numberController =
+      TextEditingController(text: '2'); // New
 
   @override
   void initState() {
@@ -35,31 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Check if location services are enabled
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      print('Location services are disabled');
-      return;
-    }
-
-    // Check for location permission
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.deniedForever) {
-      print('Location permissions are permanently denied');
-      return;
-    }
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission != LocationPermission.whileInUse &&
-          permission != LocationPermission.always) {
-        print('Location permissions are denied (actual value: $permission)');
-        return;
-      }
-    }
+    // ...
 
     // Get the current position and continuously update it
     Geolocator.getPositionStream().listen((Position position) {
@@ -77,15 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
     String data = "{\"latitude\":$latitude,\"longitude\":$longitude}";
 
     String url =
-        'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/2.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH';
+        'https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/${_numberController.text}.json?auth=404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH'; // Updated URL
     var response2 = await http.put(
-      Uri.parse(usedIPAddress +
-          '/api/modulesuivis/2/' +
-          latitude +
-          "/" +
-          longitude +
-          "/0"),
-    );
+        Uri.parse(usedIPAddress +
+            '/api/modulesuivis/${_numberController.text}/' + // Updated API endpoint
+            latitude +
+            "/" +
+            longitude),
+        headers: headers);
 
     http.Response response = await http.patch(Uri.parse(url), body: data);
 
@@ -103,6 +80,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            TextField(
+              // New
+              controller: _numberController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: 'Number',
+              ),
+            ),
+            SizedBox(height: 16),
             if (_currentPosition != null)
               Text(
                 'Latitude: ${_currentPosition!.latitude}\nLongitude: ${_currentPosition!.longitude}',
