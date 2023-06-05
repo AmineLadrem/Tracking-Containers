@@ -94,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Position? _currentPosition;
   TextEditingController _numberController =
       TextEditingController(text: '2'); // New
+  bool notificationSent = false;
 
   @override
   void initState() {
@@ -122,6 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 '/api/demande/conteneur/' +
                 containerData['Cont_ID']),
             headers: headers);
+        var demandeData = jsonDecode(demande.body);
+        print(demandeData);
+        if (demandeData == 1 && notificationSent == false) {
+          sendAndroidNotification(containerData['Cont_ID']);
+          notificationSent = true;
+        }
       });
     });
   }
