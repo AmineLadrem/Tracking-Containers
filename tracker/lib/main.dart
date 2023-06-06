@@ -110,25 +110,35 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _currentPosition = position;
       });
+
       Timer.periodic(Duration(seconds: 5), (timer) async {
         _sendDataToFirebase(position);
         var container = await http.get(
-            Uri.parse(usedIPAddress +
-                '/api/conteneur/modulesuivi/' +
-                _numberController.text),
-            headers: headers);
+          Uri.parse(usedIPAddress +
+              '/api/conteneur/modulesuivi/' +
+              _numberController.text),
+          headers: headers,
+        );
+
         var containerData = jsonDecode(container.body);
         var demande = await http.get(
-            Uri.parse(usedIPAddress +
-                '/api/demande/conteneur/' +
-                containerData['Cont_ID']),
-            headers: headers);
+          Uri.parse(usedIPAddress +
+              '/api/demande/conteneur/' +
+              containerData['Cont_ID']),
+          headers: headers,
+        );
+
         var demandeData = jsonDecode(demande.body);
         print(demandeData);
+
         if (demandeData == 1 && notificationSent == false) {
           sendAndroidNotification(containerData['Cont_ID']);
           notificationSent = true;
         }
+
+        await Future.delayed(Duration(
+            seconds:
+                5)); // Add a delay of 5 seconds before making the next request
       });
     });
   }

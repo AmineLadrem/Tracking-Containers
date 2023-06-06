@@ -15,7 +15,7 @@ class ParcController extends Controller
         $parc=Parc::all();
         return response($parc,200);
     }
-    public function parcdispo()
+    public function parcdispo($id)
     {
         $parc = Parc::where('nbrdispo', '>', 0)->where('Zone_ID', 1)->first();
 
@@ -24,6 +24,19 @@ class ParcController extends Controller
         } else {
             return response()->json(['message' => 'Aucun parc est disponible'], 404);
         }
+    }
+
+    public function parcdec($id)
+    {
+        $parc = Parc::where('NumParc', $id)->first();
+        
+        if ($parc && $parc->NbrDispo > 0) {
+            $parc->decrement('NbrDispo');
+        }
+    }
+    public function parcinc($id)
+    {
+        Parc::where('NumParc',$id)->increment('NbrDispo');
     }
    
     public function store(Request $request)

@@ -44,6 +44,14 @@ Future<void> startDemande(int id) async {
   final apiUrl =
       usedIPAddress + '/api/demandes/conducteur/cours/' + id.toString();
   await http.put(Uri.parse(apiUrl));
+  final apiUrl2 = usedIPAddress + '/api/Demande/' + id.toString();
+  var res = await http.get(Uri.parse(apiUrl2));
+  var resJson = jsonDecode(res.body);
+  final apiUrl4 = usedIPAddress + '/api/conteneurs/' + resJson['Cont_ID'];
+  var res2 = await http.get(Uri.parse(apiUrl4));
+  var resJson2 = jsonDecode(res2.body);
+  final apiUrl3 = usedIPAddress + '/api/parcinc/' + resJson2['NumParc'];
+  await http.put(Uri.parse(apiUrl3));
 }
 
 Future<void> finishDemande(int id) async {
