@@ -139,8 +139,10 @@ class ConteneurController extends Controller
     {
         print($cont_id);
         print($parc);
+        $cont=Conteneur::where('Cont_ID', $cont_id)->first();
+        return response()->json($cont);
     if($parc==1  &&$parc==2 ){
-       print( Conteneur::where('Cont_ID', $cont_id)->first());
+       return response()->json($cont);
        Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'débarqué','NumParc'=>$parc]);
     }
     elseif($parc>=3 && $parc<=8){
