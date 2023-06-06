@@ -19,11 +19,8 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             DB::table('Modulesuivis')
                 ->where('ModNum', '<>', 0) // Exclude rows where ModNum = 0
-                ->decrement('ModBatterie', 0.53333);
-
-    
-                
-        })->everyMinute();
+                ->decrement('ModBatterie', 0.3472);
+        })->hourly();
       
         $schedule->call(function () {
             $debarquements = debarquement::whereDate('DateDebarquement', Carbon::now())->get();
@@ -67,7 +64,7 @@ foreach ($debarquements as $debarquement) {
             ])->post($fcmUrl, $jsonBody);
     
                 
-        })->everyMinute();
+        })->daily();
     }
     
 

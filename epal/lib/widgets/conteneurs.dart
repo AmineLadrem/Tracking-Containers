@@ -658,6 +658,41 @@ class _containersState extends State<containers> {
                                                               children: [
                                                                 TextSpan(
                                                                   text:
+                                                                      'Numero de parc:  ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                TextSpan(
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          dark),
+                                                                  text: _foundConteneurs[
+                                                                              index]
+                                                                          [
+                                                                          'NumParc']
+                                                                      .toString(),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16.0,
+                                                              ),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text:
                                                                       'Numero de debarquement:  ',
                                                                   style:
                                                                       TextStyle(

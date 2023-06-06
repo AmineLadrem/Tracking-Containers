@@ -52,14 +52,20 @@ Future<void> finishDemande(int id) async {
   await http.put(Uri.parse(apiUrl));
   final apiUrl2 = usedIPAddress + '/api/Demande/' + id.toString();
   var res = await http.get(Uri.parse(apiUrl2));
-
+  print(res.body);
   var res2 = jsonDecode(res.body);
-
-  await http.put(Uri.parse(usedIPAddress +
+  print(usedIPAddress +
+      '/api/conteneur/' +
+      res2['Cont_ID'].toString() +
+      '/' +
+      res2['ParcDest'].toString());
+  var res3 = await http.put(Uri.parse(usedIPAddress +
       '/api/conteneur/' +
       res2['Cont_ID'].toString() +
       '/' +
       res2['ParcDest'].toString()));
+
+  print(res3.statusCode);
 }
 
 Future<void> cancelDemande(int id) async {

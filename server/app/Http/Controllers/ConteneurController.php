@@ -137,6 +137,8 @@ class ConteneurController extends Controller
      */
     public function update($cont_id,$parc)
     {
+        print($cont_id);
+        print($parc);
     if($parc==1 &&$parc==2 ){
        Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'débarqué','NumParc'=>$parc]);
     }

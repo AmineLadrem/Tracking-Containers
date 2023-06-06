@@ -55,7 +55,7 @@ class _LienState extends State<Lien> {
       apiUrl2 = usedIPAddress + '/api/conteneurs/' + Cont_ID;
       response2 = await http.get(Uri.parse(apiUrl2));
       decodedResponse2 = json.decode(response2.body);
-      sendAndroidNotification(decodedResponse2['NumParc']);
+      sendAndroidNotification('Zone de debarquement');
       Fluttertoast.showToast(
           msg:
               "Module de suivi est lié au conteneur avec succès ! et une demande de déplacement est envoyée  ",

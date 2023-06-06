@@ -169,6 +169,7 @@ class DemandeController extends Controller
     public function function6($demande)
     {
         $demandes = Demande::where('DemNum', $demande)->update(['Status' => 'Terminée']) ;
+        
        
         return response()->json($demandes);
     }
