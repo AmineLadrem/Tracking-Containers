@@ -137,25 +137,22 @@ class ConteneurController extends Controller
      */
     public function update($cont_id,$parc)
     {
-        print($cont_id);
-        print($parc);
-        $cont=Conteneur::where('Cont_ID', $cont_id)->first();
-        print($cont);
-    if($parc==1){
-        print($cont);
+      
+    if($parc==1  || $parc==2 ){
+         
       
        Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'débarqué','NumParc'=>$parc]);
     }
-    elseif($parc>=3 && $parc<=8){
+    elseif($parc>=3 || $parc<=8){
          Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours d\'embarquement','NumParc'=>$parc]);
     }
-    elseif($parc>=9 && $parc<=13){
+    elseif($parc>=9 || $parc<=13){
          Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours de livraison','NumParc'=>$parc]);
     }
-    elseif($parc>=14 && $parc<=18){
+    elseif($parc>=14 || $parc<=18){
         Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'stocké','NumParc'=>$parc]);
     }
-    elseif($parc>=19 && $parc<=24){
+    elseif($parc>=19 || $parc<=24){
          Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours de visite','NumParc'=>$parc]);
     }
 
