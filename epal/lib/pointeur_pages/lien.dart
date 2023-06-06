@@ -327,7 +327,7 @@ void sendAndroidNotification(dynamic selectedParcItem) async {
       "dCsgc3qmR5mOQ5xt2_kjif:APA91bEQH3g4Vk3WIJctkG2zFpoc26-M-ePkPj8tc4eCEbpJBNRw_5SvbJKiVX5UMOkGZvG7_1-TLT5GSn37644rr5Mp1hJCcPhcrDTNhomLZuXYot6H_BH-pA1B9_WjXEZvhWOixsZJ"
     ],
     "notification": {
-      "title": "Nouvelle demande de déplacement",
+      "title": "[EPAL] Nouvelle demande de déplacement",
       "body": "Nouvelle demande de déplacement vers le parc $selectedParcItem",
       "content_available": true,
       "android": {

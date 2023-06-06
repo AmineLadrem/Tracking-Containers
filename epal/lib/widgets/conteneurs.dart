@@ -206,9 +206,11 @@ class _containersState extends State<containers> {
       print(apiUrl);
       final response = await http.post(Uri.parse(apiUrl), headers: headers);
       if (response.statusCode == 200) {
+        sendAndroidNotification(contIDController.text);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Conteneur ajouté avec succès'),
+            content: Text(
+                'Conteneur ajouté avec succès , Une demande de liaison a été envoyée au pointeurs '),
             backgroundColor: Colors.green,
           ),
         );
@@ -1322,5 +1324,49 @@ class _containersState extends State<containers> {
             ),
           ),
         ]));
+  }
+}
+
+void sendAndroidNotification(dynamic conteneur) async {
+  Map<String, dynamic> jsonBody = {
+    "registration_ids": [
+      "dh6aLDYQTmCFPFvFOcrai4:APA91bEa-2yPK6BH3TntmCK-4ULevxw9XgxZktjQMi22-Sun0Y9oVYj7LnIMdZYvI0zHcQqeLwO9qzvBp6Niv-QpalIXJFRTvtU_qKNLJh75w4_ReggzNA1_sp5okV7kNLVbGqmLXUwq",
+      "dET9T0zpTZ-jdn_MGaFgfC:APA91bFr_2-cIFwoySLjSUSjT183FIdD_i32h6D_ex7gNI0fCA_zVBrGV9tEe9Y4X29v4k2p1N2GwjGfQVaN-wMijTCnOepfpUk8JDHMn0Q2fhJP0QxyjKM91sxe4lSGHhCz2hPLwUjL"
+    ],
+    "notification": {
+      "title": "[EPAL] Conteneur ajouté",
+      "body": " Un nouveau conteneur [$conteneur] a été ajouté",
+      "content_available": true,
+      "android": {
+        "style": "bigtext",
+        "priority": "high",
+        "bigTextStyle": {
+          "summaryText": "EPAL",
+          "bigText": "Un nouveau conteneur [$conteneur] a été ajouté"
+        }
+      }
+    },
+  };
+
+  String serverKey =
+      "AAAAN-J_R3k:APA91bEzx_24yCRNQau9alc5v4Y7mhmO9lxQOn7G143Rvfd-rC4LoDdfDBpR9HkCfgjd53IadcrMaWPjQHCo-GrPG5hZEQKiebcoO4BfkFDqV3_Thzp-PfSBYZFuyVNzAiD3rcb2r8tB";
+  String fcmUrl = "https://fcm.googleapis.com/fcm/send";
+
+  http.Response response = await http.post(
+    Uri.parse(fcmUrl),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'key=$serverKey',
+    },
+    body: jsonEncode(jsonBody),
+  );
+
+  // Handle the response
+  if (response.statusCode == 200) {
+    // Notification sent successfully
+    print("Notification sent successfully");
+  } else {
+    // Error sending notification
+    print("Error sending notification. Status code: ${response.statusCode}");
   }
 }
