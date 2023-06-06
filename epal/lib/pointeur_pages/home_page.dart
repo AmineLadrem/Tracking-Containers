@@ -35,7 +35,9 @@ Future<void> fetchConteneurs() async {
     final jsonData = json.decode(response.body);
 
     count = jsonData['count'];
-    conteneurs = List<String>.from(jsonData['conteneurIDs']);
+
+    conteneurs = List<String>.from(jsonData['ConteneurIDs']);
+
     prenom = cond['Prenom'];
   } else {
     throw Exception('Failed to fetch demandes');

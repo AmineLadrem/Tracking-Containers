@@ -100,16 +100,15 @@ class ConteneurController extends Controller
         $modnum=$container->ModNum;
         $status=$container->Cont_Status;
         if($status=='En cours de livraison'){
-            $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0,'Cont_Status'=>'livré']);
+            $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0,'Cont_Status'=>'livré','NumParc'=>0]);
         }
         elseif($status=='En cours d\'embarquement'){
-            $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0,'Cont_Status'=>'embarqué']);
+            $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0,'Cont_Status'=>'embarqué','NumParc'=>0]);
         }   
         else {
             $affectedRows =Conteneur::where('Cont_ID',$cont_id)->update(['ModNum' =>0]);
-        }
-        
-        modulesuivi::where('ModNum',$modnum)->update(['ModStatus' =>'Inactive']);
+        }  
+        modulesuivi::where('ModNum',$modnum)->update(['ModStatus' =>'Inactive','PositionX'=>0,'PositionY'=>0]);
         if ($affectedRows > 0) {
             return response()->json([
                 'success' => true,
