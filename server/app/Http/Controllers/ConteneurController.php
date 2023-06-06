@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\conteneur;
+use App\Models\Conteneur;
 use App\Models\modulesuivi;
 use Illuminate\Http\Request;
 
@@ -9,8 +9,8 @@ class ConteneurController extends Controller
 {
     public function index()
     {
-        $conteneur=Conteneur::all();
-        return response($conteneur,200);
+        $Conteneur=Conteneur::all();
+        return response($Conteneur,200);
     }
 
     /**
@@ -18,7 +18,7 @@ class ConteneurController extends Controller
      */
     public function store(Request $request)
     {
-        $conteneurValidation=$request->validate([
+        $ConteneurValidation=$request->validate([
             'Cont_ID'=>['required'],
             'Cont_Type'=>['required'],
             'Cont_Poids'=>['required'],
@@ -32,19 +32,19 @@ class ConteneurController extends Controller
             'Admin_ID'=>['required'],
             
         ]);
-        $conteneur=Conteneur::create([
+        $Conteneur=Conteneur::create([
             
-            'Cont_ID'=>$conteneurValidation['Cont_ID'],
-            'Cont_Type'=>$conteneurValidation['Cont_Type'],
-            'Cont_Poids'=>$conteneurValidation['Cont_Poids'],
-            'Cont_Status'=>$conteneurValidation['Cont_Status'],
-            'ModNum'=>$conteneurValidation['ModNum'],
-            'NumLivraison'=>$conteneurValidation['NumLivraison'],
-            'NumEmbarquement'=>$conteneurValidation['NumEmbarquement'],
-            'NumDebarquement'=>$conteneurValidation['NumDebarquement'],
-            'NumVisite'=>$conteneurValidation['NumVisite'],
-            'NumParc'=>$conteneurValidation['NumParc'],
-            'Admin_ID'=>$conteneurValidation['Admin_ID'],
+            'Cont_ID'=>$ConteneurValidation['Cont_ID'],
+            'Cont_Type'=>$ConteneurValidation['Cont_Type'],
+            'Cont_Poids'=>$ConteneurValidation['Cont_Poids'],
+            'Cont_Status'=>$ConteneurValidation['Cont_Status'],
+            'ModNum'=>$ConteneurValidation['ModNum'],
+            'NumLivraison'=>$ConteneurValidation['NumLivraison'],
+            'NumEmbarquement'=>$ConteneurValidation['NumEmbarquement'],
+            'NumDebarquement'=>$ConteneurValidation['NumDebarquement'],
+            'NumVisite'=>$ConteneurValidation['NumVisite'],
+            'NumParc'=>$ConteneurValidation['NumParc'],
+            'Admin_ID'=>$ConteneurValidation['Admin_ID'],
 
             ]);
     }
@@ -52,22 +52,22 @@ class ConteneurController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(conteneur $conteneur)
+    public function show(Conteneur $Conteneur)
     {
         //
     }
 
     public function function1($id)
     {
-        $conteneur = Conteneur::where('ModNum',$id)->first();
-        return $conteneur;
+        $Conteneur = Conteneur::where('ModNum',$id)->first();
+        return $Conteneur;
     }
 
     public function function2($numParc)
     {
-        $conteneurs = Conteneur::where('NumParc', $numParc)->get();
+        $Conteneurs = Conteneur::where('NumParc', $numParc)->get();
 
-        return response()->json($conteneurs);
+        return response()->json($Conteneurs);
     }
 
 
@@ -126,9 +126,9 @@ class ConteneurController extends Controller
 
     public function function5($cont_id)
     {
-        $conteneurs = Conteneur::where('Cont_ID', $cont_id)->first();
+        $Conteneurs = Conteneur::where('Cont_ID', $cont_id)->first();
 
-        return response()->json($conteneurs);
+        return response()->json($Conteneurs);
     }
 
 
@@ -140,20 +140,20 @@ class ConteneurController extends Controller
         print($cont_id);
         print($parc);
     if($parc==1  &&$parc==2 ){
-       print( conteneur::where('Cont_ID', $cont_id)->first());
-       conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'débarqué','NumParc'=>$parc]);
+       print( Conteneur::where('Cont_ID', $cont_id)->first());
+       Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'débarqué','NumParc'=>$parc]);
     }
     elseif($parc>=3 && $parc<=8){
-         conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours d\'embarquement','NumParc'=>$parc]);
+         Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours d\'embarquement','NumParc'=>$parc]);
     }
     elseif($parc>=9 && $parc<=13){
-         conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours de livraison','NumParc'=>$parc]);
+         Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours de livraison','NumParc'=>$parc]);
     }
     elseif($parc>=14 && $parc<=18){
-        conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'stocké','NumParc'=>$parc]);
+        Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'stocké','NumParc'=>$parc]);
     }
     elseif($parc>=19 && $parc<=24){
-         conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours de visite','NumParc'=>$parc]);
+         Conteneur::where('Cont_ID', $cont_id)->update(['Cont_Status'=>'En cours de visite','NumParc'=>$parc]);
     }
 
     
@@ -162,16 +162,16 @@ class ConteneurController extends Controller
 
 public function function6()
 {
-    $conteneurs = Conteneur::where('Cont_Status', 'À bord')
+    $Conteneurs = Conteneur::where('Cont_Status', 'À bord')
                           ->where('ModNum', 0)
                           ->get(['Cont_ID']);
 
-    $count = $conteneurs->count();
-    $conteneurIDs = $conteneurs->pluck('Cont_ID');
+    $count = $Conteneurs->count();
+    $ConteneurIDs = $Conteneurs->pluck('Cont_ID');
 
     return response()->json([
         'count' => $count,
-        'conteneurIDs' => $conteneurIDs,
+        'ConteneurIDs' => $ConteneurIDs,
     ], 200);
 }
  
@@ -183,7 +183,7 @@ public function function6()
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(conteneur $conteneur)
+    public function destroy(Conteneur $Conteneur)
     {
         //
     }
