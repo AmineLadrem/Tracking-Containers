@@ -72,7 +72,7 @@ class ConteneurController extends Controller
 
 
     
-    public function function3(string $cont_id,$mod_num)
+    public function function3($cont_id,$mod_num)
     {
         $container=Conteneur::where('Cont_ID',$cont_id)->first();
         $status=$container->Cont_Status;
