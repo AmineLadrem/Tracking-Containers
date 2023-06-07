@@ -79,6 +79,7 @@ class _modulesState extends State<GererModule> {
       final response = await http.post(Uri.parse(apiUrl),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
+            "ngrok-skip-browser-warning": "69420",
           },
           body: jsonEncode(moduleValidation));
 
@@ -103,7 +104,7 @@ class _modulesState extends State<GererModule> {
           ),
         );
         setState(() {});
-      } else {
+      } else if (response.statusCode == 500) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Erreur lors de l\'ajout du module'),

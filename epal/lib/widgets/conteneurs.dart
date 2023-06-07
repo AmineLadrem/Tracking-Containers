@@ -371,62 +371,63 @@ class _containersState extends State<containers> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Expanded(
-                                        child: Container(
-                                          child: Column(
-                                            children: [
-                                              RichText(
-                                                text: TextSpan(
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    fontSize: 16.0,
-                                                  ),
-                                                  children: [
-                                                    TextSpan(
-                                                      text: 'Conteneur-ID:  ',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontFamily: 'Poppins',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      style: TextStyle(
-                                                          color: dark),
-                                                      text: _foundConteneurs[
-                                                          index]['Cont_ID'],
-                                                    ),
-                                                  ],
+                                      child: Container(
+                                        width: 230,
+                                        child: Column(
+                                          children: [
+                                            RichText(
+                                              text: TextSpan(
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 16.0,
                                                 ),
-                                              ),
-                                              RichText(
-                                                text: TextSpan(
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    fontSize: 16.0,
+                                                children: [
+                                                  TextSpan(
+                                                    text: 'Conteneur-ID:  ',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
-                                                  children: [
-                                                    TextSpan(
-                                                      text: 'Status:  ',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontFamily: 'Poppins',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      style: TextStyle(
-                                                          color: dark),
-                                                      text: _foundConteneurs[
-                                                          index]['Cont_Status'],
-                                                    ),
-                                                  ],
-                                                ),
+                                                  TextSpan(
+                                                    style:
+                                                        TextStyle(color: dark),
+                                                    text:
+                                                        _foundConteneurs[index]
+                                                            ['Cont_ID'],
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 16.0,
+                                                ),
+                                                children: [
+                                                  TextSpan(
+                                                    text: 'Status:  ',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    style:
+                                                        TextStyle(color: dark),
+                                                    text:
+                                                        _foundConteneurs[index]
+                                                            ['Cont_Status'],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -857,7 +858,7 @@ class _containersState extends State<containers> {
                                             Visibility(
                                               visible: (_foundConteneurs[index]
                                                       ['ModNum'] !=
-                                                  '0'),
+                                                  0),
                                               child: TextButton(
                                                 onPressed: () {
                                                   getPosition(
