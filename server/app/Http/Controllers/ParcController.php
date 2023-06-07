@@ -15,6 +15,10 @@ class ParcController extends Controller
         $parc=Parc::all();
         return response($parc,200);
     }
+
+
+
+
     public function parcdispo($id)
     {
         $parc = Parc::where('nbrdispo', '>', 0)->where('Zone_ID', 1)->first();
@@ -40,15 +44,16 @@ class ParcController extends Controller
    
     public function store(Request $request)
     {
-        //
+         
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(parc $parc)
+    public function show($id)
     {
-        //
+        $parc=Parc::where('NumParc',$id)->first();
+        return response()->json($parc);
     }
 
     /**

@@ -1,6 +1,6 @@
 import 'package:epal/chef_pages/conteneurs.dart';
 import 'package:epal/chef_pages/demandes.dart';
-import 'package:epal/chef_pages/notifications.dart';
+import 'package:epal/chef_pages/home_page.dart';
 import 'package:epal/constants/style.dart';
 import 'package:epal/icons.dart';
 
@@ -40,7 +40,7 @@ class _ChefHomeState extends State<ChefHome> {
               Container(
                 height: 558,
                 child: _selectedIndex == 0
-                    ? Notifications()
+                    ? ChefParcHomePage()
                     : _selectedIndex == 1
                         ? Demandes()
                         : _selectedIndex == 2
