@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:tracker/firebase_options.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -95,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _numberController =
       TextEditingController(text: '2'); // New
   bool notificationSent = false;
+  var duration= const Duration(seconds:4);
 
   @override
   void initState() {
@@ -106,12 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // ...
 
     // Get the current position and continuously update it
-    Geolocator.getPositionStream().listen((Position position) {
+    Geolocator.getPositionStream().listen((Position position)async {
       setState(() {
         _currentPosition = position;
       });
 
-      Timer.periodic(Duration(seconds: 5), (timer) async {
+
         _sendDataToFirebase(position);
         var container = await http.get(
           Uri.parse(usedIPAddress +
@@ -131,15 +133,13 @@ class _MyHomePageState extends State<MyHomePage> {
         var demandeData = jsonDecode(demande.body);
         print(demandeData);
 
-        if (demandeData == 1 && notificationSent == false) {
+        if (containerData['NumParc']!=0 &&demandeData == 1 && notificationSent == false) {
           sendAndroidNotification(containerData['Cont_ID']);
           notificationSent = true;
         }
 
-        await Future.delayed(Duration(
-            seconds:
-                5)); // Add a delay of 5 seconds before making the next request
-      });
+      sleep(duration);
+
     });
   }
 
