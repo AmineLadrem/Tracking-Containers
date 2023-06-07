@@ -26,6 +26,8 @@ class settings extends StatelessWidget {
               '/' +
               newPassword),
           headers: headers);
+
+      print(response);
       var user = json.decode(response.body);
       if (user['success'] == true) {
         await _auth.currentUser!.updatePassword(newPassword);
@@ -207,9 +209,11 @@ class settings extends StatelessWidget {
                     ),
                     child: ElevatedButton(
                       onPressed: () async {
-                        var response = await http.get(Uri.parse(
-                            'http://127.0.0.1:8000/api/utilisateur/' +
-                                userEmail));
+                        var response = await http.get(
+                            Uri.parse(usedIPAddress +
+                                '/api/utilisateur/' +
+                                userEmail),
+                            headers: headers);
                         var user = json.decode(response.body);
                         if (_oldPasswordController.text.isEmpty ||
                             _newPasswordController.text.isEmpty ||
