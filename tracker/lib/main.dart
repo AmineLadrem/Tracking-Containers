@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _numberController =
       TextEditingController(text: '2'); // New
   bool notificationSent = false;
-  var duration= const Duration(seconds:4);
+  var duration = const Duration(seconds: 4);
 
   @override
   void initState() {
@@ -108,38 +108,38 @@ class _MyHomePageState extends State<MyHomePage> {
     // ...
 
     // Get the current position and continuously update it
-    Geolocator.getPositionStream().listen((Position position)async {
+    Geolocator.getPositionStream().listen((Position position) async {
       setState(() {
         _currentPosition = position;
       });
 
+      _sendDataToFirebase(position);
+      var container = await http.get(
+        Uri.parse(usedIPAddress +
+            '/api/conteneur/modulesuivi/' +
+            _numberController.text),
+        headers: headers,
+      );
 
-        _sendDataToFirebase(position);
-        var container = await http.get(
-          Uri.parse(usedIPAddress +
-              '/api/conteneur/modulesuivi/' +
-              _numberController.text),
-          headers: headers,
-        );
+      var containerData = jsonDecode(container.body);
+      var demande = await http.get(
+        Uri.parse(usedIPAddress +
+            '/api/demande/conteneur/' +
+            containerData['Cont_ID']),
+        headers: headers,
+      );
 
-        var containerData = jsonDecode(container.body);
-        var demande = await http.get(
-          Uri.parse(usedIPAddress +
-              '/api/demande/conteneur/' +
-              containerData['Cont_ID']),
-          headers: headers,
-        );
+      var demandeData = jsonDecode(demande.body);
+      print(demandeData);
 
-        var demandeData = jsonDecode(demande.body);
-        print(demandeData);
-
-        if (containerData['NumParc']!=0 &&demandeData == 1 && notificationSent == false) {
-          sendAndroidNotification(containerData['Cont_ID']);
-          notificationSent = true;
-        }
+      if (containerData['NumParc'] != 0 &&
+          demandeData == 1 &&
+          notificationSent == false) {
+        sendAndroidNotification(containerData['Cont_ID']);
+        notificationSent = true;
+      }
 
       sleep(duration);
-
     });
   }
 
@@ -205,7 +205,8 @@ void sendAndroidNotification(dynamic Cont_ID) async {
   Map<String, dynamic> jsonBody = {
     "registration_ids": [
       "f0by3vd1TqqGCWMpByqNiy:APA91bGjlzlXLOwrk8j3X9ydsLvLsWDIbWle726SRAiw3Sb-i2mYvuz9oLRni-R3fME38tJ5W97jBRMsgsi9xXPXsN4GbrY5bO47ZniOW5qJsVcB0WjlvJ0_sjpGtmP0DFS71nbTpDPs",
-      "crjoYJtVTCKs9cISfrivbN:APA91bHRSjljdXgsH4FtiWVm6OxZWZo4t26aQfyrQT2AW9Qv0BNVFh7aiClr7c9x4LjOvEj9y4Wn6ZJei00zilmP3qnDAMJlK9_OamR-hLx7TOvcIxQmB8kEucHNVLm9JDJdCWL_sPA7"
+      "crjoYJtVTCKs9cISfrivbN:APA91bHRSjljdXgsH4FtiWVm6OxZWZo4t26aQfyrQT2AW9Qv0BNVFh7aiClr7c9x4LjOvEj9y4Wn6ZJei00zilmP3qnDAMJlK9_OamR-hLx7TOvcIxQmB8kEucHNVLm9JDJdCWL_sPA7",
+      "dqEiroImTgGnn_ri885dnp:APA91bF52Ro5Iy2VAbh095jEGSdd20qufDWM1YXrVck1anxJyrGJDAJXGi9lO5WF3ARJoFJohrqLYPFrzsnTl02-zxLwpNcBp_QwvvOn7Cg6B3l4vGeD5dSPA3rZqV2fqKpGPOYwaSOs"
     ],
     "notification": {
       "title": "[EPAL] Déplacement non autorisé ! ! !",
