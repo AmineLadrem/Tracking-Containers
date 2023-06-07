@@ -65,7 +65,7 @@ Future<void> finishDemande(int id) async {
   var res = await http.get(Uri.parse(apiUrl2));
 
   var res2 = jsonDecode(res.body);
-
+  print(res2['ParcDest']);
   await http.put(Uri.parse(usedIPAddress +
       '/api/conteneur/' +
       res2['Cont_ID'].toString() +
