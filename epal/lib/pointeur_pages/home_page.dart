@@ -35,13 +35,9 @@ Future<void> fetchConteneurs() async {
     final jsonData = json.decode(response.body);
     print(jsonData);
     count = jsonData['count'];
-<<<<<<< Updated upstream
 
     conteneurs = List<String>.from(jsonData['ConteneurIDs']);
 
-=======
-    conteneurs = List<String>.from(jsonData['ConteneurIDs']);
->>>>>>> Stashed changes
     prenom = cond['Prenom'];
   } else {
     throw Exception('Failed to fetch demandes');

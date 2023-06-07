@@ -27,11 +27,10 @@ class ParcController extends Controller
     }
 
     public function parcdec($id)
-    {
-        $parc = Parc::where('NumParc', $id)->first();
+    { 
         
-        if ($parc && $parc->NbrDispo > 0) {
-            $parc->decrement('NbrDispo');
+        if ($id!=0) {
+            $parc = Parc::where('NumParc', $id)->decrement('NbrDispo');
         }
     }
     public function parcinc($id)

@@ -50,8 +50,11 @@ Future<void> startDemande(int id) async {
   final apiUrl4 = usedIPAddress + '/api/conteneurs/' + resJson['Cont_ID'];
   var res2 = await http.get(Uri.parse(apiUrl4));
   var resJson2 = jsonDecode(res2.body);
-  final apiUrl3 = usedIPAddress + '/api/parcinc/' + resJson2['NumParc'];
-  await http.put(Uri.parse(apiUrl3));
+  final apiUrl3 =
+      usedIPAddress + '/api/parcinc/' + resJson2['NumParc'].toString();
+  print(apiUrl3);
+  var res4 = await http.put(Uri.parse(apiUrl3));
+  print(res4.statusCode);
 }
 
 Future<void> finishDemande(int id) async {
@@ -60,21 +63,17 @@ Future<void> finishDemande(int id) async {
   await http.put(Uri.parse(apiUrl));
   final apiUrl2 = usedIPAddress + '/api/Demande/' + id.toString();
   var res = await http.get(Uri.parse(apiUrl2));
-  print(res.body);
-  var res2 = jsonDecode(res.body);
-  print(usedIPAddress +
-      '/api/conteneur/' +
-      res2['Cont_ID'].toString() +
-      '/' +
-      res2['ParcDest'].toString());
 
-  var res3 = await http.put(Uri.parse(usedIPAddress +
+  var res2 = jsonDecode(res.body);
+
+  await http.put(Uri.parse(usedIPAddress +
       '/api/conteneur/' +
       res2['Cont_ID'].toString() +
       '/' +
       res2['ParcDest'].toString()));
 
-  print(res3.statusCode);
+  await http.put(
+      Uri.parse(usedIPAddress + '/api/parcdec/' + res2['ParcDest'].toString()));
 }
 
 Future<void> cancelDemande(int id) async {
