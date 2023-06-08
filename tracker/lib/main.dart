@@ -94,7 +94,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Position? _currentPosition;
   TextEditingController _numberController =
-      TextEditingController(text: '2'); // New
+      TextEditingController(text: '17'); // New
   bool notificationSent = false;
   var duration = const Duration(seconds: 4);
 
@@ -122,6 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
 
       var containerData = jsonDecode(container.body);
+      print(containerData['Cont_ID']);
       var demande = await http.get(
         Uri.parse(usedIPAddress +
             '/api/demande/conteneur/' +
@@ -130,11 +131,12 @@ class _MyHomePageState extends State<MyHomePage> {
       );
 
       var demandeData = jsonDecode(demande.body);
-      print(demandeData);
+      print('demande:'+demandeData.toString());
 
-      if (containerData['NumParc'] != 0 &&
+      if (
           demandeData == 1 &&
           notificationSent == false) {
+        print("sending notification");
         sendAndroidNotification(containerData['Cont_ID']);
         notificationSent = true;
       }
