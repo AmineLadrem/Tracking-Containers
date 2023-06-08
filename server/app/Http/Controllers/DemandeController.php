@@ -214,10 +214,10 @@ class DemandeController extends Controller
         $demandes = Demande::where('Cont_ID', $id)->first() ;
  
         if($demandes){
-            return true;
+            return 0;
            }
              else{
-                return false;
+                return 1;
              }
     }
     /**

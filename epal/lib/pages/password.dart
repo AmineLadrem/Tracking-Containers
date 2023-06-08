@@ -2,6 +2,7 @@ import 'package:epal/helpers/ipAddresses.dart';
 import 'package:epal/constants/style.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -40,22 +41,24 @@ class _PasswordState extends State<Password> {
       }
 
       if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Mot de passe changé avec succès !'),
-            backgroundColor: Colors.green,
-          ),
+        Fluttertoast.showToast(
+          msg: 'Mot de passe changé avec succès !',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
         );
         Future.delayed(Duration(seconds: 3), () async {
           await FirebaseAuth.instance.signOut();
           Navigator.of(context).popUntil((route) => route.isFirst);
         });
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Erreur lors du changement de mot de passe !'),
-            backgroundColor: Colors.red,
-          ),
+        Fluttertoast.showToast(
+          msg: 'Mot de passe incorrect !',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
         );
       }
     }
@@ -217,41 +220,47 @@ class _PasswordState extends State<Password> {
                     ),
                     child: ElevatedButton(
                       onPressed: () async {
-                        var response = await http.get(Uri.parse(
-                            'http://127.0.0.1:8000/api/utilisateur/' +
-                                userEmail));
+                        var response = await http.get(
+                            Uri.parse(usedIPAddress +
+                                '/api/utilisateur/' +
+                                userEmail),
+                            headers: headers);
                         var user = json.decode(response.body);
                         if (_oldPasswordController.text.isEmpty ||
                             _newPasswordController.text.isEmpty ||
                             _confirmPasswordController.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text('Veuillez remplir tous les champs !'),
-                              backgroundColor: Colors.red,
-                            ),
+                          Fluttertoast.showToast(
+                            msg: 'Veuillez remplir tous les champs !',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
                           );
                           return;
                         }
                         if (_oldPasswordController.text != user['MotPass']) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  'Veuillez confirmer bien l\'ancien mot de passe !'),
+                          Fluttertoast.showToast(
+                              msg: 'Mot de passe actuel incorrect !',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
                               backgroundColor: Colors.red,
-                            ),
-                          );
+                              textColor: Colors.white,
+                              fontSize: 16.0);
                           return;
                         }
                         if (_newPasswordController.text !=
                             _confirmPasswordController.text) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  'Veuillez confirmer bien le nouveau mot de passe !'),
+                          Fluttertoast.showToast(
+                              msg: 'Les mots de passe ne correspondent pas !',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
                               backgroundColor: Colors.red,
-                            ),
-                          );
+                              textColor: Colors.white,
+                              fontSize: 16.0);
                           return;
                         }
 

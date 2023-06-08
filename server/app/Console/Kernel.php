@@ -41,8 +41,8 @@ foreach ($debarquements as $debarquement) {
                     "dqEiroImTgGnn_ri885dnp:APA91bF52Ro5Iy2VAbh095jEGSdd20qufDWM1YXrVck1anxJyrGJDAJXGi9lO5WF3ARJoFJohrqLYPFrzsnTl02-zxLwpNcBp_QwvvOn7Cg6B3l4vGeD5dSPA3rZqV2fqKpGPOYwaSOs"
                   ],
                 "notification" => [
-                    "title" => "Alerte",
-                    "body" => "Deplacer Ces conteneurs".$cont_IDs." \n vers la zone du debarquement",
+                    "title" => "[EPAL] Demande de déplacement",
+                    "body" => "Deplacer Ces conteneurs [".$cont_IDs."] \n vers la zone du visite",
                     "content_available" => true,
                     "android" => [
                         "style" => "bigtext",
@@ -65,7 +65,7 @@ foreach ($debarquements as $debarquement) {
             ])->post($fcmUrl, $jsonBody);
     
                 
-        })->daily();
+        })->everyMinute();
     }
     
 
