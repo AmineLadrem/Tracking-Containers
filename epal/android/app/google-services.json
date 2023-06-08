@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "240023193465",
+    "firebase_url": "https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "tracking-rtdb",
+    "storage_bucket": "tracking-rtdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240023193465:android:ee99d8a5aae916ad2bd1a8",
+        "android_client_info": {
+          "package_name": "com.example.epal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240023193465-0f85n6cldoiq60qgudjsh0o9s7iv6e3m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyshJ8naXFPAaldwBRijj8zu31igEzR_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240023193465-0f85n6cldoiq60qgudjsh0o9s7iv6e3m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "240023193465-pcegeleb6p2sgaepttls08a3b6ur1lq9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.epal"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240023193465:android:6d91c7455b680c652bd1a8",
+        "android_client_info": {
+          "package_name": "tracker.module"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240023193465-0f85n6cldoiq60qgudjsh0o9s7iv6e3m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyshJ8naXFPAaldwBRijj8zu31igEzR_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240023193465-0f85n6cldoiq60qgudjsh0o9s7iv6e3m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "240023193465-pcegeleb6p2sgaepttls08a3b6ur1lq9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.epal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

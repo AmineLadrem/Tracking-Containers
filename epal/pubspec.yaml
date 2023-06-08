@@ -35,6 +35,29 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  firebase_core: ^2.8.0
+  cloud_firestore: ^4.4.5
+  firebase_auth: ^4.3.0
+  flutter_svg: ^2.0.4
+  pin_input_text_field: ^4.5.0
+  syncfusion_flutter_charts: ^21.1.38
+  charts_flutter_new: ^0.12.0
+  get: ^4.1.4
+  data_table_2: ^2.4.2
+  google_maps_flutter_web: ^0.4.0+7
+  google_maps_flutter: ^2.2.5
+  sqflite_common_ffi_web: ^0.3.4
+  sqflite: ^2.2.6
+  search_page: ^2.3.0
+  url_launcher: ^6.1.11
+  flutter_polyline_points: ^1.0.0
+  location: ^4.4.0
+  google_maps_utils: ^1.5.0+0
+  awesome_notifications: ^0.6.21
+  firebase_messaging: ^14.6.1
+  fluttertoast: ^8.2.2
+  universal_html: ^2.2.2
+ 
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +75,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+ 
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -59,8 +83,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -74,10 +98,25 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+  - family: MyFlutterApp
+    fonts:
+      - asset: fonts/MyFlutterApp.ttf
+  - family: Urbanist
+    fonts:
+      - asset: fonts/Urbanist-Regular.ttf
+      - asset: fonts/Urbanist-Bold.ttf
+      - asset: fonts/Urbanist-Italic-VariableFont_wght.ttf 
+      - asset: fonts/Urbanist-VariableFont_wght.ttf 
+  - family: Poppins
+    fonts:
+      - asset: fonts/Poppins-Regular.ttf
+      - asset: fonts/Poppins-Medium.ttf
+      - asset: fonts/Poppins-SemiBold.ttf
+      - asset: fonts/Poppins-Bold.ttf
+      - asset: fonts/Poppins-ExtraBold.ttf
+      - asset: fonts/Poppins-Black.ttf
+            
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

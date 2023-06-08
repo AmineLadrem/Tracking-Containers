@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>240023193465-pcegeleb6p2sgaepttls08a3b6ur1lq9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.240023193465-pcegeleb6p2sgaepttls08a3b6ur1lq9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCBl7_feTSiRXsapOqfIP3afK2hNdKwTWk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>240023193465</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.epal</string>
+	<key>PROJECT_ID</key>
+	<string>tracking-rtdb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tracking-rtdb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:240023193465:ios:bc984e119db1b74c2bd1a8</string>
+	<key>DATABASE_URL</key>
+	<string>https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
