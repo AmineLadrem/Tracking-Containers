@@ -21,12 +21,12 @@ String data;
 double lat=0,lng=0;
 int year=0,month=0,day=0,hour=0,minute=0,second=0;
 
-const String APN  = "djezzy.internet";
+const String APN  = "";
 const String USER = "";
 const String PASS = "";
 
-const String FIREBASE_HOST  = "https://tracking-rtdb-default-rtdb.europe-west1.firebasedatabase.app/";
-const String FIREBASE_SECRET  = "404QxLl3TtXI6V1eMIb6vbdfvGtMKFCur4COwvzH";
+const String FIREBASE_HOST  = "";
+const String FIREBASE_SECRET  = "";
 
 boolean locationfound=false;
 
